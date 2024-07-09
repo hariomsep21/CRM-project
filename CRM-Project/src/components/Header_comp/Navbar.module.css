@@ -1,0 +1,29 @@
+.navbar_main {
+  display: flex;
+  justify-content: space-between;
+}
+
+.navbarLink {
+  font-size: 20px;
+  color: black;
+}
+
+.navbarIcon {
+  margin-right: 10px;
+}
+
+.profileImg {
+  border-radius: 50%;
+}
+
+.notificationBox {
+  margin-right: 5rem;
+}
+
+.notificationIcon {
+  font-size: 30px;
+}
+
+.logo_Img {
+  margin-left: 5rem;
+}
