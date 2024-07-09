@@ -1,0 +1,102 @@
+.text_add {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+}
+
+.form_container {
+  width: 100%;
+  max-width: 700px;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+}
+
+.form_container img {
+  display: block;
+  margin: 0 auto 20px;
+}
+
+.form_container h5 {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.input_container {
+  position: relative;
+  margin-bottom: 15px;
+}
+
+.icon {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #7b66ff;
+}
+
+.form_container .input_property {
+  width: 100%;
+  padding: 15px;
+  padding-left: 40px;
+  /* Adjust padding-left to ensure space for the icon */
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.form_container .form-group input::placeholder {
+  color: grey;
+}
+
+.form_container .form-check {
+  margin-bottom: 20px;
+}
+
+.form_container .form-check input {
+  margin-right: 10px;
+}
+
+.form_container .btn {
+  width: 100%;
+  padding: 10px;
+  background-color: #7b66ff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.form-container .btn:hover {
+  background-color: #5a4cad;
+}
+
+.forgot_password {
+  display: block;
+  text-align: center;
+  margin-top: 15px;
+  color: #7B66FF;
+  text-decoration: none;
+}
+
+form p {
+  text-align: center;
+}
+
+.signup {
+  padding-top: 40px;
+  color: #6B7280;
+}
+
+.signup p {
+  text-align: center;
+  padding-bottom: 3px;
+}
+
+.signup .btn {
+  background-color: white;
+  color: black;
+  border: 1px solid black;
+  font-size: 16px;
+  font-weight: 600;
+}

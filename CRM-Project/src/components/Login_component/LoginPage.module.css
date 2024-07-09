@@ -1,0 +1,12 @@
+.img_Add {
+  background: url('/img/cover_img.png') no-repeat center center;
+  background-size: cover;
+  flex: 1;
+}
+
+.text_add {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+}
