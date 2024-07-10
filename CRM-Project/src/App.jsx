@@ -1,10 +1,13 @@
 import "./App.css";
+
 import Customer from "./components/Customers_Comp/Customer";
-import LoginPage from "./components/Login_component/LoginPage";
+
+import Navbar from "./components/Header_comp/Navbar";
 
 function App() {
   return (
     <>
+      <Navbar />
       <div className="main">
         <Customer />
       </div>
