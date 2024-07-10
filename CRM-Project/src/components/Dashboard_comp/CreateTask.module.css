@@ -1,0 +1,15 @@
+.dropdownBtn {
+  width: 100%;
+  border: 1px solid black;
+}
+
+.dropdownBtn .dropdown-toggle {
+  width: 100%;
+  align-items: center;
+  display: flex;
+  justify-content: space-between
+}
+
+.checkbox {
+  font-size: 20px;
+}

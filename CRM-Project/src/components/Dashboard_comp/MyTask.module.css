@@ -1,0 +1,51 @@
+.btnGroup {
+  display: flex;
+  justify-content: space-between;
+  width: 16%;
+}
+
+.archiveIcon {
+  font-size: 24px;
+  margin-right: 5px;
+}
+
+.btnTask {
+  font-size: 20px;
+  background-color: #7a65fd;
+  padding: 10px 20px;
+}
+
+.archieveBtn {
+  font-size: 20px;
+  padding: 10px 20px;
+}
+
+.dropdown {
+  width: 300px;
+  border: 1px solid #DDDDDD;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: black;
+}
+
+
+.inputBox {
+  width: 22%;
+  padding: 10px 0px 10px 10px;
+}
+
+.search {
+  border-right: none;
+  border-color: #DDDDDD;
+}
+
+.magnifyingIcon {
+  border-left: 0;
+  border-color: #DDDDDD;
+}
+
+.label {
+  color: #007473;
+}
