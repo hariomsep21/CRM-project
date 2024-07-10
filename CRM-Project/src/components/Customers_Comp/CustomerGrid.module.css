@@ -1,0 +1,120 @@
+.cust_rowThree {
+  border: 1px solid #DDDDDD;
+  border-radius: 4px;
+  /* margin-top: 20px; */
+  height: 165px;
+  padding-left: 5px;
+
+}
+
+.cust_rowThree .cust_address {
+  display: flex;
+  color: #6B7280;
+}
+
+.property_btn {
+  background-color: #850F8D;
+  color: white;
+  height: 22px;
+  font-size: 12px;
+  padding-bottom: 24px;
+  margin: -14px 0px 15px 5px;
+}
+
+.property_btn_rental {
+  background-color: orange;
+  color: white;
+  height: 22px;
+  font-size: 12px;
+  padding-bottom: 24px;
+  margin: -14px 0px 15px 5px;
+}
+
+.cust_name {
+  display: flex;
+  font-weight: 700;
+}
+
+.cust_name p {
+  padding-left: 10px;
+  color: red;
+  font-weight: 400;
+}
+
+.cust_address h6 {
+  padding-left: 10px;
+}
+
+.cust_icons {
+  display: flex;
+  color: #7B66FF;
+  gap: 4px;
+}
+
+.cust_icons div {
+  text-align: center;
+  background-color: rgba(123, 102, 255, 0.08);
+  height: 32px;
+  width: 40px;
+}
+
+.need_head {
+  background-color: olive;
+}
+
+.need_message {
+  background-color: red;
+  margin-top: -52px;
+}
+
+.need_icon div {
+  float: right;
+}
+
+.need_firstDiv {
+  height: 40px;
+}
+
+.remark_icon div {
+  float: right;
+  color: #7B66FF;
+}
+
+.remark_head {
+  color: #007473;
+}
+
+.remark_heading p {
+  font-size: 14px;
+}
+
+.remark_btn div button {
+  gap: 3px;
+  border: 1px solid black;
+  width: 95px;
+  height: 28px;
+  font-size: 8.8px;
+  font-weight: 700;
+}
+
+
+.property_btn_buyer {
+  background-color: #850F8D;
+  color: white;
+  height: 22px;
+  font-size: 12px;
+  padding-bottom: 24px;
+  margin: -14px 0px 15px 5px;
+}
+
+.property_btn_rental {
+  background-color: #FFA62F;
+  color: white;
+  height: 22px;
+  font-size: 12px;
+  padding-bottom: 24px;
+  margin: -14px 0px 15px 5px;
+}
+
+
+/* Add the rest of your existing CSS styles here */

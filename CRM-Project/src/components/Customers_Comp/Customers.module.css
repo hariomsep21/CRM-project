@@ -1,0 +1,54 @@
+.mainly {
+  gap: 30px;
+}
+
+.cust_rowOne {
+  height: 42px;
+}
+
+.cust_rowOne .cust_name {
+  font-weight: 700;
+}
+
+.cust_rowOne .cust_addBtn {
+  float: right;
+  color: white;
+  background-color: #7B66FF;
+}
+
+.cust_rowTwo {
+  height: 42px;
+}
+
+.cust_rowTwo .filter_text {
+  display: flex;
+  font-size: 11px;
+}
+
+.cust_rowTwo .filter_icon {
+  color: #7B66FF;
+  display: flex;
+  float: right;
+}
+
+.filter_icon h6 {
+  padding-left: 5px;
+}
+
+.filter_text button {
+  margin-right: 10px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  padding: 5px 10px;
+  cursor: pointer;
+  color: #6B7280;
+}
+
+.filter_text button:hover {
+  background-color: #e2e6ea;
+}
+
+.filter_text .activeFilter {
+  background-color: rgba(123, 102, 255, 0.08);
+  color: #7B66FF;
+}
