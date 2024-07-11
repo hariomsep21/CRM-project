@@ -1,0 +1,88 @@
+.custom-modal .modal-body {
+  max-height: calc(100vh - 300px);
+  overflow-y: auto;
+}
+
+.title {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.mainRow {
+  height: 122px;
+}
+
+.image {
+  width: 150px;
+  height: 102px;
+}
+
+.propertyText {
+  background-color: #850f8d;
+  color: white;
+  height: 22px;
+  font-size: 12px;
+  width: 39px;
+  margin: 8px 0 0 13px;
+  border: none;
+  border-radius: 3px;
+  padding: 1px 1px 1px 8px;
+}
+
+.propertyText_rental {
+  background-color: orange;
+  color: white;
+  height: 22px;
+  font-size: 12px;
+  width: 45px;
+  margin: 8px 0 0 13px;
+  border: none;
+  border-radius: 3px;
+  padding: 1px 1px 1px 8px;
+}
+
+.deatilsText {
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.priceText {
+  padding-top: 3px;
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.priceText p {
+  color: #007473;
+  padding-left: 5px;
+}
+
+.addressText {
+  margin-top: -6px;
+  color: gray;
+  font-weight: 400;
+}
+
+.addressText h6 {
+  padding-bottom: 10px;
+  padding-left: 5px;
+}
+
+.close_btn {
+  color: black;
+  background-color: transparent;
+}
+
+.custom-modal .modal-dialog {
+  max-width: 630px;
+  margin: 1.75rem auto;
+}
+
+.custom-modal .modal-content {
+  width: 100%;
+}
+
+.modalBody {
+  max-height: calc(100vh - 300px);
+  overflow-y: auto;
+}
