@@ -1,27 +1,23 @@
-.btnGroup {
-  display: flex;
-  justify-content: space-between;
-  width: 16%;
-}
-
 .archiveIcon {
   font-size: 24px;
   margin-right: 5px;
 }
 
-.btnTask {
-  font-size: 20px;
-  background-color: #7a65fd;
-  padding: 10px 20px;
+.mytask_title {
+  font-size: 24px;
+  font-weight: 900;
 }
 
+
 .archieveBtn {
-  font-size: 20px;
-  padding: 10px 20px;
+  font-size: 16px;
+  padding: 8px 20px;
+  margin-right: 13px;
+  border: 1px solid #666666;
 }
 
 .dropdown {
-  width: 300px;
+  width: 193.75px;
   border: 1px solid #DDDDDD;
   padding: 10px 20px;
   display: flex;
@@ -32,8 +28,9 @@
 
 
 .inputBox {
-  width: 22%;
-  padding: 10px 0px 10px 10px;
+  width: 320px;
+  height: 46px;
+  margin-top: 29px;
 }
 
 .search {
@@ -44,8 +41,10 @@
 .magnifyingIcon {
   border-left: 0;
   border-color: #DDDDDD;
+  color: #7B66ff;
 }
 
 .label {
   color: #007473;
+  font-size: 14px;
 }

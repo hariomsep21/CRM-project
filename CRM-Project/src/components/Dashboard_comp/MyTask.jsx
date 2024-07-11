@@ -2,30 +2,27 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { MdOutlineArchive, MdAdd } from "react-icons/md";
 import { FaMagnifyingGlass } from "react-icons/fa6";
 import style from "./MyTask.module.css";
-import CrudTable from "./Table";
+import Table from "./Table";
 import CreateTask from "./CreateTask";
 
 const MyTask = () => {
   return (
     <>
-      <div className="d-flex justify-content-between mb-5">
-        <h1>My Task</h1>
+      <div className="d-flex justify-content-between mb-1 align-items-center">
+        <h3 className={`${style.mytask_title}`}>My Task</h3>
         <div className={`${style.btnGroup}`}>
           <button
             type="button"
             className={`btn btn-outline-secondary ${style.archieveBtn}`}
           >
             <MdOutlineArchive className={`${style.archiveIcon}`} />
-            Archieve
+            Archive
           </button>
-          <button type="button" className={`btn btn-primary ${style.btnTask}`}>
-            <MdAdd className={`${style.archiveIcon}`} />
-            <CreateTask></CreateTask>
-          </button>
+          <CreateTask />
         </div>
       </div>
-      <div className={`d-flex justify-content-between`}>
-        <div className={`d-flex `}>
+      <div className="d-flex justify-content-between">
+        <div className="d-flex">
           <div className="mb-3 me-4">
             <label
               htmlFor="labelDropdown"
@@ -33,73 +30,35 @@ const MyTask = () => {
             >
               By Type
             </label>
-            <div className="dropdown">
-              <button
-                className={`btn dropdown-toggle ${style.dropdown}`}
-                type="button"
-                id="labelDropdown"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                All
-              </button>
-              <ul className="dropdown-menu" aria-labelledby="labelDropdown">
-                <li>
-                  <a className="dropdown-item" href="#">
-                    Urgent
-                  </a>
-                </li>
-                <li>
-                  <a className="dropdown-item" href="#">
-                    Important
-                  </a>
-                </li>
-                <li>
-                  <a className="dropdown-item" href="#">
-                    Normal
-                  </a>
-                </li>
-              </ul>
-            </div>
+            <select
+              className={`form-select ${style.dropdown}`}
+              id="labelDropdown"
+            >
+              <option value="all">All</option>
+              <option value="urgent">Urgent</option>
+              <option value="important">Important</option>
+              <option value="normal">Normal</option>
+            </select>
           </div>
           <div className="mb-3">
             <label
-              htmlFor="labelDropdown"
+              htmlFor="labelDropdown2"
               className={`form-label ${style.label}`}
             >
               By Type
             </label>
-            <div className="dropdown">
-              <button
-                className={`btn dropdown-toggle ${style.dropdown}`}
-                type="button"
-                id="labelDropdown"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                All
-              </button>
-              <ul className="dropdown-menu" aria-labelledby="labelDropdown">
-                <li>
-                  <a className="dropdown-item" href="#">
-                    Urgent
-                  </a>
-                </li>
-                <li>
-                  <a className="dropdown-item" href="#">
-                    Important
-                  </a>
-                </li>
-                <li>
-                  <a className="dropdown-item" href="#">
-                    Normal
-                  </a>
-                </li>
-              </ul>
-            </div>
+            <select
+              className={`form-select ${style.dropdown}`}
+              id="labelDropdown2"
+            >
+              <option value="all">All</option>
+              <option value="urgent">Urgent</option>
+              <option value="important">Important</option>
+              <option value="normal">Normal</option>
+            </select>
           </div>
         </div>
-        <div className={`input-group mb-3 ${style.inputBox}`}>
+        <div className={`input-group  ${style.inputBox}`}>
           <input
             type="text"
             className={`form-control ${style.search}`}
@@ -116,8 +75,9 @@ const MyTask = () => {
           </button>
         </div>
       </div>
-      <CrudTable />
+      <Table />
     </>
   );
 };
+
 export default MyTask;

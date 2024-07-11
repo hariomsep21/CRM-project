@@ -1,17 +1,5 @@
-.apexcharts-legend {
-  display: none;
-}
-
-.apexcharts-legend-series {
-  display: none;
-}
-
-.dashboard {
-  width: 100%;
-}
-
 .dashboardHeading {
-  font-size: 30px;
+  font-size: 24px;
   padding-bottom: 30px;
   font-weight: 900;
 }

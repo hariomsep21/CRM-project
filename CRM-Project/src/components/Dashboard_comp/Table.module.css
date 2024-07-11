@@ -2,6 +2,31 @@
   font-size: 20px;
 }
 
+.mytask_table_title {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.addNoteHeading {
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.task_detail {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.task_date {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.task_labels {
+  font-size: 16px;
+  font-weight: 500;
+}
+
 .checkbox {
   width: 24px;
   height: 24px;
@@ -11,10 +36,13 @@
 .task {
   font-size: 20px;
   font-weight: 600;
+
 }
 
-.addItem {
-  display: none;
+.subheadingTask {
+  font-size: 20px;
+  font-weight: 600;
+  padding: 10px 0px;
 }
 
 .typeBtn {
@@ -28,7 +56,8 @@
 .editIcon,
 .editNoteIcon,
 .shareIcon {
-  font-size: 28px;
+  width: 24px;
+  height: 24px;
 }
 
 .editIcon {
@@ -56,4 +85,18 @@ tr {
 .datedata {
   width: 7%;
   font-size: 16px;
+}
+
+.cancelBtn {
+  font-weight: 600;
+  padding: 10px 20px;
+  line-height: 25px;
+  border: 1px solid black;
+  color: black;
+}
+
+.submitBtn {
+  padding: 10px 20px;
+  line-height: 25px;
+  background-color: #7b66ff;
 }

@@ -2,6 +2,8 @@ import React from "react";
 import { Doughnut } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import "bootstrap/dist/css/bootstrap.min.css";
+import style from "./LeadStatus.module.css";
+import Dashboard from "./Dashboard";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -19,18 +21,29 @@ function DoughnutChart({ data, title }) {
   return (
     <div
       style={{
-        width: "300px",
-        height: "300px",
+        width: "150px",
+        height: "150px",
         margin: "auto",
         display: "flex",
         alignItems: "center",
       }}
     >
-      <h2>{title}</h2>
+      <h6 className={`${style.graph_title}`}>{title}</h6>
       <Doughnut data={data} options={doughnutOptions} />
     </div>
   );
 }
+const buyData = {
+  labels: ["Buy Leads"],
+  datasets: [
+    {
+      label: "Leads",
+      data: [50, 30, 20],
+      backgroundColor: ["#ffa62f", "#e5e5e5", "black"],
+      hoverOffset: 4,
+    },
+  ],
+};
 
 const rentalData = {
   labels: ["Rental Leads"],
@@ -44,43 +57,15 @@ const rentalData = {
   ],
 };
 
-const buyData = {
-  labels: ["Buy Leads"],
-  datasets: [
-    {
-      label: "Leads",
-      data: [50, 50], // Adjust the percentage as needed
-      backgroundColor: ["#ffa62f", "#e5e5e5"], // Color for buy
-      hoverOffset: 4,
-    },
-  ],
-};
-
 function LeadStatus() {
   return (
-    <>
-      <h1
-        style={{
-          fontSize: "23px",
-          fontWeight: "700",
-          paddingBottom: "15px",
-          marginLeft: "20px",
-        }}
-      >
-        Leads status
-      </h1>
-      <hr />
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          padding: "100px",
-        }}
-      >
-        <DoughnutChart data={rentalData} title="Rental Leads" />
+    <div className={`${style.leadstatus_dashboard}`}>
+      <h1 className={`${style.lead_graph_heading}`}>Leads status</h1>
+      <div className={`${style.dashboard_graph}`}>
         <DoughnutChart data={buyData} title="Buy Leads" />
+        <DoughnutChart data={rentalData} title="Rental Leads" />
       </div>
-    </>
+    </div>
   );
 }
 

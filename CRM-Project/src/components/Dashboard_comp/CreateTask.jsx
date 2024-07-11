@@ -7,8 +7,10 @@ import {
   Col,
   DropdownButton,
   Dropdown,
+  FormControl,
 } from "react-bootstrap";
 import style from "./CreateTask.module.css";
+import { MdAdd } from "react-icons/md";
 
 const CreateTask = () => {
   const [show, setShow] = useState(false);
@@ -16,6 +18,7 @@ const CreateTask = () => {
   const [propertyType, setPropertyType] = useState("Buyer");
   const [assignTo, setAssignTo] = useState("");
   const [label, setLabel] = useState("High priority");
+  const [customLevel, setCustomLevel] = useState("");
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -28,6 +31,8 @@ const CreateTask = () => {
       setAssignTo(value);
     } else if (name === "label") {
       setLabel(value);
+    } else if (name === "customLevel") {
+      setCustomLevel(value);
     } else {
       setTitle(value);
     }
@@ -35,17 +40,22 @@ const CreateTask = () => {
 
   return (
     <>
-      <Button variant="" onClick={handleShow}>
+      <Button
+        variant=""
+        onClick={handleShow}
+        className={`btn btn-primary ${style.btnTask}`}
+      >
+        <MdAdd className={`${style.addIcon}`} />
         Create Task
       </Button>
       <Modal show={show} onHide={handleClose} size="lg" centered>
-        <Modal.Header closeButton>
+        <Modal.Header>
           <Modal.Title>Add New Task</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
             <Form.Group className="mb-3" controlId="formBasicTitle">
-              <Form.Label>Title</Form.Label>
+              <Form.Label className={`${style.heading}`}>Title</Form.Label>
               <Form.Control
                 type="text"
                 placeholder="Write here"
@@ -55,8 +65,10 @@ const CreateTask = () => {
               />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicProperty">
-              <Form.Label>Property Type</Form.Label>
-              <div className="d-flex ">
+              <Form.Label className={`${style.heading}`}>
+                Property Type
+              </Form.Label>
+              <div className={`${style.propertyTypeCheckbox}`}>
                 <Form.Check
                   type="radio"
                   label="Buyer"
@@ -65,7 +77,7 @@ const CreateTask = () => {
                   value="Buyer"
                   checked={propertyType === "Buyer"}
                   onChange={handleChange}
-                  inline // Add inline attribute for checkbox layout
+                  className={`form-check ${style.radio}`}
                 />
                 <Form.Check
                   type="radio"
@@ -75,7 +87,6 @@ const CreateTask = () => {
                   value="Seller"
                   checked={propertyType === "Seller"}
                   onChange={handleChange}
-                  inline // Add inline attribute for checkbox layout
                 />
                 <Form.Check
                   type="radio"
@@ -85,64 +96,94 @@ const CreateTask = () => {
                   value="Rental"
                   checked={propertyType === "Rental"}
                   onChange={handleChange}
-                  inline // Add inline attribute for checkbox layout
                 />
               </div>
             </Form.Group>
             <Row>
               <Col md={6}>
                 <Form.Group className="mb-3" controlId="formBasicAssignTo">
-                  <Form.Label>Assign To</Form.Label>
-                  <DropdownButton
-                    variant=""
-                    title="Select assign"
-                    className={`${style.dropdownBtn}`}
-                    block
+                  <Form.Label className={`${style.heading}`}>
+                    Assign To
+                  </Form.Label>
+                  <Form.Select
+                    aria-label="Default select example"
+                    name="assignTo"
+                    value={assignTo}
+                    onChange={handleChange}
+                    className="w-100"
                   >
-                    <Dropdown.Item
-                      href="#/action-1"
-                      onClick={() => setAssignTo("Action")}
-                    >
-                      Action
-                    </Dropdown.Item>
-                    <Dropdown.Item
-                      href="#/action-2"
-                      onClick={() => setAssignTo("Another action")}
-                    >
-                      Another action
-                    </Dropdown.Item>
-                    <Dropdown.Item
-                      href="#/action-3"
-                      onClick={() => setAssignTo("Something else")}
-                    >
-                      Something else
-                    </Dropdown.Item>
-                  </DropdownButton>
+                    <option value="">Select assign</option>
+                    <option value="Action">Action</option>
+                    <option value="Another action">Another action</option>
+                    <option value="Something else">Something else</option>
+                  </Form.Select>
                 </Form.Group>
               </Col>
               <Col md={6}>
                 <Form.Group className="mb-3" controlId="formBasicLabel">
-                  <Form.Label>Label</Form.Label>
+                  <Form.Label className={`${style.heading}`}>Label</Form.Label>
                   <Form.Select
                     aria-label="Default select example"
                     name="label"
                     value={label}
                     onChange={handleChange}
+                    className="w-100"
                   >
-                    <option value="High priority">High priority</option>
-                    <option value="Medium priority">Medium priority</option>
-                    <option value="Low priority">Low priority</option>
+                    <option
+                      value="High priority"
+                      style={{
+                        color: label === "High priority" ? "black" : "",
+                      }}
+                    >
+                      High priority
+                    </option>
+                    <option
+                      value="Medium priority"
+                      style={{
+                        color: label === "Medium priority" ? "black" : "",
+                      }}
+                    >
+                      Medium priority
+                    </option>
+                    <option
+                      value="Low priority"
+                      style={{ color: label === "Low priority" ? "black" : "" }}
+                    >
+                      Low priority
+                    </option>
+                    <option value="Custom level">
+                      {" "}
+                      <MdAdd />
+                      Add Custom label
+                    </option>
                   </Form.Select>
+                  {label === "Custom level" && (
+                    <Form.Control
+                      type="text"
+                      placeholder="Enter custom level"
+                      name="customLevel"
+                      value={customLevel}
+                      onChange={handleChange}
+                    />
+                  )}
                 </Form.Group>
               </Col>
             </Row>
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="" onClick={handleClose}>
+          <Button
+            variant=""
+            className={`${style.cancelBtn}`}
+            onClick={handleClose}
+          >
             Close
           </Button>
-          <Button variant="primary" onClick={handleClose}>
+          <Button
+            variant="primary"
+            className={`${style.submitBtn}`}
+            onClick={handleClose}
+          >
             Submit
           </Button>
         </Modal.Footer>

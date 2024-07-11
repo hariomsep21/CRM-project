@@ -12,7 +12,7 @@ import { HiOutlineUsers } from "react-icons/hi2";
 const Navbar = () => {
   return (
     <>
-      <nav className={`navbar navbar-expand-lg `}>
+      <nav className={`navbar navbar-expand-lg border-bottom `}>
         <div className="container-fluid">
           <button
             className="navbar-toggler"
