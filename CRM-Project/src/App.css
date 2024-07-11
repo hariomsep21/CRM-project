@@ -1,7 +1,6 @@
 .main {
   margin: 20px;
   display: flex;
-  height: 100vh;
   padding: 0 80px;
   font-family: "Inter", sans-serif;
 }
