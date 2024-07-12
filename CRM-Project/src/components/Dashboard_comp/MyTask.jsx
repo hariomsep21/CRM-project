@@ -8,7 +8,7 @@ import CreateTask from "./CreateTask";
 const MyTask = () => {
   return (
     <>
-      <div className="d-flex justify-content-between mb-1 align-items-center">
+      <div className="d-flex justify-content-between mb-1 align-items-center ">
         <h3 className={`${style.mytask_title}`}>My Task</h3>
         <div className={`${style.btnGroup}`}>
           <button

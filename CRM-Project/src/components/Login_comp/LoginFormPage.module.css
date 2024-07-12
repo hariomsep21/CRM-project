@@ -5,9 +5,13 @@
   flex: 1;
 }
 
+.loginpageHeading {
+  font-size: 16px;
+}
+
 .form_container {
   width: 100%;
-  max-width: 700px;
+  max-width: 400px;
   padding: 20px;
   background-color: #fff;
   border-radius: 8px;
@@ -20,7 +24,7 @@
 
 .form_container h5 {
   text-align: center;
-  margin-bottom: 50px;
+  margin-bottom: 30px;
 }
 
 .input_container {
@@ -29,6 +33,7 @@
 }
 
 .icon {
+  font-size: 14px;
   position: absolute;
   left: 10px;
   top: 50%;
@@ -40,7 +45,7 @@
   width: 100%;
   padding: 15px;
   padding-left: 40px;
-  /* Adjust padding-left to ensure space for the icon */
+  font-size: 14px;
   border: 1px solid #ccc;
   border-radius: 5px;
 }
@@ -60,6 +65,7 @@
 .form_container .btn {
   width: 100%;
   padding: 10px;
+  font-size: 16px;
   background-color: #7b66ff;
   color: #fff;
   border: none;
@@ -75,6 +81,8 @@
   display: block;
   text-align: center;
   margin-top: 15px;
+  font-size: 14px;
+  font-weight: 500;
   color: #7B66FF;
   text-decoration: none;
 }
@@ -86,6 +94,7 @@ form p {
 .signup {
   padding-top: 40px;
   color: #6B7280;
+  font-size: 14px;
 }
 
 .signup p {

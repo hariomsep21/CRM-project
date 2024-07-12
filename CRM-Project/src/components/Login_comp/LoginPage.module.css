@@ -1,3 +1,10 @@
+.LoginPage {
+  display: flex;
+  padding: 20px 40px;
+  height: 100vh;
+
+}
+
 .img_Add {
   background: url('/img/cover_img.png') no-repeat center center;
   background-size: cover;
