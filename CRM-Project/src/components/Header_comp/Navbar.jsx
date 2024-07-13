@@ -1,4 +1,5 @@
 import "bootstrap/dist/css/bootstrap.min.css";
+import { useState } from "react";
 import style from "./Navbar.module.css";
 import { LuLayoutDashboard } from "react-icons/lu";
 import {
@@ -8,11 +9,19 @@ import {
   MdOutlineNotificationsNone,
 } from "react-icons/md";
 import { HiOutlineUsers } from "react-icons/hi2";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
+  const [activeItem, setActiveItem] = useState("/");
+
+  const handleItemClick = (path) => {
+    console.log(path);
+    setActiveItem(path);
+  };
+
   return (
     <>
-      <nav className={`navbar navbar-expand-lg border-bottom `}>
+      <nav className={`navbar navbar-expand-lg border-bottom`}>
         <div className="container-fluid">
           <button
             className="navbar-toggler"
@@ -34,40 +43,67 @@ const Navbar = () => {
               alt="logo"
               className={`${style.logo_Img}`}
             />
-            <ul className="nav  ">
+            <ul className="nav">
               <li className="nav-item">
-                <a
-                  className={`nav-link ${style.navbarLink}`}
+                <Link
+                  className={`nav-link ${style.navbarLink} ${
+                    activeItem === "/" ? style.active : ""
+                  }`}
                   aria-current="page"
-                  href="#"
+                  to="/"
+                  onClick={() => handleItemClick("/")}
                 >
                   <LuLayoutDashboard className={`${style.navbarIcon}`} />
                   Dashboard
-                </a>
+                </Link>
               </li>
               <li className="nav-item">
-                <a className={`nav-link ${style.navbarLink}`} href="#">
+                <Link
+                  className={`nav-link ${style.navbarLink} ${
+                    activeItem === "/myinventory" ? style.active : ""
+                  }`}
+                  to="/myinventory"
+                  onClick={() => handleItemClick("/myinventory")}
+                >
                   <MdOutlineHomeWork className={`${style.navbarIcon}`} />
                   My Inventory
-                </a>
+                </Link>
               </li>
               <li className="nav-item">
-                <a className={`nav-link ${style.navbarLink}`} href="#">
+                <Link
+                  className={`nav-link ${style.navbarLink} ${
+                    activeItem === "/leads" ? style.active : ""
+                  }`}
+                  to="/leads"
+                  onClick={() => handleItemClick("/leads")}
+                >
                   <MdOutlineRealEstateAgent className={`${style.navbarIcon}`} />
                   Leads
-                </a>
+                </Link>
               </li>
               <li className="nav-item">
-                <a className={`nav-link ${style.navbarLink}`} href="#">
+                <Link
+                  className={`nav-link ${style.navbarLink} ${
+                    activeItem === "/customer" ? style.active : ""
+                  }`}
+                  to="/customer"
+                  onClick={() => handleItemClick("/customer")}
+                >
                   <MdOutlinePerson className={`${style.navbarIcon}`} />
                   Customers
-                </a>
+                </Link>
               </li>
               <li className="nav-item">
-                <a className={`nav-link ${style.navbarLink}`} href="#">
+                <Link
+                  className={`nav-link ${style.navbarLink} ${
+                    activeItem === "/profile" ? style.active : ""
+                  }`}
+                  to="/profile"
+                  onClick={() => handleItemClick("/profile")}
+                >
                   <HiOutlineUsers className={`${style.navbarIcon}`} />
                   My Team
-                </a>
+                </Link>
               </li>
             </ul>
             <div className={`navbar ${style.notificationBox}`}>

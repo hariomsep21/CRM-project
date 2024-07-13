@@ -6,6 +6,12 @@
 .navbarLink {
   font-size: 14px;
   color: black;
+  font-weight: 450;
+}
+
+.navbarLink:hover {
+  font-size: 14px;
+  color: #7B66FF !important;
 }
 
 .navbarIcon {
@@ -29,4 +35,8 @@
   margin-left: 5.4rem;
   width: 86px;
   height: 22px;
+}
+
+.active {
+  color: #7B66FF !important;
 }
