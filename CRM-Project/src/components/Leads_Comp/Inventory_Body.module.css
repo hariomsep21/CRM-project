@@ -1,0 +1,142 @@
+/* section 3 start */
+
+
+/* Table container to enable scrolling */
+.tableContainer {
+  font-family: "Inter", sans-serif;
+
+  max-height: 400px;
+  /* Adjust as needed */
+  overflow-y: auto;
+  /* Vertical scrolling */
+  overflow-x: auto;
+  /* Horizontal scrolling */
+  /* Ensure the table has a fixed layout */
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  /* Ensures the table respects the column widths */
+}
+
+.table th,
+.table td {
+  border: none;
+  /* Add border for better visual separation */
+  padding: 8px;
+  text-align: left;
+}
+
+
+
+.title_text {
+  font-weight: 700;
+  padding-bottom: 20px;
+}
+
+.title_text1 {
+
+  padding-bottom: 20px;
+}
+
+
+.header_CheckBox {
+  height: 27px;
+  width: 74px;
+  font-weight: 300 !important;
+  color: gray;
+}
+
+.cell_CheckBox {
+  height: 27px;
+  width: 74px;
+  color: gray;
+}
+
+.Check2_Box {
+  margin-top: 16px;
+  color: gray;
+  height: 27px;
+  width: 8%;
+}
+
+
+
+
+
+
+
+
+.cell_PropertyStyle {
+  font-weight: 600;
+}
+
+.header_PropertyStyle {
+  width: 320px !important;
+}
+
+.header_headingNameStyle {
+  width: 180px !important;
+}
+
+.cell_BodyNameStyle {
+  width: 133px !important;
+}
+
+/* In your CSS file */
+.evenRow {
+  background-color: #f2f2f2;
+  /* light grey */
+}
+
+.oddRow {
+  background-color: white;
+  /* white */
+}
+
+.header_CheckIconStyle {
+  width: 80px !important;
+
+}
+
+.header_TypeStyle {
+  width: 110px !important;
+  text-align: center !important;
+}
+
+/* these css for show property type icon Start  */
+
+.Cell_TypeSell {
+  padding: 2px 14px 2px 14px;
+  display: inline;
+  border: 1px solid;
+  text-align: center !important;
+  background-color: #216FED;
+  color: white;
+}
+
+.Cell_TypeRental {
+  padding: 2px 14px 2px 14px;
+  display: inline;
+  border: 1px solid;
+  text-align: center !important;
+  background-color: orange;
+  color: white;
+}
+
+/* these css for show property type icon End  */
+
+
+/* these css for action icon Start  */
+.actionIconsStyle {
+  color: #7B66FF;
+  text-align: center;
+}
+
+.actionIconEye {
+  margin: 0 18px 0 18px;
+}
+
+/* these css for action icon  End */

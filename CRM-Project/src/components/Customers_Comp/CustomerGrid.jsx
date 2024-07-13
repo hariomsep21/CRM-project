@@ -13,7 +13,7 @@ const CustomerGrid = ({ customers }) => {
     <>
       {customers.map((customer) => (
         <div key={customer.id} className={`row mt-5 ${style.cust_rowThree}`}>
-          <div className="col-sm-12 col-md-4 col-lg-4">
+          <div className="section_1 col-sm-12 col-md-4 col-lg-4">
             <div className="col">
               <button
                 className={`btn ${
@@ -55,7 +55,8 @@ const CustomerGrid = ({ customers }) => {
               </div>
             </div>
           </div>
-          <div className="col-sm-12 col-md-4 col-lg-4 mt-3">
+
+          <div className=" section_2 col-sm-12 col-md-4 col-lg-4 mt-3">
             <div className="row">
               <div className="col-lg-12">
                 <div className="row d-flex">
@@ -72,7 +73,7 @@ const CustomerGrid = ({ customers }) => {
               </div>
             </div>
           </div>
-          <div className="col-sm-12 col-md-4 col-lg-4 mt-3">
+          <div className=" section_3 col-sm-12 col-md-4 col-lg-4 mt-3">
             <div className="row">
               <div className="col-lg-12">
                 <div className="row d-flex">
@@ -89,13 +90,13 @@ const CustomerGrid = ({ customers }) => {
               </div>
               <div className="col-sm">
                 <div className={`row d-flex ${style.remark_btn}`}>
-                  <div className="col-4">
+                  <div className="col-3">
                     <button className="btn">View Past Deals</button>
                   </div>
-                  <div className="col-4">
+                  <div className="col-3">
                     <button className="btn">References</button>
                   </div>
-                  <div className="col-4">
+                  <div className="col-3">
                     <button className="btn">Edit Customer</button>
                   </div>
                 </div>
