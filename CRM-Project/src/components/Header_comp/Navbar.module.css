@@ -4,7 +4,7 @@
 }
 
 .navbarLink {
-  font-size: 20px;
+  font-size: 14px;
   color: black;
 }
 
@@ -21,9 +21,12 @@
 }
 
 .notificationIcon {
-  font-size: 30px;
+  width: 24px;
+  height: 24px;
 }
 
 .logo_Img {
-  margin-left: 5rem;
+  margin-left: 5.4rem;
+  width: 86px;
+  height: 22px;
 }

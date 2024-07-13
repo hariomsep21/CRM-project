@@ -1,0 +1,50 @@
+.archiveIcon {
+  font-size: 24px;
+  margin-right: 5px;
+}
+
+.mytask_title {
+  font-size: 24px;
+  font-weight: 900;
+}
+
+
+.archieveBtn {
+  font-size: 16px;
+  padding: 8px 20px;
+  margin-right: 13px;
+  border: 1px solid #666666;
+}
+
+.dropdown {
+  width: 193.75px;
+  border: 1px solid #DDDDDD;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: black;
+}
+
+
+.inputBox {
+  width: 320px;
+  height: 46px;
+  margin-top: 29px;
+}
+
+.search {
+  border-right: none;
+  border-color: #DDDDDD;
+}
+
+.magnifyingIcon {
+  border-left: 0;
+  border-color: #DDDDDD;
+  color: #7B66ff;
+}
+
+.label {
+  color: #007473;
+  font-size: 14px;
+}

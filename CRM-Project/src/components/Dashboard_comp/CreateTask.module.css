@@ -1,0 +1,55 @@
+.dropdownBtn {
+  width: 100%;
+  border: 1px solid black;
+}
+
+.dropdownBtn .dropdown-toggle {
+  width: 100%;
+  align-items: center;
+  display: flex;
+  justify-content: space-between
+}
+
+.checkbox {
+  font-size: 20px;
+}
+
+.btnTask {
+  font-size: 16px;
+  background-color: #7a65fd;
+  padding: 8px 15px;
+}
+
+.addIcon {
+  font-size: 24px;
+  margin-right: 5px;
+}
+
+.heading {
+  color: #007473;
+  font-size: 20px;
+}
+
+
+.cancelBtn {
+  font-weight: 600;
+  padding: 10px 20px;
+  line-height: 25px;
+  border: 1px solid black;
+  color: black;
+}
+
+.submitBtn {
+  padding: 10px 20px;
+  line-height: 25px;
+  background-color: #7b66ff;
+  color: white;
+}
+
+.propertyTypeCheckbox {
+  display: flex;
+  justify-content: space-between;
+  width: 250px;
+  font-size: 18px;
+  font-weight: 500;
+}

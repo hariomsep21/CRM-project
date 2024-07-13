@@ -8,7 +8,7 @@ const LoginFormPage = () => {
     <div className={style.text_add}>
       <div className={style.form_container}>
         <img src="/img/logo.png" alt="logo img" />
-        <h5>Login to your account.</h5>
+        <h5 className={style.loginpageHeading}>Login to your account.</h5>
         <form>
           <div className={` form-group ${style.input_container}`}>
             <FontAwesomeIcon icon={faUser} className={style.icon} />

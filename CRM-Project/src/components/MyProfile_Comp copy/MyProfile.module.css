@@ -1,0 +1,102 @@
+.myprofile_box {
+  border: 1px solid #DDDDDD;
+  padding: 0px 35px;
+}
+
+.myprofileHeading {
+  font-size: 24px;
+  font-weight: 700;
+  padding: 20px 0px;
+
+}
+
+.myprofile_sections {
+  border-bottom: 1px solid #DDDDDD;
+}
+
+/* my profile first container css start*/
+
+.myprofile_profileimg {
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+}
+
+.myprofileUserName {
+  font-size: 24px;
+  font-weight: 500;
+}
+
+.myprofileMemberJoinTime {
+  font-size: 14px;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+.myprofileBtndiv {
+  direction: rtl;
+  padding-top: 50px;
+
+}
+
+.myprofileChangePass {
+  border: 2px solid black;
+  color: black;
+  font-weight: 500;
+}
+
+.myprofileEditProfileBtn {
+  background-color: #7a65fd;
+  color: white;
+}
+
+/* my profile first container css end*/
+
+
+/* profile detail information grid start css*/
+.profileinfo_detail_title {
+  font-size: 14px;
+  color: #007473;
+}
+
+.profileinfo_detail {
+  font-size: 14px;
+  font-weight: 500;
+  padding-right: 42px;
+}
+
+/* profile detail information grid end css*/
+
+.myprofile_detail_title {
+  font-size: 20px;
+  padding: 20px 0px 10px;
+}
+
+.myprofile_detail_urltitle {
+  font-size: 20px;
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 0px 0px;
+}
+
+.myprofile_person_namedetail {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.profileimgEditIcon {
+  position: relative;
+  padding: 6px;
+  color: white;
+  width: 32px;
+  height: 32px;
+  background-color: #7a65fd;
+  border-radius: 50%;
+  top: -33px;
+  left: 87px;
+}
+
+.myprofileCopyIcon {
+  color: #7a65fd;
+}

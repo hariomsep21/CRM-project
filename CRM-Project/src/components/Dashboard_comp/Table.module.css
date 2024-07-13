@@ -1,0 +1,103 @@
+.tableHeading {
+  font-size: 20px;
+}
+
+.mytask_table_title {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.addNoteHeading {
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.task_detail {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.task_date {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.task_labels {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.checkbox {
+  width: 24px;
+  height: 24px;
+  border: 1px solid black;
+}
+
+.task {
+  font-size: 20px;
+  font-weight: 600;
+
+}
+
+.subheadingTask {
+  font-size: 20px;
+  font-weight: 600;
+  padding: 10px 0px;
+}
+
+.typeBtn {
+  color: white;
+  padding: 2px 10px;
+  border-radius: 5px;
+  width: 60%;
+  text-align: center;
+
+}
+
+.editIcon,
+.editNoteIcon,
+.shareIcon {
+  width: 24px;
+  height: 24px;
+}
+
+.editIcon {
+  color: #7b66ff;
+}
+
+.editNoteIcon {
+  color: #ffa62f;
+}
+
+.shareIcon {
+  color: #ff595a;
+}
+
+tbody,
+td,
+tfoot,
+th,
+thead,
+tr {
+  border-style: hidden;
+
+}
+
+.datedata {
+  width: 7%;
+  font-size: 16px;
+}
+
+.cancelBtn {
+  font-weight: 600;
+  padding: 10px 20px;
+  line-height: 25px;
+  border: 1px solid black;
+  color: black;
+}
+
+.submitBtn {
+  padding: 10px 20px;
+  line-height: 25px;
+  background-color: #7b66ff;
+}

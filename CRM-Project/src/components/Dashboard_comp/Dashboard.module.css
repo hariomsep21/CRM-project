@@ -1,0 +1,9 @@
+.dashboard {
+  padding: 0;
+}
+
+.dashboardHeading {
+  font-size: 24px;
+  padding-bottom: 30px;
+  font-weight: 900;
+}
