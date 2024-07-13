@@ -1,7 +1,7 @@
 .cust_rowThree {
   border: 1px solid #DDDDDD;
   border-radius: 4px;
-  height: 149px;
+  height: 157px;
   padding-left: 5px;
 
 }
@@ -55,6 +55,8 @@
   background-color: rgba(123, 102, 255, 0.08);
   height: 32px;
   width: 40px;
+  border-radius: 5px;
+  border: 1px solid transparent;
 }
 
 .need_head {

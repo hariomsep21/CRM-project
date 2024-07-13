@@ -23,6 +23,22 @@
   background-color: #7b66ff;
 }
 
+.Div_advicebtn {
+  padding: 0;
+  direction: rtl;
+}
+
+.Div_brochurebtn {
+
+
+  direction: ltr;
+}
+
+.Div_addInventorybtn {
+  padding: 0px;
+  direction: ltr;
+}
+
 /* section-1 End */
 
 /* section-2 Start */

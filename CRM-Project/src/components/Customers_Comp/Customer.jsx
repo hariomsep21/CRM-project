@@ -55,7 +55,7 @@ const Customer = () => {
 
   return (
     <>
-      <div className={`container mt-5 ${style.mainly} `}>
+      <div className={`container mt-4 ${style.mainly} `}>
         <div className={`row ${style.cust_rowOne}`}>
           <div className="col-sm-12 col-md-6 col-lg-6">
             <div className={style.cust_name}>Customers</div>
@@ -73,7 +73,7 @@ const Customer = () => {
                 className={`btn ${filter === "All" ? style.activeFilter : ""}`}
                 onClick={() => setFilter("All")}
               >
-                All({allCount})
+                All ({allCount})
               </button>
               <button
                 className={`btn ${
@@ -81,7 +81,7 @@ const Customer = () => {
                 }`}
                 onClick={() => setFilter("Buyer/Seller")}
               >
-                Buy/Sell({buyerSellerCount})
+                Buy/Sell ({buyerSellerCount})
               </button>
               <button
                 className={`btn ${
@@ -89,7 +89,7 @@ const Customer = () => {
                 }`}
                 onClick={() => setFilter("Rental")}
               >
-                Rental({rentalCount})
+                Rental ({rentalCount})
               </button>
             </div>
           </div>

@@ -160,54 +160,52 @@ const Inventory_Body = () => {
 
   return (
     <>
-      <div className="container">
-        <section className="section_3 mt-4">
-          <div className={style.tableContainer}>
-            <table {...getTableProps()} className={style.table}>
-              <thead>
-                {headerGroups.map((headerGroup, headerGroupIndex) => (
+      <section className="section_3 mt-4">
+        <div className={style.tableContainer}>
+          <table {...getTableProps()} className={style.table}>
+            <thead>
+              {headerGroups.map((headerGroup, headerGroupIndex) => (
+                <tr
+                  key={headerGroupIndex}
+                  {...headerGroup.getHeaderGroupProps()}
+                >
+                  {headerGroup.headers.map((column, columnIndex) => (
+                    <th
+                      key={columnIndex}
+                      {...column.getHeaderProps()}
+                      className={column.HeaderStyle}
+                      style={{ width: column.width }}
+                    >
+                      {column.render("Header")}
+                    </th>
+                  ))}
+                </tr>
+              ))}
+            </thead>
+
+            <tbody {...getTableBodyProps()}>
+              {rows.map((row, rowIndex) => {
+                prepareRow(row);
+                const rowClassName =
+                  rowIndex % 2 === 0 ? `${style.evenRow}` : `${style.oddRow}`;
+                return (
                   <tr
-                    key={headerGroupIndex}
-                    {...headerGroup.getHeaderGroupProps()}
+                    key={rowIndex}
+                    {...row.getRowProps()}
+                    className={rowClassName}
                   >
-                    {headerGroup.headers.map((column, columnIndex) => (
-                      <th
-                        key={columnIndex}
-                        {...column.getHeaderProps()}
-                        className={column.HeaderStyle}
-                        style={{ width: column.width }}
-                      >
-                        {column.render("Header")}
-                      </th>
+                    {row.cells.map((cell, cellIndex) => (
+                      <td key={cellIndex} {...cell.getCellProps()}>
+                        {cell.render("Cell")}
+                      </td>
                     ))}
                   </tr>
-                ))}
-              </thead>
-
-              <tbody {...getTableBodyProps()}>
-                {rows.map((row, rowIndex) => {
-                  prepareRow(row);
-                  const rowClassName =
-                    rowIndex % 2 === 0 ? `${style.evenRow}` : `${style.oddRow}`;
-                  return (
-                    <tr
-                      key={rowIndex}
-                      {...row.getRowProps()}
-                      className={rowClassName}
-                    >
-                      {row.cells.map((cell, cellIndex) => (
-                        <td key={cellIndex} {...cell.getCellProps()}>
-                          {cell.render("Cell")}
-                        </td>
-                      ))}
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
-        </section>
-      </div>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+      </section>
     </>
   );
 };

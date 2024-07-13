@@ -1,14 +1,16 @@
 import React from "react";
-
+import style from "./Footer.module.css";
 const Footer = () => {
   return (
     <footer className="bg-white py-3 container">
       <div>
         <div className="row">
-          <div className="col-md-6 text-center text-md-start">
+          <div
+            className={`col-md-6 text-center text-md-start ${style.Brand_Name}`}
+          >
             &copy; Brand Name 2024
           </div>
-          <div className="col-md-6 text-center text-md-end">
+          <div className={`col-md-6 text-center text-md-end ${style.links}`}>
             <a href="#" className="text-dark me-3">
               FAQs
             </a>

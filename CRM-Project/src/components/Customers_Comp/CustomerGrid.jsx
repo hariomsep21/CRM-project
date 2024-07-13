@@ -12,7 +12,7 @@ const CustomerGrid = ({ customers }) => {
   return (
     <>
       {customers.map((customer) => (
-        <div key={customer.id} className={`row mt-5 ${style.cust_rowThree}`}>
+        <div key={customer.id} className={`row mt-4 ${style.cust_rowThree}`}>
           <div className="section_1 col-sm-12 col-md-4 col-lg-4">
             <div className="col">
               <button

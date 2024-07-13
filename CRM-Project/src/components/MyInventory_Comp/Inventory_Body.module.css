@@ -2,16 +2,44 @@
 
 
 /* Table container to enable scrolling */
+
 .tableContainer {
   font-family: "Inter", sans-serif;
-
   max-height: 400px;
   /* Adjust as needed */
   overflow-y: auto;
   /* Vertical scrolling */
   overflow-x: auto;
+  border: 1px solid #C1C1C1;
+  border-bottom: none;
   /* Horizontal scrolling */
   /* Ensure the table has a fixed layout */
+}
+
+.tableContainer::-webkit-scrollbar {
+  width: 12px;
+  /* Width of the scrollbar */
+}
+
+.tableContainer::-webkit-scrollbar-track {
+  background-color: #F1F1F1;
+
+
+  /* Color of the track */
+}
+
+.tableContainer::-webkit-scrollbar-thumb {
+  background-color: #C1C1C1;
+  border: 1px solid #C1C1C1;
+  border-bottom: none;
+  /* Color of the thumb */
+  border-radius: 2px;
+  /* Roundness of the thumb */
+}
+
+.tableContainer::-webkit-scrollbar-thumb:hover {
+  background-color: #C1C1C1;
+  /* Color of the thumb on hover */
 }
 
 .table {
@@ -47,6 +75,7 @@
   width: 74px;
   font-weight: 300 !important;
   color: gray;
+  display: block;
 }
 
 .cell_CheckBox {
@@ -61,13 +90,6 @@
   height: 27px;
   width: 8%;
 }
-
-
-
-
-
-
-
 
 .cell_PropertyStyle {
   font-weight: 600;

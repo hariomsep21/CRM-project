@@ -14,17 +14,17 @@ const Inventory_Header = () => {
           </div>
           <div className="col-md-5 col-lg-5">
             <div className={`row ${style.three_btn}`}>
-              <div className="col-4">
+              <div className={`col-4 ${style.Div_advicebtn}`}>
                 <button className={`btn ${style.advice_btn}`}>
                   Generate Advice
                 </button>
               </div>
-              <div className="col-4">
+              <div className={`col-4 ${style.Div_brochurebtn}`}>
                 <button className={`btn ${style.brochure_btn}`}>
                   Generate Brochure
                 </button>
               </div>
-              <div className="col-4">
+              <div className={`col-4 ${style.Div_addInventorybtn}`}>
                 <button className={`btn ${style.addInventory_btn}`}>
                   + Add New Inventory
                 </button>

@@ -1,5 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
 .mainly {
   gap: 30px;
+  font-family: "Inter", sans-serif;
+
 }
 
 .cust_rowOne {
@@ -8,6 +12,7 @@
 
 .cust_rowOne .cust_name {
   font-weight: 700;
+  font-size: 24px;
 }
 
 .cust_rowOne .cust_addBtn {
@@ -22,7 +27,12 @@
 
 .cust_rowTwo .filter_text {
   display: flex;
-  font-size: 11px;
+
+}
+
+.cust_rowTwo .filter_text button {
+  font-size: 16px;
+  font-weight: 550;
 }
 
 .cust_rowTwo .filter_icon {
