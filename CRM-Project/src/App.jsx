@@ -10,8 +10,6 @@ import LoginPage from "./components/Login_comp/LoginPage";
 function App() {
   return (
     <>
-      <LoginPage />
-
       <div className="main"></div>
     </>
   );
