@@ -1,8 +1,7 @@
 .cust_rowThree {
   border: 1px solid #DDDDDD;
   border-radius: 4px;
-  /* margin-top: 20px; */
-  height: 165px;
+  height: 149px;
   padding-left: 5px;
 
 }
@@ -97,6 +96,10 @@
   font-weight: 700;
 }
 
+.remark_btn {
+  gap: 11px;
+  direction: rtl;
+}
 
 .property_btn_buyer {
   background-color: #850F8D;

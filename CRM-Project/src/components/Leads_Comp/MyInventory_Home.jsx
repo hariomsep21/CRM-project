@@ -6,7 +6,7 @@ import { MdCheckBoxOutlineBlank } from "react-icons/md";
 import Inventory_Header from "./Inventory_Header";
 import Inventory_Body from "./Inventory_Body";
 
-const MyInventory_Home = () => {
+const MyLead_Home = () => {
   return (
     <>
       <div className="container">
@@ -17,4 +17,4 @@ const MyInventory_Home = () => {
   );
 };
 
-export default MyInventory_Home;
+export default MyLead_Home;
