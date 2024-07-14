@@ -7,7 +7,7 @@ import { IoMdMail } from "react-icons/io";
 import { IoLogoWhatsapp } from "react-icons/io";
 import { HiDownload } from "react-icons/hi";
 import { TfiPencil } from "react-icons/tfi";
-
+import { FaFire } from "react-icons/fa6";
 const CustomerGrid = ({ customers }) => {
   return (
     <>
@@ -28,7 +28,10 @@ const CustomerGrid = ({ customers }) => {
             <div className="col">
               <div className={style.cust_name}>
                 {customer.name}
-                <p>{customer.status}</p>
+                <p>
+                  <FaFire />
+                  {customer.status}
+                </p>
               </div>
             </div>
             <div className="col">
@@ -91,13 +94,13 @@ const CustomerGrid = ({ customers }) => {
               <div className="col-sm">
                 <div className={`row d-flex ${style.remark_btn}`}>
                   <div className="col-3">
-                    <button className="btn">View Past Deals</button>
+                    <button className="btn">Edit Customer</button>
                   </div>
                   <div className="col-3">
                     <button className="btn">References</button>
                   </div>
                   <div className="col-3">
-                    <button className="btn">Edit Customer</button>
+                    <button className="btn">View Past Deals</button>
                   </div>
                 </div>
               </div>

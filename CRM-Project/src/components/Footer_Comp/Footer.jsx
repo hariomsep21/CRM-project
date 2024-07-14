@@ -2,9 +2,10 @@ import React from "react";
 import style from "./Footer.module.css";
 const Footer = () => {
   return (
-    <footer className="bg-white py-3 container">
+    <footer className={`bg-white py-3 container ${style.footer}`}>
       <div>
         <div className="row">
+          <hr />
           <div
             className={`col-md-6 text-center text-md-start ${style.Brand_Name}`}
           >

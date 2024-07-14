@@ -4,15 +4,17 @@ import { MdOutlineModeEdit, MdOutlineContentCopy } from "react-icons/md";
 const MyProfile = () => {
   return (
     <>
-      <h4 className={`container ps-0 ${style.myprofileHeading}`}>My Profile</h4>
-      <div className={`container ${style.myprofile_box}`}>
+      <h4 className={`container mt-4  ps-2 ${style.myprofileHeading}`}>
+        My Profile
+      </h4>
+      <div className={`container mt-4  ps-3 ${style.myprofile_box}`}>
         <div className={`row ${style.myprofile_sections}`}>
           <div className={`col-md-6`}>
             <div class="card mb-3 border-0 pt-4 pb-4 pe-4">
               <div class="row g-0">
                 <div class="col-md-3">
                   <img
-                    src="../public/img/profile_img.png"
+                    src="/img/profile_img.png"
                     class={`${style.myprofile_profileimg}`}
                     alt="..."
                   />
@@ -82,10 +84,14 @@ const MyProfile = () => {
           <MdOutlineModeEdit />
         </h4>
 
-        <div className={`row`}>
-          <div className={`col-lg-4 d-flex justify-content-between p-4`}>
-            www.domainname.com/adamclark249a4292{" "}
-            <MdOutlineContentCopy className={style.myprofileCopyIcon} />
+        <div className="row">
+          <div
+            className={`col-lg-4 d-flex justify-content-between align-items-center p-4 ${style.profile_link}`}
+          >
+            <p>
+              www.domainname.com/adamclark249a4292{" "}
+              <MdOutlineContentCopy className={style.myprofileCopyIcon} />
+            </p>
           </div>
         </div>
       </div>

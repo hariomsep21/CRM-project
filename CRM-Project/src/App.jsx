@@ -1,16 +1,21 @@
-import "./App.css";
-import "bootstrap/dist/css/bootstrap.min.css";
+import React from "react";
+import { Outlet, useLocation } from "react-router-dom";
 import Navbar from "./components/Header_comp/Navbar";
 import Footer from "./components/Footer_Comp/Footer.jsx";
-
-import { Outlet } from "react-router-dom";
+import "./App.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
+  const location = useLocation();
+  const isLoginPage = location.pathname === "/";
+
   return (
     <>
-      <Navbar />
+      {!isLoginPage && <Navbar />}
+
       <Outlet />
-      <Footer />
+
+      {!isLoginPage && <Footer />}
     </>
   );
 }

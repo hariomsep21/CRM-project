@@ -51,8 +51,11 @@ function Table() {
         <div className={`col-md-2 ${style.mytask_table_title}`}></div>
       </div>
 
-      {tasks.map((task) => (
-        <div key={task.id} className="row mt-2 align-items-center">
+      {tasks.map((task, index) => (
+        <div
+          key={task.id}
+          className={`row mt-2 align-items-center ${style.row}`}
+        >
           <div className="col-md-1">
             <input
               className={`form-check-input ${style.checkbox}`}
@@ -92,7 +95,7 @@ function Table() {
           <div className={`col-md-6 ${style.task_detail}`}>{task.task}</div>
           <div className={`col-md-1 ${style.task_date}`}>{task.date}</div>
           <div className={`col-md-1 ${style.task_labels}`}>{task.labels}</div>
-          <div className="col-md-2">
+          <div className="col-md-2 d-flex">
             <button className="btn  me-2">
               <MdOutlineEdit className={`${style.editIcon}`} />
             </button>

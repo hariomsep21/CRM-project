@@ -1,16 +1,27 @@
+import React from "react";
+import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faLock } from "@fortawesome/free-solid-svg-icons";
 import "bootstrap/dist/css/bootstrap.min.css";
 import style from "./LoginFormPage.module.css";
 
 const LoginFormPage = () => {
+  const navigate = useNavigate();
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    // Perform login logic here
+    // On successful login, navigate to the dashboard
+    navigate("/dashboard");
+  };
+
   return (
     <div className={style.text_add}>
       <div className={style.form_container}>
         <img src="/img/logo.png" alt="logo img" />
         <h5 className={style.loginpageHeading}>Login to your account.</h5>
-        <form>
-          <div className={` form-group ${style.input_container}`}>
+        <form onSubmit={handleSubmit}>
+          <div className={`form-group ${style.input_container}`}>
             <FontAwesomeIcon icon={faUser} className={style.icon} />
             <input
               type="text"
@@ -45,4 +56,5 @@ const LoginFormPage = () => {
     </div>
   );
 };
+
 export default LoginFormPage;

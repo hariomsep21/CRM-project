@@ -9,7 +9,7 @@ import Inventory_Body from "./Inventory_Body";
 const MyInventory_Home = () => {
   return (
     <>
-      <div className="container">
+      <div className="container mt-5">
         <Inventory_Header />
         <Inventory_Body />
       </div>

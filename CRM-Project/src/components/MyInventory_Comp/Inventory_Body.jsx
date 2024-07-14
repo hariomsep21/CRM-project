@@ -39,6 +39,52 @@ const Inventory_Body = () => {
         remarks:
           "1500Y  Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
       },
+
+      {
+        id: 3,
+        type: "Rental",
+        property:
+          "Lease Agreement - Ms. Singh and Mr. Mehta - Green Park - New Delhi",
+        name: "Ms. Verma   +91 9876543210",
+        location: "West st. louisville, ky",
+        date: "11:45:50 am 20/11/23",
+        askingPrice: "1.2 CR",
+        titleCheck: "Pending",
+        area: "3000 Sqft",
+        stage: "Initial",
+        remarks:
+          "1500Y  Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      },
+      {
+        id: 4,
+        type: "Rental",
+        property:
+          "Lease Agreement - Ms. Singh and Mr. Mehta - Green Park - New Delhi",
+        name: "Ms. Verma   +91 9876543210",
+        location: "West st. louisville, ky",
+        date: "11:45:50 am 20/11/23",
+        askingPrice: "1.2 CR",
+        titleCheck: "Pending",
+        area: "3000 Sqft",
+        stage: "Initial",
+        remarks:
+          "1500Y  Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      },
+      {
+        id: 5,
+        type: "Rental",
+        property:
+          "Lease Agreement - Ms. Singh and Mr. Mehta - Green Park - New Delhi",
+        name: "Ms. Verma   +91 9876543210",
+        location: "West st. louisville, ky",
+        date: "11:45:50 am 20/11/23",
+        askingPrice: "1.2 CR",
+        titleCheck: "Pending",
+        area: "3000 Sqft",
+        stage: "Initial",
+        remarks:
+          "1500Y  Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      },
     ],
     []
   );

@@ -115,6 +115,8 @@
   text-align: center !important;
   background-color: #216FED;
   color: white;
+  border-radius: 4px;
+
 }
 
 .Cell_TypeRental {
@@ -124,6 +126,8 @@
   text-align: center !important;
   background-color: orange;
   color: white;
+  border-radius: 4px;
+
 }
 
 /* these css for show property type icon End  */

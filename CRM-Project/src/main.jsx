@@ -7,13 +7,14 @@ import MyInventory_Home from "./components/MyInventory_Comp/MyInventory_Home.jsx
 import MyLead_Home from "./components/Leads_Comp/MyInventory_Home.jsx";
 import Customer from "./components/Customers_Comp/Customer.jsx";
 import MyProfile from "./components/MyProfile_Comp copy/MyProfile.jsx";
-import footer from "./components/Footer_Comp/Footer.jsx";
+import Footer from "./components/Footer_Comp/Footer.jsx";
+import LoginPage from "./components/Login_comp/LoginPage.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
     children: [
-      { path: "/", element: <Dashboard /> },
+      { path: "/", element: <LoginPage /> },
       { path: "/dashboard", element: <Dashboard /> },
       { path: "/profile", element: <MyProfile /> },
       { path: "/customer", element: <Customer /> },

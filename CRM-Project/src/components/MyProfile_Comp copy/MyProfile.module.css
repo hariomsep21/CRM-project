@@ -1,5 +1,6 @@
 .myprofile_box {
   border: 1px solid #DDDDDD;
+  border-radius: 5px;
   padding: 0px 35px;
 }
 
@@ -99,4 +100,30 @@
 
 .myprofileCopyIcon {
   color: #7a65fd;
+  margin-left: 10px;
+  /* Add some space between the text and the icon if needed */
+  position: relative;
+  /* Ensure the z-index takes effect */
+  z-index: 1;
+  /* Bring the icon to the front */
+}
+
+.profile_link p {
+  background-color: rgba(123, 102, 255, 0.08);
+  padding-top: 3px;
+  font-size: 17px;
+  height: 35px;
+  padding-left: 18px;
+  margin-left: -12px;
+  flex-grow: 1;
+  /* This makes the text take the remaining space */
+  position: relative;
+  /* Ensure the z-index takes effect */
+  z-index: 0;
+  /* Set a lower z-index to ensure the icon appears above the text */
+}
+
+.profile_link {
+  width: 435px;
+
 }
