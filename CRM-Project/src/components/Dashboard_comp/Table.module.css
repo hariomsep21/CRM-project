@@ -3,14 +3,21 @@
   font-weight: bold;
 }
 
+.mytask_table_title_date {
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+}
+
 .task_detail {
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 600;
 }
 
 .task_date {
   font-size: 13px;
   font-weight: 500;
+  padding: 0px 58px 0px 82px;
 }
 
 .task_labels {
@@ -25,7 +32,6 @@
 }
 
 .typeBtn {
-  color: white;
   padding: 2px 10px;
   border-radius: 5px;
   width: 70%;
@@ -35,8 +41,8 @@
 .editIcon,
 .editNoteIcon,
 .shareIcon {
-  width: 24px;
-  height: 24px;
+  width: 20px;
+  height: 20px;
 }
 
 .editIcon {

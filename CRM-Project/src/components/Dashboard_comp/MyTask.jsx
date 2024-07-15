@@ -35,9 +35,10 @@ const MyTask = () => {
               id="labelDropdown"
             >
               <option value="all">All</option>
-              <option value="urgent">Urgent</option>
-              <option value="important">Important</option>
-              <option value="normal">Normal</option>
+              <option value="urgent">Buy</option>
+              <option value="important">Sell</option>
+              <option value="normal">Rental</option>
+              <option value="normal">Req. Urgent Attention</option>
             </select>
           </div>
           <div className="mb-3">
@@ -52,9 +53,10 @@ const MyTask = () => {
               id="labelDropdown2"
             >
               <option value="all">All</option>
-              <option value="urgent">Urgent</option>
-              <option value="important">Important</option>
-              <option value="normal">Normal</option>
+              <option value="urgent">This Week</option>
+              <option value="important">This Month</option>
+              <option value="normal">This Year</option>
+              <option value="normal">Req. Urgent Attention</option>
             </select>
           </div>
         </div>

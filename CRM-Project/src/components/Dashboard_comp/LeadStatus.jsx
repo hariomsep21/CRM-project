@@ -38,8 +38,8 @@ const buyData = {
   datasets: [
     {
       label: "Leads",
-      data: [50, 30, 20],
-      backgroundColor: ["#ffa62f", "#e5e5e5", "black"],
+      data: [60, 40],
+      backgroundColor: ["#850f8d", "#e5e5e5"],
       hoverOffset: 4,
     },
   ],
@@ -50,8 +50,8 @@ const rentalData = {
   datasets: [
     {
       label: "Leads",
-      data: [60, 40], // Adjust the percentages as needed
-      backgroundColor: ["#850f8d", "#e5e5e5"], // Custom colors for rental
+      data: [60, 40],
+      backgroundColor: ["#ffa62f", "#e5e5e5"],
       hoverOffset: 4,
     },
   ],
