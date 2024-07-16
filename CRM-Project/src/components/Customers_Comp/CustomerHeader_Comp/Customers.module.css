@@ -1,8 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
-
 .mainly {
   gap: 30px;
-  font-family: "Inter", sans-serif;
 
 }
 
@@ -17,8 +14,8 @@
 
 .cust_rowOne .cust_addBtn {
   float: right;
-  color: white;
-  background-color: #7B66FF;
+  color: var(--secondary-text-color);
+  background-color: var(--primary-bg-color);
 }
 
 .cust_rowTwo {
@@ -36,7 +33,7 @@
 }
 
 .cust_rowTwo .filter_icon {
-  color: #7B66FF;
+  color: var(--primary-icon-color);
   display: flex;
   float: right;
 }
@@ -51,14 +48,14 @@
   border-radius: 4px;
   padding: 5px 10px;
   cursor: pointer;
-  color: #6B7280;
+  color: var(--placeholder-text-color);
 }
 
 .filter_text button:hover {
-  background-color: #e2e6ea;
+  background-color: var(--lightGray-bg-color);
 }
 
 .filter_text .activeFilter {
-  background-color: rgba(123, 102, 255, 0.08);
-  color: #7B66FF;
+  background-color: var(--primary_light-bg-color);
+  color: var(--primary-text-color);
 }
