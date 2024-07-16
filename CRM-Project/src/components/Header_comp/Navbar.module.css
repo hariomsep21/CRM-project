@@ -23,9 +23,6 @@
   border-radius: 50%;
 }
 
-.notificationBox {
-  margin-right: 5rem;
-}
 
 .notificationIcon {
   width: 24px;
@@ -33,7 +30,6 @@
 }
 
 .logo_Img {
-  margin-left: 2.4rem;
   width: 86px;
   height: 22px;
 }

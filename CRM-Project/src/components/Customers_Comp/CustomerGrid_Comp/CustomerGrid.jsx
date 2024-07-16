@@ -54,7 +54,7 @@ const CustomerGrid = ({ customers }) => {
                 <IoMdMail />
               </div>
               <div className="col-2">
-                <IoLogoWhatsapp />
+                <IoLogoWhatsapp className={style.whatsapp_icons} />
               </div>
               <div className="col-2">
                 <HiDownload />
