@@ -10,7 +10,7 @@
 }
 
 .task_detail {
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 600;
 }
 
@@ -28,7 +28,7 @@
 .checkbox {
   width: 24px;
   height: 24px;
-  border: 1px solid black;
+  border: 1px solid var(--default-text-color);
 }
 
 .typeBtn {
@@ -46,19 +46,19 @@
 }
 
 .editIcon {
-  color: #7b66ff;
+  color: var(--primary-icon-color);
 }
 
 .editNoteIcon {
-  color: #ffa62f;
+  color: var(--edit-note-icon-color);
 }
 
 .shareIcon {
-  color: #ff595a;
+  color: var(--share-icon-color);
 }
 
 .row:nth-child(odd) {
-  background-color: white;
+  background-color: var(--secondary-text-color);
 }
 
 .row:nth-child(even) {

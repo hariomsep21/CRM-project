@@ -30,7 +30,7 @@
 
 .myprofileMemberJoinTime {
   font-size: 14px;
-  color: #6b7280;
+  color: var(--placeholder-text-color);
   font-weight: 500;
 }
 
@@ -41,14 +41,14 @@
 }
 
 .myprofileChangePass {
-  border: 2px solid black;
-  color: black;
+  border: 2px solid var(--default-text-color);
+  color: var(--default-text-color);
   font-weight: 500;
 }
 
 .myprofileEditProfileBtn {
-  background-color: #7a65fd;
-  color: white;
+  background-color: var(--primary-bg-color);
+  color: var(--secondary-text-color);
 }
 
 /* my profile first container css end*/
@@ -57,7 +57,7 @@
 /* profile detail information grid start css*/
 .profileinfo_detail_title {
   font-size: 14px;
-  color: #007473;
+  color: var(--filter-text-color);
 }
 
 .profileinfo_detail {
@@ -89,38 +89,33 @@
 .profileimgEditIcon {
   position: relative;
   padding: 6px;
-  color: white;
+  color: var(--secondary-text-color);
   width: 32px;
   height: 32px;
-  background-color: #7a65fd;
+  background-color: var(--primary-bg-color);
   border-radius: 50%;
   top: -33px;
   left: 87px;
 }
 
 .myprofileCopyIcon {
-  color: #7a65fd;
+  color: var(--primary-bg-color);
   margin-left: 10px;
-  /* Add some space between the text and the icon if needed */
   position: relative;
-  /* Ensure the z-index takes effect */
   z-index: 1;
-  /* Bring the icon to the front */
 }
 
 .profile_link p {
   background-color: rgba(123, 102, 255, 0.08);
-  padding-top: 3px;
-  font-size: 17px;
+
+  font-size: 14px;
   height: 35px;
   padding-left: 18px;
   margin-left: -12px;
   flex-grow: 1;
-  /* This makes the text take the remaining space */
   position: relative;
-  /* Ensure the z-index takes effect */
   z-index: 0;
-  /* Set a lower z-index to ensure the icon appears above the text */
+  margin-bottom: 0;
 }
 
 .profile_link {
