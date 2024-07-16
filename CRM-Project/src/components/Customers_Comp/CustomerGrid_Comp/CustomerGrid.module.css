@@ -59,32 +59,31 @@
   border: 1px solid transparent;
 }
 
-.need_head {
-  background-color: olive;
-}
 
-.need_message {
-  background-color: red;
-  margin-top: -52px;
+
+
+
+.remark_icon div {
+  float: right;
+  color: var(--primary-icon-color);
+  cursor: pointer;
 }
 
 .need_icon div {
   float: right;
-}
-
-.need_firstDiv {
-  height: 40px;
-}
-
-.remark_icon div {
-  float: right;
-  color: #7B66FF;
+  color: var(--primary-icon-color);
   cursor: pointer;
 }
 
-.remark_head {
-  color: #007473;
+
+.need_head {
+  color: var(--filter-text-color);
 }
+
+.remark_head {
+  color: var(--filter-text-color);
+}
+
 
 .remark_heading p {
   font-size: 14px;
@@ -92,7 +91,7 @@
 
 .remark_btn div button {
   gap: 3px;
-  border: 1px solid black;
+  border: 1px solid var(--default-bcolor);
   width: 95px;
   height: 28px;
   font-size: 8.8px;
@@ -105,8 +104,8 @@
 }
 
 .property_btn_buyer {
-  background-color: #850F8D;
-  color: white;
+  background-color: var(--buy-bg-color);
+  color: var(--secondary-text-color);
   height: 22px;
   font-size: 12px;
   padding-bottom: 24px;
@@ -114,8 +113,8 @@
 }
 
 .property_btn_rental {
-  background-color: #FFA62F;
-  color: white;
+  background-color: var(--rental-bg-color);
+  color: var(--secondary-text-color);
   height: 22px;
   font-size: 12px;
   padding-bottom: 24px;

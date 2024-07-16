@@ -66,8 +66,8 @@ const CustomerGrid = ({ customers }) => {
             <div className="row">
               <div className="col-lg-12">
                 <div className="row d-flex">
-                  <div className={`col-8 ${style.remark_head}`}>Need</div>
-                  <div className={`col-4 ${style.remark_icon}`}>
+                  <div className={`col-8 ${style.need_head}`}>Need</div>
+                  <div className={`col-4 ${style.need_icon}`}>
                     <div>
                       <NeedEdit initialValue={customer.need} />
                     </div>

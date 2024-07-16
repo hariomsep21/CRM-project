@@ -13,14 +13,14 @@
 }
 
 .Body_element {
-  border: 1px solid black;
+  border: 1px solid var(--default-bcolor);
   height: 162px;
   padding: 12px;
   width: 450px;
 }
 
 .close_btn {
-  color: black;
+  color: var(--default-text-color);
   background-color: transparent;
 }
 
@@ -43,6 +43,6 @@
 }
 
 .Edit_btn {
-  background-color: #7B66FF;
+  background-color: var(--primary-bg-color);
   margin-left: 10px;
 }

@@ -18,8 +18,8 @@
 }
 
 .propertyText {
-  background-color: #850f8d;
-  color: white;
+  background-color: var(--buy-bg-color);
+  color: var(--secondary-text-color);
   height: 22px;
   font-size: 12px;
   width: 39px;
@@ -30,8 +30,8 @@
 }
 
 .propertyText_rental {
-  background-color: orange;
-  color: white;
+  background-color: var(--rental-bg-color);
+  color: var(--secondary-text-color);
   height: 22px;
   font-size: 12px;
   width: 45px;
@@ -53,13 +53,13 @@
 }
 
 .priceText p {
-  color: #007473;
+  color: var(--filter-text-color);
   padding-left: 5px;
 }
 
 .addressText {
   margin-top: -6px;
-  color: gray;
+  color: var(--placeholder-text-color);
   font-weight: 400;
 }
 
@@ -69,7 +69,7 @@
 }
 
 .close_btn {
-  color: black;
+  color: var(--default-text-color);
   background-color: transparent;
 }
 
