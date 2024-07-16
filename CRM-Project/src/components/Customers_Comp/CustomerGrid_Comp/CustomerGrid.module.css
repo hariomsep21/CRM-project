@@ -1,5 +1,5 @@
 .cust_rowThree {
-  border: 1px solid #DDDDDD;
+  border: 1px solid var(--accent-bcolor);
   border-radius: 4px;
   height: 157px;
   padding-left: 5px;
@@ -8,12 +8,12 @@
 
 .cust_rowThree .cust_address {
   display: flex;
-  color: #6B7280;
+  color: var(--placeholder-text-color);
 }
 
 .property_btn {
-  background-color: #850F8D;
-  color: white;
+  background-color: var(--buy-bg-color);
+  color: var(--secondary-text-color);
   height: 22px;
   font-size: 12px;
   padding-bottom: 24px;
@@ -21,8 +21,8 @@
 }
 
 .property_btn_rental {
-  background-color: orange;
-  color: white;
+  background-color: var(--rental-bg-color);
+  color: var(--secondary-text-color);
   height: 22px;
   font-size: 12px;
   padding-bottom: 24px;
@@ -36,7 +36,7 @@
 
 .cust_name p {
   padding-left: 10px;
-  color: #FF595A;
+  color: var(--accent-text-color);
   font-weight: 600;
 }
 
@@ -46,7 +46,7 @@
 
 .cust_icons {
   display: flex;
-  color: #7B66FF;
+  color: var(--primary-icon-color);
   gap: 4px;
 }
 

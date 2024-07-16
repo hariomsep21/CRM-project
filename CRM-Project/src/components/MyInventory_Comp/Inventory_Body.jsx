@@ -1,7 +1,7 @@
 import React from "react";
 import style from "./Inventory_Body.module.css";
 import { FaSearch } from "react-icons/fa";
-import { useTable } from "react-table";
+import { useTable, useSortBy } from "react-table"; // Import useSortBy
 import { MdCheckBoxOutlineBlank } from "react-icons/md";
 import { FaRegUser } from "react-icons/fa6";
 import { MdRemoveRedEye } from "react-icons/md";
@@ -200,9 +200,15 @@ const Inventory_Body = () => {
     ],
     []
   );
-
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
-    useTable({ columns, data });
+    useTable(
+      {
+        columns,
+        data,
+        initialState: { sortBy: [{ id: "type", desc: false }] }, // Initial sorting by type, ascending
+      },
+      useSortBy // Hook that enables sorting
+    );
 
   return (
     <>
@@ -218,11 +224,14 @@ const Inventory_Body = () => {
                   {headerGroup.headers.map((column, columnIndex) => (
                     <th
                       key={columnIndex}
-                      {...column.getHeaderProps()}
+                      {...column.getHeaderProps(column.getSortByToggleProps())} // Enable sorting for each column
                       className={column.HeaderStyle}
                       style={{ width: column.width }}
                     >
                       {column.render("Header")}
+                      <span>
+                        {column.isSorted ? (column.isSortedDesc ? "" : "") : ""}
+                      </span>
                     </th>
                   ))}
                 </tr>
