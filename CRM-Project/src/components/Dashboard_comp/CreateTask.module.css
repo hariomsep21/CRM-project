@@ -1,6 +1,6 @@
 .dropdownBtn {
   width: 100%;
-  border: 1px solid black;
+  border: 1px solid var(--default-text-color);
 }
 
 .dropdownBtn .dropdown-toggle {
@@ -16,7 +16,7 @@
 
 .btnTask {
   font-size: 16px;
-  background-color: #7a65fd;
+  background-color: var(--primary-bg-color);
   padding: 8px 15px;
 }
 
@@ -26,7 +26,7 @@
 }
 
 .heading {
-  color: #007473;
+  color: var(--filter-text-color);
   font-size: 20px;
 }
 
@@ -35,15 +35,15 @@
   font-weight: 600;
   padding: 10px 20px;
   line-height: 25px;
-  border: 1px solid black;
-  color: black;
+  border: 1px solid var(--default-text-color);
+  color: var(--default-text-color);
 }
 
 .submitBtn {
   padding: 10px 20px;
   line-height: 25px;
-  background-color: #7b66ff;
-  color: white;
+  background-color: var(--primary-bg-color);
+  color: var(--secondary-text-color);
 }
 
 .propertyTypeCheckbox {

@@ -10,24 +10,26 @@ const MyProfile = () => {
       <div className={`container mt-4  ps-3 ${style.myprofile_box}`}>
         <div className={`row ${style.myprofile_sections}`}>
           <div className={`col-md-6`}>
-            <div class="card mb-3 border-0 pt-4 pb-4 pe-4">
-              <div class="row g-0">
-                <div class="col-md-3">
+            <div className="card mb-3 border-0 pt-4 pb-4 pe-4">
+              <div className="row g-0">
+                <div className="col-md-3">
                   <img
                     src="/img/profile_img.png"
-                    class={`${style.myprofile_profileimg}`}
+                    className={`${style.myprofile_profileimg}`}
                     alt="..."
                   />
                   <MdOutlineModeEdit
                     className={`${style.profileimgEditIcon}`}
                   />
                 </div>
-                <div class="col-md-9">
-                  <div class={`card-body ${style.myprofile_person_namedetail}`}>
-                    <h5 class={`card-title ${style.myprofileUserName}`}>
+                <div className="col-md-9">
+                  <div
+                    className={`card-body ${style.myprofile_person_namedetail}`}
+                  >
+                    <h5 className={`card-title ${style.myprofileUserName}`}>
                       Adam Clark
                     </h5>
-                    <p class={`card-text ${style.myprofileMemberJoinDa}`}>
+                    <p className={`card-text ${style.myprofileMemberJoinDa}`}>
                       Member since January 2024
                     </p>
                   </div>
@@ -86,12 +88,10 @@ const MyProfile = () => {
 
         <div className="row">
           <div
-            className={`col-lg-4 d-flex justify-content-between align-items-center p-4 ${style.profile_link}`}
+            className={`col-lg-4 d-flex justify-content-between  p-4 ${style.profile_link}`}
           >
-            <p>
-              www.domainname.com/adamclark249a4292{" "}
-              <MdOutlineContentCopy className={style.myprofileCopyIcon} />
-            </p>
+            <p>www.domainname.com/adamclark249a4292 </p>
+            <MdOutlineContentCopy className={style.myprofileCopyIcon} />
           </div>
         </div>
       </div>

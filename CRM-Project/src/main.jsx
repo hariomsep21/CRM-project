@@ -6,7 +6,7 @@ import Dashboard from "./components/Dashboard_comp/Dashboard.jsx";
 import MyInventory_Home from "./components/MyInventory_Comp/MyInventory_Home.jsx";
 import MyLead_Home from "./components/Leads_Comp/MyInventory_Home.jsx";
 import Customer from "./components/Customers_Comp/CustomerHeader_Comp/Customer.jsx";
-import MyProfile from "./components/MyProfile_Comp copy/MyProfile.jsx";
+import MyProfile from "./components/MyProfile_Comp/MyProfile.jsx";
 import Footer from "./components/Footer_Comp/Footer.jsx";
 import LoginPage from "./components/Login_comp/LoginPage.jsx";
 import PastDetails from "./components/Customers_Comp/PastDeals_Comp/PastDetails.jsx";

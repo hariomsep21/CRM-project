@@ -18,12 +18,11 @@
 
 .dropdown {
   width: 193.75px;
-  border: 1px solid #DDDDDD;
   padding: 10px 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  color: black;
+  color: var(--default-text-color);
 }
 
 
@@ -35,16 +34,16 @@
 
 .search {
   border-right: none;
-  border-color: #DDDDDD;
+
 }
 
 .magnifyingIcon {
   border-left: 0;
   border-color: #DDDDDD;
-  color: #7B66ff;
+  color: var(--primary-text-color);
 }
 
 .label {
-  color: #007473;
+  color: var(--filter-text-color);
   font-size: 14px;
 }
