@@ -8,6 +8,9 @@ import { IoLogoWhatsapp } from "react-icons/io";
 import { HiDownload } from "react-icons/hi";
 import { TfiPencil } from "react-icons/tfi";
 import { FaFire } from "react-icons/fa6";
+import { useNavigate } from "react-router-dom";
+import PastDetails from "../PastDeals_Comp/PastDetails";
+import NeedEdit from "../Need_Com/NeedEdit";
 const CustomerGrid = ({ customers }) => {
   return (
     <>
@@ -66,7 +69,7 @@ const CustomerGrid = ({ customers }) => {
                   <div className={`col-8 ${style.remark_head}`}>Need</div>
                   <div className={`col-4 ${style.remark_icon}`}>
                     <div>
-                      <TfiPencil />
+                      <NeedEdit initialValue={customer.need} />
                     </div>
                   </div>
                 </div>
@@ -100,7 +103,7 @@ const CustomerGrid = ({ customers }) => {
                     <button className="btn">References</button>
                   </div>
                   <div className="col-3">
-                    <button className="btn">View Past Deals</button>
+                    <PastDetails />
                   </div>
                 </div>
               </div>

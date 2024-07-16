@@ -2,7 +2,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { useState } from "react";
 import style from "./Customers.module.css";
 import { IoFilter } from "react-icons/io5";
-import CustomerGrid from "./CustomerGrid";
+import CustomerGrid from "../CustomerGrid_Comp/CustomerGrid";
 
 const Customer = () => {
   const [filter, setFilter] = useState("All");
@@ -14,9 +14,8 @@ const Customer = () => {
       name: "Mr.Gupta",
       status: "Hot",
       address: "123 Street, City",
-      need: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla fringilla veli Read more",
-      remarks:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla fringilla veli Read more",
+      need: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. ",
+      remarks: "Lorem ipsum dol Nulla fringilla veli Read more",
     },
     {
       id: 2,

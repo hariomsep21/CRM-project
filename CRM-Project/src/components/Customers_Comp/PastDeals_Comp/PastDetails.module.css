@@ -86,3 +86,7 @@
   max-height: calc(100vh - 300px);
   overflow-y: auto;
 }
+
+.modal_footer {
+  border-top: none;
+}

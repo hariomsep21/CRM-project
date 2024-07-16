@@ -41,9 +41,9 @@ const PastDetails = () => {
   return (
     <>
       <div>
-        <Button variant="primary" onClick={handleShow}>
-          Launch demo modal
-        </Button>
+        <button className="btn" variant="primary" onClick={handleShow}>
+          View Past Deals
+        </button>
       </div>
 
       <Modal
@@ -87,7 +87,7 @@ const PastDetails = () => {
             </div>
           ))}
         </Modal.Body>
-        <Modal.Footer>
+        <Modal.Footer className={style.modal_footer}>
           <Button
             variant="secondary"
             className={style.close_btn}

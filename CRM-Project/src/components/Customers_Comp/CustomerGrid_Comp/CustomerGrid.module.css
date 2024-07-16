@@ -79,6 +79,7 @@
 .remark_icon div {
   float: right;
   color: #7B66FF;
+  cursor: pointer;
 }
 
 .remark_head {
