@@ -1,9 +1,46 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
 
+:root {
+  --default-font: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', 'Liberation Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+}
+
+:root {
+  --primary-text-color: #7B66FF;
+  --secondary-text-color: #ffffff;
+  --default-text-color: #000000;
+  --accent-text-color: #e84545;
+  --placeholder-text-color: #6B7280;
+  --filter-text-color: #007473;
+
+
+}
+
+:root {
+  --primary-bg-color: #7B66FF;
+  --secondary-bg-color: #ffffff;
+  --default-bg-color: #212529;
+  --accent-bg-color: #e84545;
+  --placeholder-bg-color: #D9D9D9;
+  --buy-bg-color: #850F8D;
+  --sell-bg-color: #216FED;
+  --rental-bg-color: #FFA62F;
+}
+
+:root {
+  --primary-icon-color: #7B66FF;
+  --edit-note-icon-color: #FFA62F;
+  --share-icon-color: #FF595A;
+
+}
+
+body {
+  font-family: var(--default-font);
+}
+
 .main {
   margin: 20px;
   display: flex;
-  font-family: "Inter", sans-serif;
+  font-family: var(--default-font);
 }
 
 .mainContainer {
