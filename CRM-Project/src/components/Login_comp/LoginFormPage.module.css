@@ -13,7 +13,6 @@
   width: 100%;
   max-width: 400px;
   padding: 20px;
-  background-color: #fff;
   border-radius: 8px;
 }
 
@@ -38,7 +37,7 @@
   left: 10px;
   top: 50%;
   transform: translateY(-50%);
-  color: #7b66ff;
+  color: var(--primary-icon-color);
 }
 
 .form_container .input_property {
@@ -46,12 +45,11 @@
   padding: 15px;
   padding-left: 40px;
   font-size: 14px;
-  border: 1px solid #ccc;
   border-radius: 5px;
 }
 
 .form_container .form-group input::placeholder {
-  color: grey;
+  color: var(--placeholder-bg-color);
 }
 
 .form_container .form-check {
@@ -66,16 +64,13 @@
   width: 100%;
   padding: 10px;
   font-size: 16px;
-  background-color: #7b66ff;
-  color: #fff;
+  background-color: var(--primary-bg-color);
+  color: var(--secondary-text-color);
   border: none;
   border-radius: 4px;
   cursor: pointer;
 }
 
-.form-container .btn:hover {
-  background-color: #5a4cad;
-}
 
 .forgot_password {
   display: block;
@@ -83,7 +78,7 @@
   margin-top: 15px;
   font-size: 14px;
   font-weight: 500;
-  color: #7B66FF;
+  color: var(--primary-text-color);
   text-decoration: none;
 }
 
@@ -93,7 +88,7 @@ form p {
 
 .signup {
   padding-top: 40px;
-  color: #6B7280;
+  color: var(--placeholder-text-color);
   font-size: 14px;
 }
 
@@ -103,9 +98,9 @@ form p {
 }
 
 .signup .btn {
-  background-color: white;
-  color: black;
-  border: 1px solid black;
+  background-color: var(--secondary-bg-color);
+  color: var(--default-text-color);
+  border: 1px solid var(--default-bcolor);
   font-size: 16px;
   font-weight: 600;
 }

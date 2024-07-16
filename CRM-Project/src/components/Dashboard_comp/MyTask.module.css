@@ -13,7 +13,6 @@
   font-size: 16px;
   padding: 8px 20px;
   margin-right: 13px;
-  border: 1px solid #666666;
 }
 
 .dropdown {
@@ -39,7 +38,7 @@
 
 .magnifyingIcon {
   border-left: 0;
-  border-color: #DDDDDD;
+  border-color: var(--accent-bcolor);
   color: var(--primary-text-color);
 }
 

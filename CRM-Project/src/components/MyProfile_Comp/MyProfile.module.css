@@ -1,5 +1,5 @@
 .myprofile_box {
-  border: 1px solid #DDDDDD;
+  border: 1px solid var(--accent-bcolor);
   border-radius: 5px;
   padding: 0px 35px;
 }
@@ -12,7 +12,7 @@
 }
 
 .myprofile_sections {
-  border-bottom: 1px solid #DDDDDD;
+  border-bottom: 1px solid var(--accent-bcolor);
 }
 
 /* my profile first container css start*/
@@ -25,7 +25,7 @@
 
 .myprofileUserName {
   font-size: 24px;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .myprofileMemberJoinTime {
@@ -41,7 +41,7 @@
 }
 
 .myprofileChangePass {
-  border: 2px solid var(--default-text-color);
+  border: 2px solid var(--default-bcolor);
   color: var(--default-text-color);
   font-weight: 500;
 }
@@ -62,7 +62,7 @@
 
 .profileinfo_detail {
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 600;
   padding-right: 42px;
 }
 
@@ -99,7 +99,7 @@
 }
 
 .myprofileCopyIcon {
-  color: var(--primary-bg-color);
+  color: var(--primary-icon-color);
   margin-left: 10px;
   position: relative;
   z-index: 1;

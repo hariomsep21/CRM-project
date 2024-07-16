@@ -1,6 +1,6 @@
 .dropdownBtn {
   width: 100%;
-  border: 1px solid var(--default-text-color);
+  border: 1px solid var(--default-bcolor);
 }
 
 .dropdownBtn .dropdown-toggle {
@@ -35,7 +35,7 @@
   font-weight: 600;
   padding: 10px 20px;
   line-height: 25px;
-  border: 1px solid var(--default-text-color);
+  border: 1px solid var(--default-bcolor);
   color: var(--default-text-color);
 }
 

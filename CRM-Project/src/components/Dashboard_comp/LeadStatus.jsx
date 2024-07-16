@@ -34,7 +34,7 @@ function DoughnutChart({ data, title }) {
   );
 }
 const buyData = {
-  labels: ["Buy Leads"],
+  labels: [],
   datasets: [
     {
       label: "Leads",
@@ -46,7 +46,7 @@ const buyData = {
 };
 
 const rentalData = {
-  labels: ["Rental Leads"],
+  labels: [],
   datasets: [
     {
       label: "Leads",
