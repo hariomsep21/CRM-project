@@ -3,6 +3,10 @@
   border: 1px solid var(--default-bcolor);
 }
 
+.createTaskHeading {
+  font-size: 20px !important;
+}
+
 .dropdownBtn .dropdown-toggle {
   width: 100%;
   align-items: center;
@@ -10,8 +14,12 @@
   justify-content: space-between
 }
 
-.checkbox {
-  font-size: 20px;
+.createTaskInputField {
+  font-size: 14px !important;
+}
+
+.radio {
+  font-size: 14px;
 }
 
 .btnTask {
@@ -27,7 +35,7 @@
 
 .heading {
   color: var(--filter-text-color);
-  font-size: 20px;
+  font-size: 14px;
 }
 
 
@@ -52,4 +60,20 @@
   width: 250px;
   font-size: 18px;
   font-weight: 500;
+}
+
+.createTaskInputField button {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+}
+
+.createTaskInputField div {
+  width: 372px !important;
+}
+
+.customLevelItem {
+  color: var(--primary-text-color);
 }

@@ -50,7 +50,9 @@ const CreateTask = () => {
       </Button>
       <Modal show={show} onHide={handleClose} size="lg" centered>
         <Modal.Header>
-          <Modal.Title>Add New Task</Modal.Title>
+          <Modal.Title className={style.createTaskHeading}>
+            Add New Task
+          </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
@@ -62,6 +64,7 @@ const CreateTask = () => {
                 name="title"
                 value={title}
                 onChange={handleChange}
+                className={style.createTaskInputField}
               />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicProperty">
@@ -87,6 +90,7 @@ const CreateTask = () => {
                   value="Seller"
                   checked={propertyType === "Seller"}
                   onChange={handleChange}
+                  className={style.radio}
                 />
                 <Form.Check
                   type="radio"
@@ -96,6 +100,7 @@ const CreateTask = () => {
                   value="Rental"
                   checked={propertyType === "Rental"}
                   onChange={handleChange}
+                  className={style.radio}
                 />
               </div>
             </Form.Group>
@@ -110,7 +115,7 @@ const CreateTask = () => {
                     name="assignTo"
                     value={assignTo}
                     onChange={handleChange}
-                    className="w-100"
+                    className={`w-100 ${style.createTaskInputField}`}
                   >
                     <option value="">Select assign</option>
                     <option value="Action">Action</option>
@@ -122,41 +127,49 @@ const CreateTask = () => {
               <Col md={6}>
                 <Form.Group className="mb-3" controlId="formBasicLabel">
                   <Form.Label className={`${style.heading}`}>Label</Form.Label>
-                  <Form.Select
-                    aria-label="Default select example"
-                    name="label"
-                    value={label}
-                    onChange={handleChange}
-                    className="w-100"
+                  <DropdownButton
+                    variant="outline-secondary"
+                    title={label}
+                    className={`${style.createTaskInputField} ${style.fullWidthDropdownButton}`}
                   >
-                    <option
-                      value="High priority"
+                    <Dropdown.Item
+                      onClick={() => setLabel("High priority")}
                       style={{
                         color: label === "High priority" ? "black" : "",
+                        fontWeight: label === "High priority" ? "bold" : "",
                       }}
+                      className="pt-2 pb-2"
                     >
                       High priority
-                    </option>
-                    <option
-                      value="Medium priority"
+                    </Dropdown.Item>
+                    <Dropdown.Item
+                      onClick={() => setLabel("Medium priority")}
                       style={{
                         color: label === "Medium priority" ? "black" : "",
+                        fontWeight: label === "Medium priority" ? "bold" : "",
                       }}
+                      className="pt-2 pb-2"
                     >
                       Medium priority
-                    </option>
-                    <option
-                      value="Low priority"
-                      style={{ color: label === "Low priority" ? "black" : "" }}
+                    </Dropdown.Item>
+                    <Dropdown.Item
+                      onClick={() => setLabel("Low priority")}
+                      style={{
+                        color: label === "Low priority" ? "black" : "",
+                        fontWeight: label === "Low priority" ? "bold" : "",
+                      }}
+                      className="pt-2 pb-2"
                     >
                       Low priority
-                    </option>
-                    <option value="Custom level">
-                      {" "}
+                    </Dropdown.Item>
+                    <Dropdown.Item
+                      onClick={() => setLabel("Custom level")}
+                      className={style.customLevelItem}
+                    >
                       <MdAdd />
                       Add Custom label
-                    </option>
-                  </Form.Select>
+                    </Dropdown.Item>
+                  </DropdownButton>
                   {label === "Custom level" && (
                     <Form.Control
                       type="text"
@@ -164,6 +177,7 @@ const CreateTask = () => {
                       name="customLevel"
                       value={customLevel}
                       onChange={handleChange}
+                      className={`${style.createTaskInputField}`}
                     />
                   )}
                 </Form.Group>

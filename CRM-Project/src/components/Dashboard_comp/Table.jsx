@@ -1,14 +1,16 @@
+// Table.js
+
 import React, { useState } from "react";
-import style from "./Table.module.css";
 import { MdOutlineEdit, MdShare, MdEditNote } from "react-icons/md";
 import { Modal, Button, Form } from "react-bootstrap";
+import AddNoteModal from "./AddNoteModal";
+import style from "./Table.module.css";
 
-function Table() {
+const Table = () => {
   const [showNoteModal, setShowNoteModal] = useState(false);
   const [currentTaskId, setCurrentTaskId] = useState(null);
   const [note, setNote] = useState("");
-
-  const tasks = [
+  const [tasks, setTasks] = useState([
     {
       id: 1,
       type: "Buy",
@@ -37,29 +39,29 @@ function Table() {
       date: "11:11:55 am 17/5/24",
       labels: "Custom",
     },
-  ];
+  ]);
 
   const handleEditNotes = (taskId) => {
-    setCurrentTaskId(taskId); // Set the current task ID
-    setShowNoteModal(true); // Show the note modal
+    setCurrentTaskId(taskId);
+    setShowNoteModal(true);
   };
 
-  // Function to handle closing the note modal
   const handleCloseNoteModal = () => {
-    setShowNoteModal(false); // Hide the note modal
-    setCurrentTaskId(null); // Clear the current task ID
+    setShowNoteModal(false);
+    setCurrentTaskId(null);
+    setNote("");
   };
 
-  // Function to handle changes in the note textarea
+  const handleSaveNote = (newNote) => {
+    const updatedTasks = tasks.map((task) =>
+      task.id === currentTaskId ? { ...task, note: newNote } : task
+    );
+    setTasks(updatedTasks);
+    handleCloseNoteModal();
+  };
+
   const handleNoteChange = (event) => {
     setNote(event.target.value);
-  };
-
-  // Function to handle saving the note
-  const handleSaveNote = () => {
-    // Implement save logic here
-    console.log("Note saved:", note);
-    handleCloseNoteModal();
   };
 
   return (
@@ -79,7 +81,7 @@ function Table() {
         <div className={`col-md-2 ${style.mytask_table_title}`}></div>
       </div>
 
-      {tasks.map((task, index) => (
+      {tasks.map((task) => (
         <div
           key={task.id}
           className={`row mt-2 align-items-center ${style.row}`}
@@ -109,12 +111,8 @@ function Table() {
                     : task.type === "Buy"
                     ? "white"
                     : task.type === "Rental"
-                    ? "White"
+                    ? "white"
                     : "",
-                textAlign: "center",
-                padding: "5px 10px",
-                borderRadius: "5px",
-                fontSize: "12px",
               }}
             >
               {task.type}
@@ -139,46 +137,14 @@ function Table() {
         </div>
       ))}
 
-      {/* Note Form Modal */}
-
-      <Modal show={showNoteModal} onHide={handleCloseNoteModal} centered>
-        <Modal.Header>
-          <Modal.Title>Add Note</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <div>
-            <span className={`${style.typeBtn}`}>
-              {tasks.find((task) => task.id === currentTaskId)?.type}
-            </span>
-            <div className={`${style.subheadingTask}`}>
-              {tasks.find((task) => task.id === currentTaskId)?.task}
-            </div>
-          </div>
-
-          <Form>
-            <Form.Group controlId="formNote">
-              <Form.Control
-                as="textarea"
-                rows={4}
-                value={note}
-                onChange={handleNoteChange}
-                style={{ marginTop: 20 }}
-                placeholder="Write here"
-              />
-            </Form.Group>
-          </Form>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleCloseNoteModal}>
-            Cancel
-          </Button>
-          <Button variant="primary" onClick={handleSaveNote}>
-            Save Note
-          </Button>
-        </Modal.Footer>
-      </Modal>
+      <AddNoteModal
+        show={showNoteModal}
+        handleClose={handleCloseNoteModal}
+        task={tasks.find((task) => task.id === currentTaskId) || {}}
+        onSave={handleSaveNote}
+      />
     </div>
   );
-}
+};
 
 export default Table;

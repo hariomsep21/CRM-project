@@ -1,0 +1,35 @@
+.addNoteHeading {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.typeBtn {
+  padding: 3px 20px;
+  margin-bottom: 10px;
+  border-radius: 2px;
+  text-align: center;
+  font-size: 12px;
+}
+
+.addnoteCancelBtn {
+  border: 1px solid var(--default-bcolor);
+  color: var(--default-text-color);
+  font-weight: 600;
+}
+
+.addnoteSubmitBtn {
+  font-size: 16px;
+  background-color: var(--primary-bg-color);
+}
+
+.dateText {
+  padding-left: 10px;
+  font-size: 12px;
+  color: var(--filter-text-color);
+}
+
+.subheadingTask {
+  padding-top: 8px;
+  font-size: 16px;
+  font-weight: 700;
+}
