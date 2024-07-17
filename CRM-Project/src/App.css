@@ -11,7 +11,7 @@
   --primary-text-color: #7B66FF;
   --secondary-text-color: #ffffff;
   --default-text-color: #000000;
-  --accent-text-color: #e84545;
+  --accent-text-color: #FF595A;
   --placeholder-text-color: #6B7280;
   --filter-text-color: #007473;
 
@@ -40,6 +40,7 @@
   --edit-note-icon-color: #FFA62F;
   --share-icon-color: #FF595A;
   --placeholder-icon-color: #6B7280;
+  --whatsapp-icon-color: #4CAF50;
 
 }
 

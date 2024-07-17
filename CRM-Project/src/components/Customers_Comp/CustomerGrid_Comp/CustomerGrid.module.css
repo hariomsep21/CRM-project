@@ -59,7 +59,9 @@
   border: 1px solid transparent;
 }
 
-
+.whatsapp_icons {
+  color: var(--whatsapp-icon-color)
+}
 
 
 

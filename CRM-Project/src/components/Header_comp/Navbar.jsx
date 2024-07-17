@@ -25,7 +25,7 @@ const Navbar = () => {
 
   return (
     <nav className={`navbar navbar-expand-lg border-bottom ${style.Nav_Div}`}>
-      <div className="container-fluid">
+      <div className="container">
         <button
           className="navbar-toggler"
           type="button"
