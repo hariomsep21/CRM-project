@@ -11,6 +11,7 @@ import { FaFire } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
 import PastDetails from "../PastDeals_Comp/PastDetails";
 import NeedEdit from "../Need_Com/NeedEdit";
+import Referenece from "../Referenece/Referenece";
 const CustomerGrid = ({ customers }) => {
   return (
     <>
@@ -100,7 +101,7 @@ const CustomerGrid = ({ customers }) => {
                     <button className="btn">Edit Customer</button>
                   </div>
                   <div className="col-3">
-                    <button className="btn">References</button>
+                    <Referenece />
                   </div>
                   <div className="col-3">
                     <PastDetails />

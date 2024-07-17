@@ -1,0 +1,103 @@
+.custom-modal .modal-body {
+  max-height: calc(100vh - 300px);
+  overflow-y: auto;
+}
+
+.title {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.mainRow {
+  height: 122px;
+}
+
+.Body_element {
+  border: 1px solid var(--default-bcolor);
+  height: 162px;
+  padding: 12px;
+  width: 450px;
+}
+
+.close_btn {
+  color: var(--default-text-color);
+  background-color: transparent;
+}
+
+.custom-modal .modal-dialog {
+  max-width: 630px;
+  margin: 1.75rem auto;
+}
+
+.custom-modal .modal-content {
+  width: 100%;
+}
+
+.modal {
+  margin-top: 7% !important;
+}
+
+.modalBody {
+  height: 168px;
+  overflow-y: auto;
+}
+
+.modal_footer {
+  border-top: none;
+}
+
+.refer_Name div {
+  float: right;
+}
+
+.Referenece_Icon {
+  color: var(--share-icon-color);
+  direction: rtl;
+}
+
+.section1_Body {
+  padding: 10px 32px 0px 30px !important;
+}
+
+.Add_Reference {
+  color: var(--primary-text-color);
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.Add_Reference:hover {
+  color: var(--filter-text-color);
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.Add_ReferenceIcon {
+  margin-right: 12px;
+}
+
+.Input_AddReference {
+  border: 1px solid var(--accent-bcolor);
+  border-radius: 5px;
+}
+
+.Input_AddReference .Input {
+  border: none;
+  outline: none;
+  height: 29px;
+  padding-left: 4px;
+  padding-bottom: 13px;
+}
+
+.Input_AddReference .Input:focus {
+  border: none;
+  outline: none;
+  height: 29px;
+  padding-left: 4px;
+  padding-bottom: 13px;
+}
+
+.Input_AddReference .Icon {
+  color: var(--primary-icon-color);
+  direction: rtl;
+  cursor: pointer;
+}
