@@ -59,13 +59,15 @@ const rentalData = {
 
 function LeadStatus() {
   return (
-    <div className={`${style.leadstatus_dashboard}`}>
-      <h1 className={`${style.lead_graph_heading}`}>Leads status</h1>
-      <div className={`${style.dashboard_graph}`}>
-        <DoughnutChart data={buyData} title="Buy Leads" />
-        <DoughnutChart data={rentalData} title="Rental Leads" />
+    <>
+      <div className={`${style.leadstatus_dashboard}`}>
+        <h1 className={`${style.lead_graph_heading}`}>Leads status</h1>
+        <div className={`${style.dashboard_graph}`}>
+          <DoughnutChart data={buyData} title="Buy Leads" />
+          <DoughnutChart data={rentalData} title="Rental Leads" />
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 

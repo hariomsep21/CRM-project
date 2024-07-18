@@ -11,6 +11,7 @@ import Footer from "./components/Footer_Comp/Footer.jsx";
 import LoginPage from "./components/Login_comp/LoginPage.jsx";
 import PastDetails from "./components/Customers_Comp/PastDeals_Comp/PastDetails.jsx";
 import Customer_Home from "./components/Customers_Comp/Customer_Home.jsx";
+import PropertyDetail from "./components/PropertyDetails_comp/PropertyDetail.jsx";
 
 const router = createBrowserRouter([
   {
@@ -24,6 +25,7 @@ const router = createBrowserRouter([
       { path: "/leads", element: <MyLead_Home /> },
       { path: "/myinventory", element: <MyInventory_Home /> },
       { path: "/pastdetails", element: <PastDetails /> },
+      { path: "/propertdetail", element: <PropertyDetail /> },
     ],
   },
 ]);
