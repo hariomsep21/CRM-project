@@ -1,103 +1,67 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import style from "./Inventory_Body.module.css";
 import { FaSearch } from "react-icons/fa";
-import { useTable, useSortBy } from "react-table"; // Import useSortBy
-import { MdCheckBoxOutlineBlank } from "react-icons/md";
+import { useTable, useSortBy, usePagination } from "react-table"; // Import useSortBy
+import { MdCheckBoxOutlineBlank, MdCheckBox } from "react-icons/md"; // Import MdCheckBox
 import { FaRegUser } from "react-icons/fa6";
 import { MdRemoveRedEye } from "react-icons/md";
 import { BiSolidPencil } from "react-icons/bi";
-const Inventory_Body = () => {
-  const data = React.useMemo(
-    () => [
-      {
-        id: 1,
-        type: "Sell",
-        property:
-          "Agreement Sign - Mr. Chopra and Aggarwal - ATS - Sector 93, Noida",
-        name: "Mr. Gupta   +91 9856487965",
-        location: "Border st. nicholasville, ky",
-        date: "10:01:32 am 14/12/23",
-        askingPrice: "3.5 CR",
-        titleCheck: "Clear",
-        area: "5000 Sqft",
-        stage: "Advance",
-        remarks:
-          "1200Y  Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-      },
-      {
-        id: 2,
-        type: "Rental",
-        property:
-          "Lease Agreement - Ms. Singh and Mr. Mehta - Green Park - New Delhi",
-        name: "Ms. Verma   +91 9876543210",
-        location: "West st. louisville, ky",
-        date: "11:45:50 am 20/11/23",
-        askingPrice: "1.2 CR",
-        titleCheck: "Pending",
-        area: "3000 Sqft",
-        stage: "Initial",
-        remarks:
-          "1500Y  Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-      },
 
-      {
-        id: 3,
-        type: "Rental",
-        property:
-          "Lease Agreement - Ms. Singh and Mr. Mehta - Green Park - New Delhi",
-        name: "Ms. Verma   +91 9876543210",
-        location: "West st. louisville, ky",
-        date: "11:45:50 am 20/11/23",
-        askingPrice: "1.2 CR",
-        titleCheck: "Pending",
-        area: "3000 Sqft",
-        stage: "Initial",
-        remarks:
-          "1500Y  Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-      },
-      {
-        id: 4,
-        type: "Rental",
-        property:
-          "Lease Agreement - Ms. Singh and Mr. Mehta - Green Park - New Delhi",
-        name: "Ms. Verma   +91 9876543210",
-        location: "West st. louisville, ky",
-        date: "11:45:50 am 20/11/23",
-        askingPrice: "1.2 CR",
-        titleCheck: "Pending",
-        area: "3000 Sqft",
-        stage: "Initial",
-        remarks:
-          "1500Y  Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-      },
-      {
-        id: 5,
-        type: "Rental",
-        property:
-          "Lease Agreement - Ms. Singh and Mr. Mehta - Green Park - New Delhi",
-        name: "Ms. Verma   +91 9876543210",
-        location: "West st. louisville, ky",
-        date: "11:45:50 am 20/11/23",
-        askingPrice: "1.2 CR",
-        titleCheck: "Pending",
-        area: "3000 Sqft",
-        stage: "Initial",
-        remarks:
-          "1500Y  Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-      },
-    ],
-    []
-  );
+const Inventory_Body = () => {
+  const [selectedRows, setSelectedRows] = useState([]);
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    fetch("http://localhost:5000/myInventory")
+      .then((res) => res.json())
+      .then((data) => setData(data));
+  }, []);
 
   const columns = React.useMemo(
     () => [
       {
-        Header: () => (
-          <MdCheckBoxOutlineBlank className={style.header_CheckBox} />
-        ),
+        Header: ({ getToggleAllRowsSelectedProps }) => {
+          const allSelected = selectedRows.length === data.length;
+          const toggleAll = () => {
+            if (allSelected) {
+              setSelectedRows([]);
+            } else {
+              setSelectedRows(data.map((row) => row.id));
+            }
+          };
+          return (
+            <div onClick={toggleAll} className={style.header_CheckIconStyle}>
+              {allSelected ? (
+                <MdCheckBox className={style.header_CheckBox} />
+              ) : (
+                <MdCheckBoxOutlineBlank className={style.header_CheckBox} />
+              )}
+            </div>
+          );
+        },
+        width: "74px",
         accessor: "checkbox",
-        HeaderStyle: style.header_CheckIconStyle,
-        Cell: () => <MdCheckBoxOutlineBlank className={style.cell_CheckBox} />,
+        Cell: ({ row }) => {
+          const isSelected = selectedRows.includes(row.original.id);
+          const toggleRow = () => {
+            if (isSelected) {
+              setSelectedRows(
+                selectedRows.filter((id) => id !== row.original.id)
+              );
+            } else {
+              setSelectedRows([...selectedRows, row.original.id]);
+            }
+          };
+          return (
+            <div onClick={toggleRow}>
+              {isSelected ? (
+                <MdCheckBox className={style.cell_CheckBox} />
+              ) : (
+                <MdCheckBoxOutlineBlank className={style.cell_CheckBox} />
+              )}
+            </div>
+          );
+        },
       },
       {
         Header: "Type",
@@ -114,7 +78,7 @@ const Inventory_Body = () => {
         ),
       },
       {
-        Header: "Property",
+        Header: "Address",
         accessor: "property",
         HeaderStyle: style.header_PropertyStyle,
         Cell: ({ value }) => (
@@ -136,46 +100,31 @@ const Inventory_Body = () => {
         },
       },
       {
-        Header: "Location",
-        accessor: "location",
-
-        HeaderStyle: style.header_headingNameStyle,
-        Cell: ({ value }) => (
-          <div className={style.cell_BodyNameStyle}>{value}</div>
-        ),
-      },
-      {
-        Header: "Date",
+        Header: "Modify Date",
         accessor: "date",
-
         HeaderStyle: style.header_headingNameStyle,
         Cell: ({ value }) => (
           <div className={style.cell_BodyNameStyle}>{value}</div>
         ),
       },
-
       {
         Header: "Asking Price",
         accessor: "askingPrice",
-
         HeaderStyle: style.header_headingNameStyle,
       },
       {
         Header: "Title Check",
         accessor: "titleCheck",
-
         HeaderStyle: style.header_headingNameStyle,
       },
       {
         Header: "Area",
         accessor: "area",
-
         HeaderStyle: style.header_headingNameStyle,
       },
       {
         Header: "Stage",
         accessor: "stage",
-
         HeaderStyle: style.header_headingNameStyle,
       },
       {
@@ -183,11 +132,9 @@ const Inventory_Body = () => {
         accessor: "remarks",
         HeaderStyle: style.header_PropertyStyle,
       },
-
       {
         Header: " ",
         accessor: "action",
-
         HeaderStyle: style.header_headingNameStyle,
         Cell: () => (
           <div className={style.actionIconsStyle}>
@@ -198,17 +145,42 @@ const Inventory_Body = () => {
         ),
       },
     ],
-    []
+    [data, selectedRows]
   );
-  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
-    useTable(
-      {
-        columns,
-        data,
-        initialState: { sortBy: [{ id: "type", desc: false }] }, // Initial sorting by type, ascending
-      },
-      useSortBy // Hook that enables sorting
-    );
+
+  const {
+    getTableProps,
+    getTableBodyProps,
+    headerGroups,
+    page,
+    prepareRow,
+    canPreviousPage,
+    canNextPage,
+    pageOptions,
+    pageCount,
+    gotoPage,
+    nextPage,
+    previousPage,
+    setPageSize,
+    state: { pageIndex, pageSize },
+  } = useTable(
+    {
+      columns,
+      data,
+      initialState: { pageIndex: 0, pageSize: 4 }, // Initial page size of 4
+    },
+    useSortBy,
+    usePagination // Hook that enables sorting and pagination
+  );
+
+  const onChangeInSelect = (event) => {
+    setPageSize(Number(event.target.value));
+  };
+
+  const onChangeInInput = (event) => {
+    const page = event.target.value ? Number(event.target.value) - 1 : 0;
+    gotoPage(page);
+  };
 
   return (
     <>
@@ -237,9 +209,8 @@ const Inventory_Body = () => {
                 </tr>
               ))}
             </thead>
-
             <tbody {...getTableBodyProps()}>
-              {rows.map((row, rowIndex) => {
+              {page.map((row, rowIndex) => {
                 prepareRow(row);
                 const rowClassName =
                   rowIndex % 2 === 0 ? `${style.evenRow}` : `${style.oddRow}`;
@@ -259,6 +230,45 @@ const Inventory_Body = () => {
               })}
             </tbody>
           </table>
+          <div className={style.pagination}>
+            <button onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
+              {"<<"}
+            </button>{" "}
+            <button onClick={() => previousPage()} disabled={!canPreviousPage}>
+              {"<"}
+            </button>{" "}
+            <button onClick={() => nextPage()} disabled={!canNextPage}>
+              {">"}
+            </button>{" "}
+            <button
+              onClick={() => gotoPage(pageCount - 1)}
+              disabled={!canNextPage}
+            >
+              {">>"}
+            </button>{" "}
+            <span>
+              Page{" "}
+              <strong>
+                {pageIndex + 1} of {pageOptions.length}
+              </strong>{" "}
+            </span>
+            {/* <span>
+              | Go to page:{" "}
+              <input
+                type="number"
+                defaultValue={pageIndex + 1}
+                onChange={onChangeInInput}
+                style={{ width: "100px" }}
+              />
+            </span>{" "} */}
+            <select value={pageSize} onChange={onChangeInSelect}>
+              {[4, 10, 20].map((pageSize) => (
+                <option key={pageSize} value={pageSize}>
+                  Show {pageSize}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
       </section>
     </>
