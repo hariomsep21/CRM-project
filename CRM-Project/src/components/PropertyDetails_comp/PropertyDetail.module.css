@@ -1,0 +1,81 @@
+.propertyDetailEditBtn {
+  color: var(--secondary-text-color);
+  background-color: var(--primary-bg-color);
+  border-radius: 4px;
+}
+
+.propertyDetailID {
+  color: var(--placeholder-text-color);
+  font-size: 14px;
+}
+
+.propertyDetailSell {
+  color: var(--secondary-text-color);
+  background-color: var(--sell-bg-color);
+  padding: 2px 6px;
+  margin-right: 10px;
+  border-radius: 2px;
+  font-size: 12px;
+
+}
+
+.propertyDetailAddress {
+  color: var(--placeholder-text-color);
+  font-size: 14px;
+  margin-top: 15px;
+}
+
+.propertyDetailImg {
+  width: 360px;
+  height: auto;
+}
+
+.propertyDetailMainImg {
+  width: 741px;
+  height: 492px;
+}
+
+.propertyDetailGenerateBtn {
+  color: var(--primary-text-color);
+  border: 1px solid var(--primary-bcolor);
+  margin-top: -23px;
+  border-radius: 4px;
+  font-weight: 500;
+}
+
+.propertyDetailtitles {
+  font-size: 14px;
+  color: var(--filter-text-color);
+  margin-bottom: 3px;
+}
+
+.propertyDetailContent {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 0;
+}
+
+.utilityDetailsContent {
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+
+.propertyDetailPropertyTitle {
+  font-size: 16px;
+  color: var(--filter-text-color);
+  font-weight: 400;
+  margin-bottom: 0;
+}
+
+.propertyDetailProperty {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.propertyDetailNearbyIcons {
+  color: var(--filter-text-color);
+  font-size: 19px;
+  margin-right: 8px;
+  margin-bottom: 5px;
+}

@@ -1,7 +1,8 @@
 // Table.js
 
 import React, { useState } from "react";
-import { MdOutlineEdit, MdShare, MdEditNote } from "react-icons/md";
+import { MdOutlineEdit, MdEditNote } from "react-icons/md";
+import { IoShareSocialOutline } from "react-icons/io5";
 import { Modal, Button, Form } from "react-bootstrap";
 import AddNoteModal from "./AddNoteModal";
 import style from "./Table.module.css";
@@ -65,27 +66,9 @@ const Table = () => {
   };
 
   return (
-    <div className="container">
-      <div className="row mt-4">
-        <div className="col-md-1">
-          <input
-            className={`form-check-input ${style.checkbox}`}
-            type="checkbox"
-            value=""
-          />
-        </div>
-        <div className={`col-md-1 ${style.mytask_table_title}`}>Type</div>
-        <div className={`col-md-5 ${style.mytask_table_title}`}>Task</div>
-        <div className={`col-md-2 ${style.mytask_table_title_date}`}>Date</div>
-        <div className={`col-md-1 ${style.mytask_table_title}`}>Labels</div>
-        <div className={`col-md-2 ${style.mytask_table_title}`}></div>
-      </div>
-
-      {tasks.map((task) => (
-        <div
-          key={task.id}
-          className={`row mt-2 align-items-center ${style.row}`}
-        >
+    <>
+      <div className="container">
+        <div className="row mt-4">
           <div className="col-md-1">
             <input
               className={`form-check-input ${style.checkbox}`}
@@ -93,57 +76,79 @@ const Table = () => {
               value=""
             />
           </div>
-          <div className="col-md-1">
-            <div
-              className={`${style.typeBtn}`}
-              style={{
-                backgroundColor:
-                  task.type === "Sell"
-                    ? "blue"
-                    : task.type === "Buy"
-                    ? "purple"
-                    : task.type === "Rental"
-                    ? "#ffa62f"
-                    : "",
-                color:
-                  task.type === "Sell"
-                    ? "white"
-                    : task.type === "Buy"
-                    ? "white"
-                    : task.type === "Rental"
-                    ? "white"
-                    : "",
-              }}
-            >
-              {task.type}
+          <div className={`col-md-1 ${style.mytask_table_title}`}>Type</div>
+          <div className={`col-md-5 ${style.mytask_table_title}`}>Task</div>
+          <div className={`col-md-2 ${style.mytask_table_title_date}`}>
+            Date
+          </div>
+          <div className={`col-md-1 ${style.mytask_table_title}`}>Labels</div>
+          <div className={`col-md-2 ${style.mytask_table_title}`}></div>
+        </div>
+
+        {tasks.map((task) => (
+          <div
+            key={task.id}
+            className={`row mt-2 align-items-center ${style.row}`}
+          >
+            <div className="col-md-1">
+              <input
+                className={`form-check-input ${style.checkbox}`}
+                type="checkbox"
+                value=""
+              />
+            </div>
+            <div className="col-md-1">
+              <div
+                className={`${style.typeBtn}`}
+                style={{
+                  backgroundColor:
+                    task.type === "Sell"
+                      ? "blue"
+                      : task.type === "Buy"
+                      ? "purple"
+                      : task.type === "Rental"
+                      ? "#ffa62f"
+                      : "",
+                  color:
+                    task.type === "Sell"
+                      ? "white"
+                      : task.type === "Buy"
+                      ? "white"
+                      : task.type === "Rental"
+                      ? "white"
+                      : "",
+                }}
+              >
+                {task.type}
+              </div>
+            </div>
+            <div className={`col-md-5 pe-0 ${style.task_detail}`}>
+              {task.task}
+            </div>
+            <div className={`col-md-2 ${style.task_date}`}>{task.date}</div>
+            <div className={`col-md-1 ${style.task_labels}`}>{task.labels}</div>
+            <div className="col-md-2 d-flex">
+              <button className="btn ms-3">
+                <MdOutlineEdit className={`${style.editIcon}`} />
+              </button>
+              <button className="btn" onClick={() => handleEditNotes(task.id)}>
+                <MdEditNote className={`${style.editNoteIcon}`} />
+              </button>
+              <button className="btn">
+                <IoShareSocialOutline className={`${style.shareIcon}`} />
+              </button>
             </div>
           </div>
-          <div className={`col-md-5 pe-0 ${style.task_detail}`}>
-            {task.task}
-          </div>
-          <div className={`col-md-2 ${style.task_date}`}>{task.date}</div>
-          <div className={`col-md-1 ${style.task_labels}`}>{task.labels}</div>
-          <div className="col-md-2 d-flex">
-            <button className="btn ms-3">
-              <MdOutlineEdit className={`${style.editIcon}`} />
-            </button>
-            <button className="btn" onClick={() => handleEditNotes(task.id)}>
-              <MdEditNote className={`${style.editNoteIcon}`} />
-            </button>
-            <button className="btn">
-              <MdShare className={`${style.shareIcon}`} />
-            </button>
-          </div>
-        </div>
-      ))}
+        ))}
 
-      <AddNoteModal
-        show={showNoteModal}
-        handleClose={handleCloseNoteModal}
-        task={tasks.find((task) => task.id === currentTaskId) || {}}
-        onSave={handleSaveNote}
-      />
-    </div>
+        <AddNoteModal
+          show={showNoteModal}
+          handleClose={handleCloseNoteModal}
+          task={tasks.find((task) => task.id === currentTaskId) || {}}
+          onSave={handleSaveNote}
+        />
+      </div>
+    </>
   );
 };
 
