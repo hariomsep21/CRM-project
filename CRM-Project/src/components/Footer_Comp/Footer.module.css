@@ -1,10 +1,11 @@
 .Brand_Name {
-  font-size: 16px;
+  font-size: 13px;
+  font-weight: 600;
 }
 
 .links a {
   text-decoration: none;
-  font-family: 13px;
+  font-size: 13px;
 }
 
 /* 
