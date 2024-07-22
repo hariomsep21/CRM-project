@@ -1,4 +1,5 @@
 import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.bundle.min";
 import { useState, useEffect } from "react";
 import style from "./Navbar.module.css";
 import { LuLayoutDashboard } from "react-icons/lu";
