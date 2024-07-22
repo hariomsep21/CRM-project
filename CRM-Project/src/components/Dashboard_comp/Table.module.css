@@ -21,7 +21,7 @@
 }
 
 .task_labels {
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 500;
 }
 
@@ -64,4 +64,21 @@
 
 .row:nth-child(even) {
   background-color: #F5F5F5;
+}
+
+
+.archieveBtn {
+  font-size: 16px;
+  padding: 8px 20px;
+  margin-right: 13px;
+}
+
+.archiveIcon {
+  font-size: 24px;
+  margin-right: 5px;
+}
+
+.mytask_title {
+  font-size: 24px;
+  font-weight: 700;
 }

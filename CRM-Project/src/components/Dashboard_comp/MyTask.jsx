@@ -1,26 +1,10 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-import { MdOutlineArchive, MdAdd } from "react-icons/md";
 import { FaMagnifyingGlass } from "react-icons/fa6";
 import style from "./MyTask.module.css";
-import Table from "./Table";
-import CreateTask from "./CreateTask";
 
 const MyTask = () => {
   return (
     <>
-      <div className="d-flex justify-content-between mb-1 align-items-center ">
-        <h3 className={`${style.mytask_title}`}>My Task</h3>
-        <div className={`${style.btnGroup}`}>
-          <button
-            type="button"
-            className={`btn btn-outline-secondary ${style.archieveBtn}`}
-          >
-            <MdOutlineArchive className={`${style.archiveIcon}`} />
-            Archive
-          </button>
-          <CreateTask />
-        </div>
-      </div>
       <div className="d-flex justify-content-between">
         <div className="d-flex">
           <div className="mb-3 me-4">
@@ -77,7 +61,6 @@ const MyTask = () => {
           </button>
         </div>
       </div>
-      <Table />
     </>
   );
 };

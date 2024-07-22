@@ -1,14 +1,17 @@
 // Table.js
 
 import React, { useState } from "react";
-import { MdOutlineEdit, MdEditNote } from "react-icons/md";
+import { MdOutlineEdit, MdEditNote, MdOutlineArchive } from "react-icons/md";
 import { IoShareSocialOutline } from "react-icons/io5";
 import { Modal, Button, Form } from "react-bootstrap";
+import CreateTask from "./CreateTask";
 import AddNoteModal from "./AddNoteModal";
 import style from "./Table.module.css";
+import MyTask from "./MyTask";
 
 const Table = () => {
   const [showNoteModal, setShowNoteModal] = useState(false);
+  const [showCreateTaskModal, setShowCreateTaskModal] = useState(false);
   const [currentTaskId, setCurrentTaskId] = useState(null);
   const [note, setNote] = useState("");
   const [tasks, setTasks] = useState([
@@ -41,6 +44,12 @@ const Table = () => {
       labels: "Custom",
     },
   ]);
+  const [newTask, setNewTask] = useState({
+    task: "",
+    type: "Buy",
+    assignTo: "",
+    labels: "Custom",
+  });
 
   const handleEditNotes = (taskId) => {
     setCurrentTaskId(taskId);
@@ -61,17 +70,71 @@ const Table = () => {
     handleCloseNoteModal();
   };
 
+  const handleAddTask = () => {
+    const newId = tasks.length + 1;
+    const currentDate = new Date();
+    const year = currentDate.getFullYear().toString().slice(-2);
+    const month = currentDate.toLocaleString("default", { month: "2-digit" });
+    const day = currentDate.toLocaleString("default", { day: "2-digit" });
+    const time = currentDate.toLocaleTimeString();
+    const formattedDate = `${time} ${month}/${day}/${year}`;
+    const updatedTasks = [
+      ...tasks,
+      {
+        id: newId,
+        task: newTask.task,
+        type: newTask.type,
+        date: formattedDate,
+        labels: newTask.labels,
+      },
+    ];
+    setTasks(updatedTasks);
+    setShowCreateTaskModal(false);
+    setNewTask({ task: "", type: "Buy", assignTo: "", labels: "Custom" });
+  };
+
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setNewTask({ ...newTask, [name]: value });
+  };
   const handleNoteChange = (event) => {
     setNote(event.target.value);
   };
 
   return (
     <>
-      <div className="container">
+      <div className="container p-0">
+        <div className="d-flex justify-content-between mb-1 align-items-center ">
+          <h3 className={`${style.mytask_title}`}>My Task</h3>
+          <div className={`${style.btnGroup}`}>
+            <button
+              type="button"
+              className={`btn btn-outline-secondary ${style.archieveBtn}`}
+            >
+              <MdOutlineArchive className={`${style.archiveIcon}`} />
+              Archive
+            </button>
+            <CreateTask
+              show={showCreateTaskModal}
+              setShowCreateTaskModal={setShowCreateTaskModal}
+              handleClose={() => setShowCreateTaskModal(false)}
+              handleInputChange={handleInputChange}
+              handleAddTask={handleAddTask}
+              newItem={newTask}
+              labelOptions={[
+                "Custom",
+                "High Priority",
+                "Medium Priority",
+                "Low Priority",
+              ]}
+            />
+          </div>
+        </div>
+        <MyTask></MyTask>
         <div className="row mt-4">
-          <div className="col-md-1">
+          <div className="col-md-1 text-center">
             <input
-              className={`form-check-input ${style.checkbox}`}
+              className={`form-check-input  ${style.checkbox}`}
               type="checkbox"
               value=""
             />
@@ -90,7 +153,7 @@ const Table = () => {
             key={task.id}
             className={`row mt-2 align-items-center ${style.row}`}
           >
-            <div className="col-md-1">
+            <div className="col-md-1 text-center">
               <input
                 className={`form-check-input ${style.checkbox}`}
                 type="checkbox"

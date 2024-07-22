@@ -12,11 +12,13 @@ import "jspdf-autotable"; // Import the jsPDF autotable plugin
 import "react-toastify/dist/ReactToastify.css";
 import MyInventory_Create from "./MyInventory_Create/MyInventory_Create";
 import Inventory_Header from "./Inventory_Header";
+import { useNavigate } from "react-router-dom";
 
 const Inventory_Body = () => {
   const [selectedRows, setSelectedRows] = useState([]);
   const [data, setData] = useState([]);
   const [reload, setReload] = useState(false); // State to track data reload
+  const navigate = useNavigate();
 
   const fetchData = useCallback(() => {
     fetch("http://localhost:5000/myInventory")
@@ -235,10 +237,13 @@ const Inventory_Body = () => {
         Header: " ",
         accessor: "action",
         HeaderStyle: style.header_headingNameStyle,
-        Cell: () => (
+        Cell: ({ row }) => (
           <div className={style.actionIconsStyle}>
             <FaRegUser className={style.actionIcon} />
-            <MdRemoveRedEye className={style.actionIconEye} />
+            <MdRemoveRedEye
+              className={style.actionIconEye}
+              onClick={() => navigate(`/PropertyDetail/${row.original.id}`)}
+            />
             <BiSolidPencil className={style.actionIcon} />
           </div>
         ),

@@ -10,8 +10,12 @@ const AddNoteModal = ({ show, handleClose, task, onSave }) => {
   useEffect(() => {
     if (task.date) {
       const parsedDate = parse(task.date, "hh:mm:ss a dd/MM/yy", new Date());
-      const formatted = formatDistanceToNow(parsedDate, { addSuffix: true });
-      setFormattedDate(formatted);
+      if (parsedDate instanceof Date && !isNaN(parsedDate.getTime())) {
+        const formatted = formatDistanceToNow(parsedDate, { addSuffix: true });
+        setFormattedDate(formatted);
+      } else {
+        setFormattedDate(task.date);
+      }
     }
   }, [task.date]);
 

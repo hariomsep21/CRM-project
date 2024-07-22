@@ -1,5 +1,5 @@
 import style from "./Dashboard.module.css";
-import MyTask from "./MyTask";
+import Table from "./Table";
 
 import LeadStatus from "./LeadStatus";
 
@@ -9,7 +9,7 @@ const Dashboard = () => {
       <div className={`${style.dashboard} container mt-4`}>
         <h3 className={`${style.dashboardHeading}`}>Dashboard</h3>
         <LeadStatus></LeadStatus>
-        <MyTask></MyTask>
+        <Table></Table>
       </div>
     </>
   );

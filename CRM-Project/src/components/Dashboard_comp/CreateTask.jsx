@@ -12,38 +12,27 @@ import {
 import style from "./CreateTask.module.css";
 import { MdAdd } from "react-icons/md";
 
-const CreateTask = () => {
-  const [show, setShow] = useState(false);
-  const [title, setTitle] = useState("");
-  const [propertyType, setPropertyType] = useState("Buyer");
-  const [assignTo, setAssignTo] = useState("");
-  const [label, setLabel] = useState("High priority");
-  const [customLevel, setCustomLevel] = useState("");
+const CreateTask = ({
+  show,
+  setShowCreateTaskModal,
+  handleClose,
+  handleInputChange,
+  handleAddTask,
+  newItem,
+  labelOptions,
+}) => {
+  const [selectedType, setSelectedType] = useState(newItem.type);
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    if (name === "propertyType") {
-      setPropertyType(value);
-    } else if (name === "assignTo") {
-      setAssignTo(value);
-    } else if (name === "label") {
-      setLabel(value);
-    } else if (name === "customLevel") {
-      setCustomLevel(value);
-    } else {
-      setTitle(value);
-    }
+  const handleTypeChange = (event) => {
+    setSelectedType(event.target.value);
+    handleInputChange(event);
   };
-
   return (
     <>
       <Button
-        variant=""
-        onClick={handleShow}
-        className={`btn btn-primary ${style.btnTask}`}
+        variant="primary"
+        className={` ${style.btnTask}`}
+        onClick={() => setShowCreateTaskModal(true)}
       >
         <MdAdd className={`${style.addIcon}`} />
         Create Task
@@ -61,45 +50,45 @@ const CreateTask = () => {
               <Form.Control
                 type="text"
                 placeholder="Write here"
-                name="title"
-                value={title}
-                onChange={handleChange}
+                name="task"
+                value={newItem.task}
+                onChange={handleInputChange}
                 className={style.createTaskInputField}
               />
             </Form.Group>
-            <Form.Group className="mb-3" controlId="formBasicProperty">
+            <Form.Group controlId="formBasicProperty" className="pt-3 pb-3">
               <Form.Label className={`${style.heading}`}>
                 Property Type
               </Form.Label>
               <div className={`${style.propertyTypeCheckbox}`}>
                 <Form.Check
                   type="radio"
-                  label="Buyer"
-                  name="propertyType"
-                  id="buyer"
-                  value="Buyer"
-                  checked={propertyType === "Buyer"}
-                  onChange={handleChange}
+                  label="Buy"
+                  name="type"
+                  id="Buy"
+                  value="Buy"
+                  checked={selectedType === "Buy"}
+                  onChange={handleTypeChange}
                   className={`form-check ${style.radio}`}
                 />
                 <Form.Check
                   type="radio"
-                  label="Seller"
-                  name="propertyType"
-                  id="seller"
-                  value="Seller"
-                  checked={propertyType === "Seller"}
-                  onChange={handleChange}
+                  label="Sell"
+                  name="type"
+                  id="Sell"
+                  value="Sell"
+                  checked={selectedType === "Sell"}
+                  onChange={handleTypeChange}
                   className={style.radio}
                 />
                 <Form.Check
                   type="radio"
                   label="Rental"
-                  name="propertyType"
-                  id="rental"
+                  name="type"
+                  id="Rental"
                   value="Rental"
-                  checked={propertyType === "Rental"}
-                  onChange={handleChange}
+                  checked={selectedType === "Rental"}
+                  onChange={handleTypeChange}
                   className={style.radio}
                 />
               </div>
@@ -113,8 +102,8 @@ const CreateTask = () => {
                   <Form.Select
                     aria-label="Default select example"
                     name="assignTo"
-                    value={assignTo}
-                    onChange={handleChange}
+                    value={newItem.assignTo}
+                    onChange={handleInputChange}
                     className={`w-100 ${style.createTaskInputField}`}
                   >
                     <option value="">Select assign</option>
@@ -127,59 +116,19 @@ const CreateTask = () => {
               <Col md={6}>
                 <Form.Group className="mb-3" controlId="formBasicLabel">
                   <Form.Label className={`${style.heading}`}>Label</Form.Label>
-                  <DropdownButton
-                    variant="outline-secondary"
-                    title={label}
-                    className={`${style.createTaskInputField} ${style.fullWidthDropdownButton}`}
+                  <Form.Control
+                    as="select"
+                    name="labels"
+                    value={newItem.labels}
+                    onChange={handleInputChange}
+                    className={`${style.createTaskInputField}`}
                   >
-                    <Dropdown.Item
-                      onClick={() => setLabel("High priority")}
-                      style={{
-                        color: label === "High priority" ? "black" : "",
-                        fontWeight: label === "High priority" ? "bold" : "",
-                      }}
-                      className="pt-2 pb-2"
-                    >
-                      High priority
-                    </Dropdown.Item>
-                    <Dropdown.Item
-                      onClick={() => setLabel("Medium priority")}
-                      style={{
-                        color: label === "Medium priority" ? "black" : "",
-                        fontWeight: label === "Medium priority" ? "bold" : "",
-                      }}
-                      className="pt-2 pb-2"
-                    >
-                      Medium priority
-                    </Dropdown.Item>
-                    <Dropdown.Item
-                      onClick={() => setLabel("Low priority")}
-                      style={{
-                        color: label === "Low priority" ? "black" : "",
-                        fontWeight: label === "Low priority" ? "bold" : "",
-                      }}
-                      className="pt-2 pb-2"
-                    >
-                      Low priority
-                    </Dropdown.Item>
-                    <Dropdown.Item
-                      onClick={() => setLabel("Custom level")}
-                      className={style.customLevelItem}
-                    >
-                      <MdAdd />
-                      Add Custom label
-                    </Dropdown.Item>
-                  </DropdownButton>
-                  {label === "Custom level" && (
-                    <Form.Control
-                      type="text"
-                      placeholder="Enter custom level"
-                      name="customLevel"
-                      value={customLevel}
-                      onChange={handleChange}
-                      className={`${style.createTaskInputField}`}
-                    />
-                  )}
+                    {labelOptions.map((label, index) => (
+                      <option key={index} value={label}>
+                        {label}
+                      </option>
+                    ))}
+                  </Form.Control>
                 </Form.Group>
               </Col>
             </Row>
@@ -196,7 +145,7 @@ const CreateTask = () => {
           <Button
             variant="primary"
             className={`${style.submitBtn}`}
-            onClick={handleClose}
+            onClick={handleAddTask}
           >
             Submit
           </Button>

@@ -26,6 +26,7 @@ const router = createBrowserRouter([
       { path: "/myinventory", element: <MyInventory_Home /> },
       { path: "/pastdetails", element: <PastDetails /> },
       { path: "/propertdetail", element: <PropertyDetail /> },
+      { path: "/PropertyDetail/:id", element: <PropertyDetail /> },
     ],
   },
 ]);
