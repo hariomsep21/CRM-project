@@ -1,21 +1,106 @@
 import React, { useEffect, useState } from "react";
 import style from "./Inventory_Body.module.css";
 import { FaSearch } from "react-icons/fa";
-import { useTable, useSortBy, usePagination } from "react-table"; // Import useSortBy
-import { MdCheckBoxOutlineBlank, MdCheckBox } from "react-icons/md"; // Import MdCheckBox
+import { useTable, useSortBy, usePagination } from "react-table";
+import { MdCheckBoxOutlineBlank, MdCheckBox } from "react-icons/md";
 import { FaRegUser } from "react-icons/fa6";
 import { MdRemoveRedEye } from "react-icons/md";
 import { BiSolidPencil } from "react-icons/bi";
+import { toast } from "react-toastify";
+import { jsPDF } from "jspdf";
+import "jspdf-autotable"; // Import the jsPDF autotable plugin
+import "react-toastify/dist/ReactToastify.css";
+import MyInventory_Create from "./MyInventory_Create/MyInventory_Create";
+import Inventory_Header from "./Inventory_Header";
 
 const Inventory_Body = () => {
   const [selectedRows, setSelectedRows] = useState([]);
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/myInventory")
-      .then((res) => res.json())
-      .then((data) => setData(data));
+    const fetchData = () => {
+      fetch("http://localhost:5000/myInventory")
+        .then((res) => res.json())
+        .then((data) => setData(data));
+    };
+
+    fetchData();
+    const intervalId = setInterval(fetchData, 5000);
+
+    return () => clearInterval(intervalId);
   }, []);
+
+  const generatePDF = () => {
+    const selectedData = data.filter((row) => selectedRows.includes(row.id));
+    const doc = new jsPDF({
+      orientation: "landscape", // Optional: Landscape orientation for wider content
+      unit: "mm",
+      format: [297, 210], // A4 page size in mm (width, height)
+    });
+
+    // Define common border color for both header and body
+    const borderColor = [44, 62, 80]; // Change this to your desired color
+
+    // Define table column styles
+    const tableColumnStyles = {
+      cellPadding: 5,
+      fontSize: 10,
+      overflow: "linebreak",
+      tableLineColor: borderColor, // Border color for body cells
+      tableLineWidth: 0.75, // Border width
+      margin: { top: 10 },
+      styles: {
+        fillColor: [255, 255, 255], // No background color for cells
+        textColor: [0, 0, 0], // Text color
+      },
+      headStyles: {
+        fillColor: [255, 255, 255], // No background color for header
+        textColor: [0, 0, 0], // Text color
+        fontStyle: "bold", // Make header text bold
+        lineWidth: 0.2, // Border width around header cells
+        lineColor: borderColor, // Same border color as body cells
+      },
+    };
+
+    const tableBody = selectedData.map((row, index) => [
+      index + 1, // Serial number
+      row.address,
+      row.location,
+      row.floor,
+      row.bed,
+      row.rent,
+      row.plotSize,
+      row.parkFacing,
+      row.lift,
+      row.stiltParking,
+      row.staffRoom,
+      row.remarks,
+    ]);
+
+    doc.autoTable({
+      head: [
+        [
+          "S.No", // Serial Number header
+          "Address",
+          "Location",
+          "Floor",
+          "Bed",
+          "Rent",
+          "Plot Size",
+          "ParkFacing",
+          "Lift",
+          "Stilt Parking",
+          "Staff Room",
+          "Remarks",
+        ],
+      ],
+      body: tableBody,
+      theme: "grid", // Use a grid theme for borders
+      ...tableColumnStyles,
+    });
+
+    doc.save("advice.pdf");
+  };
 
   const columns = React.useMemo(
     () => [
@@ -65,7 +150,7 @@ const Inventory_Body = () => {
       },
       {
         Header: "Type",
-        accessor: "type",
+        accessor: "propertyStatus",
         HeaderStyle: style.header_TypeStyle,
         Cell: ({ value }) => (
           <div
@@ -79,58 +164,58 @@ const Inventory_Body = () => {
       },
       {
         Header: "Address",
-        accessor: "property",
+        accessor: (row) =>
+          `${row.propertyType} ${row.address} ${row.location} Floor ${row.floor}`,
         HeaderStyle: style.header_PropertyStyle,
         Cell: ({ value }) => (
           <div className={style.cell_PropertyStyle}>{value}</div>
         ),
-      }, // Different header style
-      {
-        Header: "Name",
-        accessor: "name",
-        HeaderStyle: style.header_headingNameStyle,
-        Cell: ({ value }) => {
-          const [name, phone] = value.split(/\s{3,}/);
-          return (
-            <div
-              className={style.cell_BodyNameStyle}
-              dangerouslySetInnerHTML={{ __html: `${name}<br>${phone}` }}
-            />
-          );
-        },
       },
       {
-        Header: "Modify Date",
-        accessor: "date",
+        Header: "Bed",
+        accessor: "bed",
+        HeaderStyle: style.header_headingNameStyle,
+        Cell: ({ value }) => (
+          <div className={style.cell_PropertyStyle}>{value}</div>
+        ),
+      },
+      {
+        Header: "Rent",
+        accessor: "rent",
         HeaderStyle: style.header_headingNameStyle,
         Cell: ({ value }) => (
           <div className={style.cell_BodyNameStyle}>{value}</div>
         ),
       },
       {
-        Header: "Asking Price",
-        accessor: "askingPrice",
+        Header: "Plot Size",
+        accessor: "plotSize",
         HeaderStyle: style.header_headingNameStyle,
       },
       {
-        Header: "Title Check",
-        accessor: "titleCheck",
+        Header: "ParkFacing",
+        accessor: "parkFacing",
         HeaderStyle: style.header_headingNameStyle,
       },
       {
-        Header: "Area",
-        accessor: "area",
+        Header: "Lift",
+        accessor: "lift",
         HeaderStyle: style.header_headingNameStyle,
       },
       {
-        Header: "Stage",
-        accessor: "stage",
+        Header: "Stilt Parking",
+        accessor: "stiltParking",
+        HeaderStyle: style.header_headingNameStyle,
+      },
+      {
+        Header: "Staff Room",
+        accessor: "staffRoom",
         HeaderStyle: style.header_headingNameStyle,
       },
       {
         Header: "Remarks",
         accessor: "remarks",
-        HeaderStyle: style.header_PropertyStyle,
+        HeaderStyle: style.header_headingNameStyle,
       },
       {
         Header: " ",
@@ -167,10 +252,10 @@ const Inventory_Body = () => {
     {
       columns,
       data,
-      initialState: { pageIndex: 0, pageSize: 4 }, // Initial page size of 4
+      initialState: { pageIndex: 0, pageSize: 4 },
     },
     useSortBy,
-    usePagination // Hook that enables sorting and pagination
+    usePagination
   );
 
   const onChangeInSelect = (event) => {
@@ -184,6 +269,34 @@ const Inventory_Body = () => {
 
   return (
     <>
+      <section className="section_1 mt-3">
+        <div className="row">
+          <div className={`col-md-7 col-lg-7 ${style.inventory_heading}`}>
+            My Inventory
+          </div>
+          <div className="col-md-5 col-lg-5">
+            <div className={`row ${style.three_btn}`}>
+              <div className={`col-4 ${style.Div_advicebtn}`}>
+                <button
+                  className={`btn ${style.advice_btn}`}
+                  onClick={generatePDF}
+                >
+                  Generate Advice
+                </button>
+              </div>
+              <div className={`col-4 ${style.Div_brochurebtn}`}>
+                <button className={`btn ${style.brochure_btn}`}>
+                  Generate Brochure
+                </button>
+              </div>
+              <div className={`col-4 ${style.Div_addInventorybtn}`}>
+                <MyInventory_Create />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <Inventory_Header />
       <section className="section_3 mt-4">
         <div className={style.tableContainer}>
           <table {...getTableProps()} className={style.table}>
@@ -196,7 +309,7 @@ const Inventory_Body = () => {
                   {headerGroup.headers.map((column, columnIndex) => (
                     <th
                       key={columnIndex}
-                      {...column.getHeaderProps(column.getSortByToggleProps())} // Enable sorting for each column
+                      {...column.getHeaderProps(column.getSortByToggleProps())}
                       className={column.HeaderStyle}
                       style={{ width: column.width }}
                     >
@@ -252,15 +365,6 @@ const Inventory_Body = () => {
                 {pageIndex + 1} of {pageOptions.length}
               </strong>{" "}
             </span>
-            {/* <span>
-              | Go to page:{" "}
-              <input
-                type="number"
-                defaultValue={pageIndex + 1}
-                onChange={onChangeInInput}
-                style={{ width: "100px" }}
-              />
-            </span>{" "} */}
             <select value={pageSize} onChange={onChangeInSelect}>
               {[4, 10, 20].map((pageSize) => (
                 <option key={pageSize} value={pageSize}>

@@ -1,0 +1,26 @@
+ .addInventory_btn {
+   height: 35px;
+   font-size: 10px;
+   color: var(--secondary-text-color);
+   font-weight: 500;
+   border: 1px solid transparent;
+   background-color: var(--primary-bg-color);
+ }
+
+ .modalBody {
+   font-size: 14px;
+   color: var(--primary-text-color);
+ }
+
+ .modalBody input {
+   font-size: 14px;
+ }
+
+ .modalBody select {
+   font-size: 14px;
+ }
+
+ .modalBody button {
+   font-size: 15px;
+   text-align: center;
+ }

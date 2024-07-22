@@ -3,36 +3,11 @@ import style from "./Inventory_Header.module.css";
 import { FaSearch } from "react-icons/fa";
 import { useTable } from "react-table";
 import { MdCheckBoxOutlineBlank } from "react-icons/md";
+import MyInventory_Create from "./MyInventory_Create/MyInventory_Create";
 
 const Inventory_Header = () => {
   return (
     <>
-      <section className="section_1 mt-3">
-        <div className="row">
-          <div className={`col-md-7 col-lg-7 ${style.inventory_heading}`}>
-            My Inventory
-          </div>
-          <div className="col-md-5 col-lg-5">
-            <div className={`row ${style.three_btn}`}>
-              <div className={`col-4 ${style.Div_advicebtn}`}>
-                <button className={`btn ${style.advice_btn}`}>
-                  Generate Advice
-                </button>
-              </div>
-              <div className={`col-4 ${style.Div_brochurebtn}`}>
-                <button className={`btn ${style.brochure_btn}`}>
-                  Generate Brochure
-                </button>
-              </div>
-              <div className={`col-4 ${style.Div_addInventorybtn}`}>
-                <button className={`btn ${style.addInventory_btn}`}>
-                  + Add New Inventory
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
       <section className="section_2 mt-4">
         <div className="row">
           <div className="col-md-12 col-lg-12">
@@ -43,18 +18,20 @@ const Inventory_Header = () => {
                     <label htmlFor="bytype">By Type</label>
                     <select className={style.dropdown_Type} id="bytype">
                       <option value="volvo">All</option>
-                      <option value="saab">Saab</option>
-                      <option value="opel">Opel</option>
-                      <option value="audi">Audi</option>
+                      <option value="saab">Sell</option>
+                      <option value="opel">Rent</option>
                     </select>
                   </div>
                   <div className="col">
                     <label htmlFor="bydate">By Date</label>
-                    <select className={style.dropdown_Date} id="bydate">
+                    <select
+                      className={style.dropdown_Date}
+                      id="bydate"
+                      disabled
+                    >
                       <option value="volvo">All</option>
-                      <option value="saab">Saab</option>
-                      <option value="opel">Opel</option>
-                      <option value="audi">Audi</option>
+                      <option value="saab">Sell</option>
+                      <option value="opel">Rent</option>
                     </select>
                   </div>
                   <div className={`col ${style.SearchLocation_input}`}>

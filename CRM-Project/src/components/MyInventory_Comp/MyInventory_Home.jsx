@@ -10,7 +10,6 @@ const MyInventory_Home = () => {
   return (
     <>
       <div className="container mt-5">
-        <Inventory_Header />
         <Inventory_Body />
       </div>
     </>
