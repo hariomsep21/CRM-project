@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import style from "./Inventory_Body.module.css";
 import { FaSearch } from "react-icons/fa";
 import { useTable, useSortBy, usePagination } from "react-table";
@@ -16,26 +16,34 @@ import Inventory_Header from "./Inventory_Header";
 const Inventory_Body = () => {
   const [selectedRows, setSelectedRows] = useState([]);
   const [data, setData] = useState([]);
+  const [reload, setReload] = useState(false); // State to track data reload
 
-  useEffect(() => {
-    const fetchData = () => {
-      fetch("http://localhost:5000/myInventory")
-        .then((res) => res.json())
-        .then((data) => setData(data));
-    };
-
-    fetchData();
-    const intervalId = setInterval(fetchData, 5000);
-
-    return () => clearInterval(intervalId);
+  const fetchData = useCallback(() => {
+    fetch("http://localhost:5000/myInventory")
+      .then((res) => res.json())
+      .then((data) => setData(data));
   }, []);
 
+  useEffect(() => {
+    fetchData();
+  }, [fetchData, reload]); // Fetch data when component mounts or reload changes
+
+  const handleNewRecordAdded = () => {
+    setReload((prev) => !prev); // Toggle reload state to trigger data fetch
+  };
   const generatePDF = () => {
     const selectedData = data.filter((row) => selectedRows.includes(row.id));
     const doc = new jsPDF({
       orientation: "landscape", // Optional: Landscape orientation for wider content
       unit: "mm",
       format: [297, 210], // A4 page size in mm (width, height)
+    });
+
+    // Add main heading
+    doc.setFontSize(16);
+    doc.setFont("helvetica", "semi-bold");
+    doc.text("Property Advice", doc.internal.pageSize.getWidth() / 2, 20, {
+      align: "center",
     });
 
     // Define common border color for both header and body
@@ -48,7 +56,7 @@ const Inventory_Body = () => {
       overflow: "linebreak",
       tableLineColor: borderColor, // Border color for body cells
       tableLineWidth: 0.75, // Border width
-      margin: { top: 10 },
+      margin: { top: 30 }, // Adjust top margin to make space for heading
       styles: {
         fillColor: [255, 255, 255], // No background color for cells
         textColor: [0, 0, 0], // Text color
@@ -164,9 +172,17 @@ const Inventory_Body = () => {
       },
       {
         Header: "Address",
-        accessor: (row) =>
-          `${row.propertyType} ${row.address} ${row.location} Floor ${row.floor}`,
+        accessor: (row) => `${row.propertyType} ${row.address} ${row.location}`,
         HeaderStyle: style.header_PropertyStyle,
+        Cell: ({ value }) => (
+          <div className={style.cell_PropertyStyle}>{value}</div>
+        ),
+      },
+
+      {
+        Header: "Floor",
+        accessor: "floor",
+        HeaderStyle: style.header_headingNameStyle,
         Cell: ({ value }) => (
           <div className={style.cell_PropertyStyle}>{value}</div>
         ),
@@ -179,17 +195,15 @@ const Inventory_Body = () => {
           <div className={style.cell_PropertyStyle}>{value}</div>
         ),
       },
-      {
-        Header: "Rent",
-        accessor: "rent",
-        HeaderStyle: style.header_headingNameStyle,
-        Cell: ({ value }) => (
-          <div className={style.cell_BodyNameStyle}>{value}</div>
-        ),
-      },
+
       {
         Header: "Plot Size",
         accessor: "plotSize",
+        HeaderStyle: style.header_headingNameStyle,
+      },
+      {
+        Header: "Rent",
+        accessor: "rent",
         HeaderStyle: style.header_headingNameStyle,
       },
       {
@@ -290,7 +304,8 @@ const Inventory_Body = () => {
                 </button>
               </div>
               <div className={`col-4 ${style.Div_addInventorybtn}`}>
-                <MyInventory_Create />
+                <MyInventory_Create onNewRecordAdded={handleNewRecordAdded} />{" "}
+                {/* Pass the callback as a prop */}
               </div>
             </div>
           </div>

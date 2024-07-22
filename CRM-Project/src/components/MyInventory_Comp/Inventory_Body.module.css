@@ -23,6 +23,7 @@
   background-color: var(--primary-bg-color);
 }
 
+
 .Div_advicebtn {
   padding: 0;
   direction: rtl;
@@ -140,7 +141,7 @@
 }
 
 .cell_PropertyStyle {
-  font-weight: 600;
+  font-weight: 500;
 }
 
 .header_PropertyStyle {
@@ -148,11 +149,11 @@
 }
 
 .header_headingNameStyle {
-  width: 180px !important;
+  width: 120px !important;
 }
 
 .cell_BodyNameStyle {
-  width: 133px !important;
+  width: 100px !important;
 }
 
 /* In your CSS file */

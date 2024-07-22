@@ -4,7 +4,7 @@ import style from "./MyInventory_Create.module.css";
 import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
 
-const MyInventory_Create = () => {
+const MyInventory_Create = ({ onNewRecordAdded }) => {
   const [show, setShow] = useState(false);
   const [formData, setFormData] = useState({
     propertyType: "",
@@ -42,10 +42,11 @@ const MyInventory_Create = () => {
   const handleClose = () => setShow(false);
 
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.id]: e.target.value,
-    });
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
   };
 
   const handleSubmit = async (e) => {
@@ -74,6 +75,7 @@ const MyInventory_Create = () => {
 
       if (response.ok) {
         toast.success("Records added successfully");
+        onNewRecordAdded(); // Notify parent component
         handleClose();
       } else {
         toast.error("Failed to add records");
@@ -99,7 +101,7 @@ const MyInventory_Create = () => {
         className={`custom-modal modal-dialog-centered ${style.modal}`}
       >
         <Modal.Header closeButton>
-          <Modal.Title className={style.title}>Edit Need</Modal.Title>
+          <Modal.Title className={style.title}>New Inventory</Modal.Title>
         </Modal.Header>
         <Modal.Body className={style.modalBody}>
           <form onSubmit={handleSubmit}>
@@ -108,6 +110,7 @@ const MyInventory_Create = () => {
                 <label htmlFor="propertyType">Property Type</label>
                 <select
                   id="propertyType"
+                  name="propertyType"
                   className="form-control"
                   value={formData.propertyType}
                   onChange={handleChange}
@@ -124,6 +127,7 @@ const MyInventory_Create = () => {
                 <label htmlFor="propertyStatus">Property Status</label>
                 <select
                   id="propertyStatus"
+                  name="propertyStatus"
                   className="form-control"
                   value={formData.propertyStatus}
                   onChange={handleChange}
@@ -139,6 +143,7 @@ const MyInventory_Create = () => {
                 <label htmlFor="address">Address</label>
                 <input
                   type="text"
+                  name="address"
                   className="form-control"
                   id="address"
                   value={formData.address}
@@ -147,10 +152,11 @@ const MyInventory_Create = () => {
                 />
               </div>
 
-              <div className="form-group col-md-6 ps-3  pt-3">
+              <div className="form-group col-md-6 ps-3 pt-3">
                 <label htmlFor="location">Location</label>
                 <input
                   type="text"
+                  name="location"
                   className="form-control"
                   id="location"
                   value={formData.location}
@@ -164,6 +170,7 @@ const MyInventory_Create = () => {
                 <label htmlFor="floor">Floor</label>
                 <input
                   type="text"
+                  name="floor"
                   className="form-control"
                   id="floor"
                   value={formData.floor}
@@ -175,6 +182,7 @@ const MyInventory_Create = () => {
                 <label htmlFor="bed">Bed</label>
                 <input
                   type="text"
+                  name="bed"
                   className="form-control"
                   id="bed"
                   value={formData.bed}
@@ -189,6 +197,7 @@ const MyInventory_Create = () => {
                 <label htmlFor="rent">Rent</label>
                 <input
                   type="text"
+                  name="rent"
                   className="form-control"
                   id="rent"
                   value={formData.rent}
@@ -201,6 +210,7 @@ const MyInventory_Create = () => {
                 <label htmlFor="plotSize">Plot Size (SQ YDS)</label>
                 <input
                   type="text"
+                  name="plotSize"
                   className="form-control"
                   id="plotSize"
                   value={formData.plotSize}
@@ -214,6 +224,7 @@ const MyInventory_Create = () => {
                 <label htmlFor="parkFacing">Park Facing</label>
                 <select
                   id="parkFacing"
+                  name="parkFacing"
                   className="form-control"
                   value={formData.parkFacing}
                   onChange={handleChange}
@@ -228,6 +239,7 @@ const MyInventory_Create = () => {
                 <label htmlFor="lift">Lift</label>
                 <select
                   id="lift"
+                  name="lift"
                   className="form-control"
                   value={formData.lift}
                   onChange={handleChange}
@@ -244,6 +256,7 @@ const MyInventory_Create = () => {
                 <label htmlFor="stiltParking">Stilt Parking</label>
                 <select
                   id="stiltParking"
+                  name="stiltParking"
                   className="form-control"
                   value={formData.stiltParking}
                   onChange={handleChange}
@@ -258,6 +271,7 @@ const MyInventory_Create = () => {
                 <label htmlFor="staffRoom">Staff Room</label>
                 <select
                   id="staffRoom"
+                  name="staffRoom"
                   className="form-control"
                   value={formData.staffRoom}
                   onChange={handleChange}
@@ -272,6 +286,7 @@ const MyInventory_Create = () => {
               <label htmlFor="remarks">Remarks</label>
               <textarea
                 className="form-control"
+                name="remarks"
                 id="remarks"
                 value={formData.remarks}
                 onChange={handleChange}

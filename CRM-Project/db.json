@@ -95,6 +95,22 @@
       "stiltParking": "Yes",
       "staffRoom": "No",
       "remarks": "2206 corner"
+    },
+    {
+      "id": "25e4",
+      "propertyType": "Residential",
+      "propertyStatus": "Rent",
+      "address": "Sultanpur sector 128",
+      "location": "21",
+      "floor": "3",
+      "bed": "22",
+      "rent": "21cr",
+      "plotSize": "22",
+      "parkFacing": "Yes",
+      "lift": "Yes",
+      "stiltParking": "Yes",
+      "staffRoom": "Yes",
+      "remarks": "Front"
     }
   ]
 }
