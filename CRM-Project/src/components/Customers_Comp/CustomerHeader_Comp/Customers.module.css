@@ -12,11 +12,6 @@
   font-size: 24px;
 }
 
-.cust_rowOne .cust_addBtn {
-  float: right;
-  color: var(--secondary-text-color);
-  background-color: var(--primary-bg-color);
-}
 
 .cust_rowTwo {
   height: 42px;

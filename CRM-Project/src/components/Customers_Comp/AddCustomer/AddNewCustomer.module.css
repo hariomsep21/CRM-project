@@ -1,0 +1,43 @@
+.cust_addbtn {
+  float: right;
+  color: var(--secondary-text-color);
+  background-color: var(--primary-bg-color);
+}
+
+.addNewCustomerLabel {
+  font-size: 14px;
+  color: var(--filter-text-color);
+}
+
+.addCustomerPropertyType {
+  display: flex;
+  justify-content: space-between;
+  width: 70%;
+}
+
+.addNewCustomerPropertyTypeOption {
+  font-size: 14px;
+}
+
+.addCustomerInputField {
+  font-size: 14px;
+}
+
+.addNewCustomerCancelBtn {
+  font-weight: 600;
+  padding: 10px 20px;
+  line-height: 25px;
+  border: 1px solid var(--default-bcolor);
+  color: var(--default-text-color);
+}
+
+.addNewCustomerAddBtn {
+  padding: 10px 20px;
+  line-height: 25px;
+  background-color: var(--primary-bg-color);
+  color: var(--secondary-text-color);
+}
+
+/* .addCustomerInputField::placeholder {
+  color: black;
+} */

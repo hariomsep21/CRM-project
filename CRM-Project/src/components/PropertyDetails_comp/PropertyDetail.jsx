@@ -11,28 +11,11 @@ import {
 import { RiShoppingBag4Line } from "react-icons/ri";
 import { CgGym } from "react-icons/cg";
 import style from "./PropertyDetail.module.css";
-import html2canvas from "html2canvas";
-import jsPDF from "jspdf";
 
 const PropertyDetail = () => {
-  const propertyDetailRef = useRef(null);
-
-  const generatePdf = () => {
-    const input = propertyDetailRef.current;
-
-    html2canvas(input).then((canvas) => {
-      const imgData = canvas.toDataURL("image/png");
-      const pdf = new jsPDF("p", "px", "a4");
-      const width = pdf.internal.pageSize.getWidth();
-      const height = pdf.internal.pageSize.getHeight();
-      pdf.addImage(imgData, "PNG", 0, 0, width, height);
-      pdf.save("property-details.pdf");
-    });
-  };
-
   return (
     <>
-      <div className="container-fluid pt-5" ref={propertyDetailRef}>
+      <div className="container-fluid pt-5">
         <div className="container">
           <div className="row ">
             <div className="col-md-6">
@@ -70,16 +53,15 @@ const PropertyDetail = () => {
                   <h6 className={style.propertyDetailPropertyTitle}>
                     Sell Price
                   </h6>
-                  <p className={style.propertyDetailProperty}>3.5 CR</p>
+                  <p className={style.propertyDetailProperty}>3.5Cr</p>
                 </div>
                 <div className="me-4">
                   <h6 className={style.propertyDetailPropertyTitle}>Sqft</h6>
-                  <p className={style.propertyDetailProperty}>6,500</p>
+                  <p className={style.propertyDetailProperty}>6500</p>
                 </div>
                 <button
                   type="button"
                   className={`btn ${style.propertyDetailGenerateBtn}`}
-                  onClick={generatePdf}
                 >
                   Generate Brochure
                 </button>

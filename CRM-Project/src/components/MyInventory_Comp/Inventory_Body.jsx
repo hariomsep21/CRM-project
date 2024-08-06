@@ -1,103 +1,134 @@
 import React, { useEffect, useState, useCallback } from "react";
 import style from "./Inventory_Body.module.css";
-import { FaSearch } from "react-icons/fa";
-import { useTable, useSortBy, usePagination } from "react-table";
-import { MdCheckBoxOutlineBlank, MdCheckBox } from "react-icons/md";
-import { FaRegUser } from "react-icons/fa6";
-import { MdRemoveRedEye } from "react-icons/md";
+import { FaRegUser, FaSearch } from "react-icons/fa";
+import {
+  MdRemoveRedEye,
+  MdCheckBoxOutlineBlank,
+  MdCheckBox,
+} from "react-icons/md";
 import { BiSolidPencil } from "react-icons/bi";
-import { toast } from "react-toastify";
+import { useTable, useSortBy, usePagination } from "react-table";
+import { useNavigate } from "react-router-dom";
 import { jsPDF } from "jspdf";
-import "jspdf-autotable"; // Import the jsPDF autotable plugin
-import "react-toastify/dist/ReactToastify.css";
+import "jspdf-autotable";
 import MyInventory_Create from "./MyInventory_Create/MyInventory_Create";
 import Inventory_Header from "./Inventory_Header";
-import { useNavigate } from "react-router-dom";
+import PdfGenerator from "../PropertyDetails_comp/PdfGenerator";
 
 const Inventory_Body = () => {
   const [selectedRows, setSelectedRows] = useState([]);
   const [data, setData] = useState([]);
-  const [reload, setReload] = useState(false); // State to track data reload
+  const [filteredData, setFilteredData] = useState([]);
+  const [reload, setReload] = useState(false);
+  const [filter, setFilter] = useState({
+    type: "All",
+    inventorySearch: "",
+  });
   const navigate = useNavigate();
 
+  // Fetch data and apply filters
   const fetchData = useCallback(() => {
     fetch("http://localhost:5000/myInventory")
       .then((res) => res.json())
-      .then((data) => setData(data));
+      .then((data) => {
+        setData(data);
+        applyFilters(data); // Apply filters after fetching data
+      });
   }, []);
 
   useEffect(() => {
     fetchData();
-  }, [fetchData, reload]); // Fetch data when component mounts or reload changes
+  }, [fetchData, reload]);
+
+  // Function to apply filters
+  const applyFilters = (data) => {
+    let filtered = data;
+
+    // Apply type filter
+    if (filter.type !== "All") {
+      filtered = filtered.filter(
+        (item) =>
+          item.propertyStatus.toLowerCase() === filter.type.toLowerCase()
+      );
+    }
+
+    // Apply search filter
+    if (filter.inventorySearch) {
+      filtered = filtered.filter((item) =>
+        item.address
+          .toLowerCase()
+          .includes(filter.inventorySearch.toLowerCase())
+      );
+    }
+
+    setFilteredData(filtered);
+  };
 
   const handleNewRecordAdded = () => {
-    setReload((prev) => !prev); // Toggle reload state to trigger data fetch
+    setReload((prev) => !prev);
   };
+
   const generatePDF = () => {
-    const selectedData = data.filter((row) => selectedRows.includes(row.id));
+    const selectedData = filteredData.filter((row) =>
+      selectedRows.includes(row.id)
+    );
     const doc = new jsPDF({
-      orientation: "landscape", // Optional: Landscape orientation for wider content
+      orientation: "landscape",
       unit: "mm",
       format: [297, 210], // A4 page size in mm (width, height)
     });
 
-    // Add main heading
     doc.setFontSize(16);
     doc.setFont("helvetica", "semi-bold");
     doc.text("Property Advice", doc.internal.pageSize.getWidth() / 2, 20, {
       align: "center",
     });
 
-    // Define common border color for both header and body
-    const borderColor = [44, 62, 80]; // Change this to your desired color
-
-    // Define table column styles
+    const borderColor = [44, 62, 80];
     const tableColumnStyles = {
       cellPadding: 5,
       fontSize: 10,
       overflow: "linebreak",
-      tableLineColor: borderColor, // Border color for body cells
-      tableLineWidth: 0.75, // Border width
-      margin: { top: 30 }, // Adjust top margin to make space for heading
+      tableLineColor: borderColor,
+      tableLineWidth: 0.75,
+      margin: { top: 30 },
       styles: {
-        fillColor: [255, 255, 255], // No background color for cells
-        textColor: [0, 0, 0], // Text color
+        fillColor: [255, 255, 255],
+        textColor: [0, 0, 0],
       },
       headStyles: {
-        fillColor: [255, 255, 255], // No background color for header
-        textColor: [0, 0, 0], // Text color
-        fontStyle: "bold", // Make header text bold
-        lineWidth: 0.2, // Border width around header cells
-        lineColor: borderColor, // Same border color as body cells
+        fillColor: [255, 255, 255],
+        textColor: [0, 0, 0],
+        fontStyle: "bold",
+        lineWidth: 0.2,
+        lineColor: borderColor,
       },
     };
 
     const tableBody = selectedData.map((row, index) => [
-      index + 1, // Serial number
+      index + 1,
       row.address,
-      row.location,
       row.floor,
       row.bed,
       row.rent,
       row.plotSize,
-      row.parkFacing,
-      row.lift,
-      row.stiltParking,
-      row.staffRoom,
+      row.parkFacing ? "Yes" : "No",
+      row.lift ? "Yes" : "No",
+      row.stiltParking ? "Yes" : "No",
+      row.staffRoom ? "Yes" : "No",
       row.remarks,
     ]);
 
     doc.autoTable({
       head: [
         [
-          "S.No", // Serial Number header
+          "S.No",
           "Address",
-          "Location",
           "Floor",
           "Bed",
           "Rent",
           "Plot Size",
-          "ParkFacing",
+          "Park Facing",
           "Lift",
           "Stilt Parking",
           "Staff Room",
@@ -105,7 +136,7 @@ const Inventory_Body = () => {
         ],
       ],
       body: tableBody,
-      theme: "grid", // Use a grid theme for borders
+      theme: "grid",
       ...tableColumnStyles,
     });
 
@@ -116,12 +147,12 @@ const Inventory_Body = () => {
     () => [
       {
         Header: ({ getToggleAllRowsSelectedProps }) => {
-          const allSelected = selectedRows.length === data.length;
+          const allSelected = selectedRows.length === filteredData.length;
           const toggleAll = () => {
             if (allSelected) {
               setSelectedRows([]);
             } else {
-              setSelectedRows(data.map((row) => row.id));
+              setSelectedRows(filteredData.map((row) => row.id));
             }
           };
           return (
@@ -148,7 +179,12 @@ const Inventory_Body = () => {
             }
           };
           return (
-            <div onClick={toggleRow}>
+            <div
+              onClick={(e) => {
+                e.stopPropagation();
+                toggleRow();
+              }}
+            >
               {isSelected ? (
                 <MdCheckBox className={style.cell_CheckBox} />
               ) : (
@@ -174,82 +210,102 @@ const Inventory_Body = () => {
       },
       {
         Header: "Address",
-        accessor: (row) => `${row.propertyType} ${row.address} ${row.location}`,
+        accessor: "address",
         HeaderStyle: style.header_PropertyStyle,
         Cell: ({ value }) => (
           <div className={style.cell_PropertyStyle}>{value}</div>
         ),
       },
-
       {
         Header: "Floor",
         accessor: "floor",
-        HeaderStyle: style.header_headingNameStyle,
+        HeaderStyle: style.header_FloorStyle,
         Cell: ({ value }) => (
-          <div className={style.cell_PropertyStyle}>{value}</div>
+          <div className={style.cell_FloorStyle}>{value}</div>
         ),
       },
       {
         Header: "Bed",
         accessor: "bed",
-        HeaderStyle: style.header_headingNameStyle,
-        Cell: ({ value }) => (
-          <div className={style.cell_PropertyStyle}>{value}</div>
-        ),
+        HeaderStyle: style.header_BedStyle,
+        Cell: ({ value }) => <div className={style.cell_BedStyle}>{value}</div>,
       },
-
       {
         Header: "Plot Size",
         accessor: "plotSize",
-        HeaderStyle: style.header_headingNameStyle,
+        HeaderStyle: style.header_PlotSizeStyle,
+        Cell: ({ value }) => (
+          <div className={style.cell_PlotSizeStyle}>{value}</div>
+        ),
       },
       {
         Header: "Rent",
         accessor: "rent",
-        HeaderStyle: style.header_headingNameStyle,
+        HeaderStyle: style.header_RentStyle,
+        Cell: ({ value }) => (
+          <div className={style.cell_RentStyle}>{value}</div>
+        ),
       },
       {
-        Header: "ParkFacing",
+        Header: "Park Facing",
         accessor: "parkFacing",
-        HeaderStyle: style.header_headingNameStyle,
+        HeaderStyle: style.header_ParkFacingStyle,
+        Cell: ({ value }) => (
+          <div className={style.cell_ParkFacingStyle}>
+            {value ? "Yes" : "No"}
+          </div>
+        ),
       },
       {
         Header: "Lift",
         accessor: "lift",
-        HeaderStyle: style.header_headingNameStyle,
+        HeaderStyle: style.header_LiftStyle,
+        Cell: ({ value }) => (
+          <div className={style.cell_LiftStyle}>{value ? "Yes" : "No"}</div>
+        ),
       },
       {
         Header: "Stilt Parking",
         accessor: "stiltParking",
-        HeaderStyle: style.header_headingNameStyle,
+        HeaderStyle: style.header_StiltParkingStyle,
+        Cell: ({ value }) => (
+          <div className={style.cell_StiltParkingStyle}>
+            {value ? "Yes" : "No"}
+          </div>
+        ),
       },
       {
         Header: "Staff Room",
         accessor: "staffRoom",
-        HeaderStyle: style.header_headingNameStyle,
+        HeaderStyle: style.header_StaffRoomStyle,
+        Cell: ({ value }) => (
+          <div className={style.cell_StaffRoomStyle}>
+            {value ? "Yes" : "No"}
+          </div>
+        ),
       },
       {
         Header: "Remarks",
         accessor: "remarks",
-        HeaderStyle: style.header_headingNameStyle,
+        HeaderStyle: style.header_RemarksStyle,
+        Cell: ({ value }) => (
+          <div className={style.cell_RemarksStyle}>{value}</div>
+        ),
       },
       {
-        Header: " ",
+        Header: "",
         accessor: "action",
         HeaderStyle: style.header_headingNameStyle,
-        Cell: ({ row }) => (
+        Cell: () => (
           <div className={style.actionIconsStyle}>
             <FaRegUser className={style.actionIcon} />
-            <MdRemoveRedEye
-              className={style.actionIconEye}
-              onClick={() => navigate(`/PropertyDetail/${row.original.id}`)}
-            />
+            <MdRemoveRedEye className={style.actionIconEye} />
             <BiSolidPencil className={style.actionIcon} />
           </div>
         ),
       },
     ],
-    [data, selectedRows]
+    [filteredData, selectedRows]
   );
 
   const {
@@ -261,30 +317,48 @@ const Inventory_Body = () => {
     canPreviousPage,
     canNextPage,
     pageOptions,
-    pageCount,
+    pageIndex,
+    pageSize,
     gotoPage,
     nextPage,
     previousPage,
     setPageSize,
-    state: { pageIndex, pageSize },
   } = useTable(
     {
       columns,
-      data,
+      data: filteredData,
       initialState: { pageIndex: 0, pageSize: 4 },
     },
     useSortBy,
     usePagination
   );
 
-  const onChangeInSelect = (event) => {
-    setPageSize(Number(event.target.value));
+  const onChangeInSelect = (e) => {
+    setPageSize(Number(e.target.value));
   };
 
   const onChangeInInput = (event) => {
     const page = event.target.value ? Number(event.target.value) - 1 : 0;
     gotoPage(page);
   };
+
+  const handleTypeChange = (e) => {
+    setFilter((prev) => ({
+      ...prev,
+      type: e.target.value,
+    }));
+  };
+
+  const handleSearchChange = (e) => {
+    setFilter((prev) => ({
+      ...prev,
+      inventorySearch: e.target.value,
+    }));
+  };
+
+  useEffect(() => {
+    applyFilters(data);
+  }, [filter, data]);
 
   return (
     <>
@@ -304,9 +378,7 @@ const Inventory_Body = () => {
                 </button>
               </div>
               <div className={`col-4 ${style.Div_brochurebtn}`}>
-                <button className={`btn ${style.brochure_btn}`}>
-                  Generate Brochure
-                </button>
+                <PdfGenerator></PdfGenerator>
               </div>
               <div className={`col-4 ${style.Div_addInventorybtn}`}>
                 <MyInventory_Create onNewRecordAdded={handleNewRecordAdded} />{" "}
@@ -316,7 +388,10 @@ const Inventory_Body = () => {
           </div>
         </div>
       </section>
-      <Inventory_Header />
+      <Inventory_Header
+        onTypeChange={handleTypeChange}
+        onSearchChange={handleSearchChange}
+      />
       <section className="section_3 mt-4">
         <div className={style.tableContainer}>
           <table {...getTableProps()} className={style.table}>
@@ -335,7 +410,11 @@ const Inventory_Body = () => {
                     >
                       {column.render("Header")}
                       <span>
-                        {column.isSorted ? (column.isSortedDesc ? "" : "") : ""}
+                        {column.isSorted
+                          ? column.isSortedDesc
+                            ? " 🔽"
+                            : " 🔼"
+                          : ""}
                       </span>
                     </th>
                   ))}
@@ -352,6 +431,9 @@ const Inventory_Body = () => {
                     key={rowIndex}
                     {...row.getRowProps()}
                     className={rowClassName}
+                    onClick={() =>
+                      navigate(`/PropertyDetail/${row.original.id}`)
+                    }
                   >
                     {row.cells.map((cell, cellIndex) => (
                       <td key={cellIndex} {...cell.getCellProps()}>
@@ -374,7 +456,7 @@ const Inventory_Body = () => {
               {">"}
             </button>{" "}
             <button
-              onClick={() => gotoPage(pageCount - 1)}
+              onClick={() => gotoPage(pageOptions.length - 1)}
               disabled={!canNextPage}
             >
               {">>"}
@@ -386,9 +468,9 @@ const Inventory_Body = () => {
               </strong>{" "}
             </span>
             <select value={pageSize} onChange={onChangeInSelect}>
-              {[4, 10, 20].map((pageSize) => (
-                <option key={pageSize} value={pageSize}>
-                  Show {pageSize}
+              {[4, 10, 20].map((PageSize) => (
+                <option key={PageSize} value={PageSize}>
+                  Show {PageSize}
                 </option>
               ))}
             </select>

@@ -1,11 +1,8 @@
 import React from "react";
 import style from "./Inventory_Header.module.css";
 import { FaSearch } from "react-icons/fa";
-import { useTable } from "react-table";
-import { MdCheckBoxOutlineBlank } from "react-icons/md";
-import MyInventory_Create from "./MyInventory_Create/MyInventory_Create";
 
-const Inventory_Header = () => {
+const Inventory_Header = ({ onTypeChange, onSearchChange }) => {
   return (
     <>
       <section className="section_2 mt-4">
@@ -16,10 +13,14 @@ const Inventory_Header = () => {
                 <div className="row">
                   <div className="col">
                     <label htmlFor="bytype">By Type</label>
-                    <select className={style.dropdown_Type} id="bytype">
-                      <option value="volvo">All</option>
-                      <option value="saab">Sell</option>
-                      <option value="opel">Rent</option>
+                    <select
+                      className={style.dropdown_Type}
+                      id="bytype"
+                      onChange={onTypeChange}
+                    >
+                      <option value="All">All</option>
+                      <option value="Sell">Sell</option>
+                      <option value="Rent">Rent</option>
                     </select>
                   </div>
                   <div className="col">
@@ -41,6 +42,7 @@ const Inventory_Header = () => {
                         type="text"
                         placeholder="Search location"
                         id="bylocation"
+                        onChange={onSearchChange}
                       />
                       <FaSearch className={style.searchLocationIcon} />
                     </div>
@@ -48,7 +50,12 @@ const Inventory_Header = () => {
                   <div className={`col ${style.SearchArea_input}`}>
                     <label htmlFor="byarea">By Area</label>
                     <div className={style.searchAreaContainer}>
-                      <input type="text" placeholder="Write here" id="byarea" />
+                      <input
+                        type="text"
+                        placeholder="Write here"
+                        id="byarea"
+                        onChange={onSearchChange}
+                      />
                     </div>
                   </div>
                   <div className={`col ${style.SearchStage_input}`}>
@@ -58,6 +65,7 @@ const Inventory_Header = () => {
                         type="text"
                         placeholder="Write here"
                         id="bystage"
+                        onChange={onSearchChange}
                       />
                     </div>
                   </div>
@@ -67,6 +75,7 @@ const Inventory_Header = () => {
                         type="text"
                         placeholder="Search Inventory"
                         id="byinventory"
+                        onChange={onSearchChange}
                       />
                       <FaSearch className={style.searchInventoryIcon} />
                     </div>

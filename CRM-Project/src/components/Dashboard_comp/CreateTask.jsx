@@ -1,37 +1,78 @@
 import React, { useState } from "react";
-import {
-  Modal,
-  Button,
-  Form,
-  Row,
-  Col,
-  DropdownButton,
-  Dropdown,
-  FormControl,
-} from "react-bootstrap";
-import style from "./CreateTask.module.css";
+import { Modal, Button, Form, Row, Col } from "react-bootstrap";
 import { MdAdd } from "react-icons/md";
+import axios from "axios";
+import style from "./CreateTask.module.css";
+
+// Utility function to format date as dd/MM/yy hh:mm:ss a
+const formatDate = (date) => {
+  const day = String(date.getDate()).padStart(2, "0");
+  const month = String(date.getMonth() + 1).padStart(2, "0"); // Months are zero-based
+  const year = String(date.getFullYear()).slice(2); // Last two digits of the year
+  const hours = String(date.getHours() % 12 || 12).padStart(2, "0"); // 12-hour format
+  const minutes = String(date.getMinutes()).padStart(2, "0");
+  const seconds = String(date.getSeconds()).padStart(2, "0");
+  const ampm = date.getHours() >= 12 ? "pm" : "am"; // AM/PM
+
+  return ` ${hours}:${minutes}:${seconds} ${ampm} ${day}/${month}/${year}`;
+};
 
 const CreateTask = ({
   show,
   setShowCreateTaskModal,
   handleClose,
-  handleInputChange,
-  handleAddTask,
-  newItem,
-  labelOptions,
+  onTaskAdded, // Callback prop to notify parent
 }) => {
-  const [selectedType, setSelectedType] = useState(newItem.type);
+  const [selectedType, setSelectedType] = useState("Buy");
+  const [customLabelInput, setCustomLabelInput] = useState(false);
+  const [customLabel, setCustomLabel] = useState("");
+  const [newLabel, setNewLabel] = useState("");
+  const [taskTitle, setTaskTitle] = useState("");
+  const [assignTo, setAssignTo] = useState("");
 
+  // Handle property type change
   const handleTypeChange = (event) => {
     setSelectedType(event.target.value);
-    handleInputChange(event);
   };
+
+  // Handle label selection
+  const handleLabelChange = (event) => {
+    const value = event.target.value;
+    setNewLabel(value);
+    setCustomLabelInput(value === "Custom");
+  };
+
+  // Handle form submission
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    // Get current date and format it
+    const formattedDate = formatDate(new Date());
+
+    // Prepare new task data
+    const newTask = {
+      task: taskTitle,
+      type: selectedType,
+      assignTo: assignTo,
+      labels: customLabelInput ? customLabel : newLabel,
+      date: formattedDate,
+    };
+
+    try {
+      // Send POST request to server
+      const response = await axios.post("http://localhost:5000/tasks", newTask);
+      onTaskAdded(response.data); // Notify parent component of the new task
+      handleClose(); // Close modal
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <>
       <Button
         variant="primary"
-        className={` ${style.btnTask}`}
+        className={`${style.btnTask}`}
         onClick={() => setShowCreateTaskModal(true)}
       >
         <MdAdd className={`${style.addIcon}`} />
@@ -44,15 +85,14 @@ const CreateTask = ({
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form>
+          <Form onSubmit={handleSubmit}>
             <Form.Group className="mb-3" controlId="formBasicTitle">
               <Form.Label className={`${style.heading}`}>Title</Form.Label>
               <Form.Control
                 type="text"
                 placeholder="Write here"
-                name="task"
-                value={newItem.task}
-                onChange={handleInputChange}
+                value={taskTitle}
+                onChange={(e) => setTaskTitle(e.target.value)}
                 className={style.createTaskInputField}
               />
             </Form.Group>
@@ -101,55 +141,48 @@ const CreateTask = ({
                   </Form.Label>
                   <Form.Select
                     aria-label="Default select example"
-                    name="assignTo"
-                    value={newItem.assignTo}
-                    onChange={handleInputChange}
+                    value={assignTo}
+                    onChange={(e) => setAssignTo(e.target.value)}
                     className={`w-100 ${style.createTaskInputField}`}
                   >
                     <option value="">Select assign</option>
                     <option value="Action">Action</option>
-                    <option value="Another action">Another action</option>
-                    <option value="Something else">Something else</option>
                   </Form.Select>
                 </Form.Group>
               </Col>
               <Col md={6}>
-                <Form.Group className="mb-3" controlId="formBasicLabel">
-                  <Form.Label className={`${style.heading}`}>Label</Form.Label>
-                  <Form.Control
-                    as="select"
-                    name="labels"
-                    value={newItem.labels}
-                    onChange={handleInputChange}
-                    className={`${style.createTaskInputField}`}
+                <Form.Group className="mb-3" controlId="formBasicLabels">
+                  <Form.Label className={`${style.heading}`}>Labels</Form.Label>
+                  <Form.Select
+                    value={newLabel}
+                    onChange={handleLabelChange}
+                    className={style.createTaskInputField}
                   >
-                    {labelOptions.map((label, index) => (
-                      <option key={index} value={label}>
-                        {label}
-                      </option>
-                    ))}
-                  </Form.Control>
+                    <option value="">Select a label</option>
+                    <option value="High Priority">High priority</option>
+                    <option value="Medium">Medium priority</option>
+                    <option value="Less">Low priority</option>
+                    <option value="Custom" className={style.customLabel}>
+                      + Add Custom Label
+                    </option>
+                  </Form.Select>
+                  {customLabelInput && (
+                    <Form.Control
+                      type="text"
+                      placeholder="Enter custom label"
+                      value={customLabel}
+                      onChange={(e) => setCustomLabel(e.target.value)}
+                      className={style.createTaskInputField}
+                    />
+                  )}
                 </Form.Group>
               </Col>
             </Row>
+            <Button variant="primary" type="submit">
+              Create Task
+            </Button>
           </Form>
         </Modal.Body>
-        <Modal.Footer>
-          <Button
-            variant=""
-            className={`${style.cancelBtn}`}
-            onClick={handleClose}
-          >
-            Close
-          </Button>
-          <Button
-            variant="primary"
-            className={`${style.submitBtn}`}
-            onClick={handleAddTask}
-          >
-            Submit
-          </Button>
-        </Modal.Footer>
       </Modal>
     </>
   );

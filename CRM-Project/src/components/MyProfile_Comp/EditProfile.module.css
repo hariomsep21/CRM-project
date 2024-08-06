@@ -2,7 +2,7 @@
 
 .editProfileLabel {
   font-size: 14px;
-  color: #007473;
+  color: var(--filter-text-color);
   padding-bottom: 10px;
 }
 
@@ -12,29 +12,29 @@
 }
 
 .editProfileCancelBtn {
-  color: black !important;
-  border: 2px solid black !important;
-  font-weight: 700 !important;
+  color: var(--default-text-color);
+  border: 2px solid var(--default-bcolor);
+  font-weight: 700;
 }
 
 .editProfileFormTitle {
-  font-size: 20px !important;
-  font-weight: 700 !important;
+  font-size: 20px;
+  font-weight: 700;
 }
 
 .editProfileInputField {
-  font-size: 14px !important;
-  font-weight: 600 !important;
-  width: 90% !important;
+  font-size: 14px;
+  font-weight: 600;
+  width: 90%;
 }
 
 .editProfileAddressField {
-  font-size: 14px !important;
-  font-weight: 600 !important;
+  font-size: 14px;
+  font-weight: 600;
 }
 
 .editProfileSaveBtn {
-  background-color: #7a65fd !important;
+  background-color: var(--primary-bg-color);
 }
 
 

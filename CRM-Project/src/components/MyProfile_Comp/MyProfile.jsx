@@ -8,10 +8,12 @@ import {
 } from "react-icons/md";
 import EditProfile from "./EditProfile";
 import EditUrl from "./EditUrl";
+import ChangePassword from "./ChangePassword";
 
 const MyProfile = () => {
   const [showModal, setShowModal] = useState(false);
   const [showUrlModal, setShowUrlModal] = useState(false);
+  const [showPasswordModal, setShowPasswordModal] = useState(false);
   const [firstName, setFirstName] = useState("Adam");
   const [lastName, setLastName] = useState("Clark");
   const [email, setEmail] = useState("AdamC125@gmail.com");
@@ -61,6 +63,14 @@ const MyProfile = () => {
   const handleUrlSubmit = () => {
     console.log("Updated URL:", profileUrl);
     setShowUrlModal(false);
+  };
+
+  const handleChangePassword = () => {
+    setShowPasswordModal(true);
+  };
+
+  const handleClosePasswordModal = () => {
+    setShowPasswordModal(false);
   };
 
   return (
@@ -121,6 +131,7 @@ const MyProfile = () => {
                 color: "black",
                 fontWeight: "500",
               }}
+              onClick={handleChangePassword}
             >
               Change Password
             </button>
@@ -194,6 +205,11 @@ const MyProfile = () => {
         profileUrl={profileUrl}
         setProfileUrl={setProfileUrl}
         handleSubmit={handleUrlSubmit}
+      />
+
+      <ChangePassword
+        showPassword={showPasswordModal}
+        handleClosePasswordModal={handleClosePasswordModal}
       />
     </>
   );

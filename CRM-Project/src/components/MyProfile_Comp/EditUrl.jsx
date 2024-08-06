@@ -12,15 +12,16 @@ const EditUrl = ({
   return (
     <Modal show={show} onHide={handleClose} centered>
       <Modal.Header closeButton>
-        <Modal.Title>Edit Profile URL</Modal.Title>
+        <Modal.Title className={style.editUrlHeading}>
+          Edit Profile URL
+        </Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <form>
           <div className="form-group">
-            <label htmlFor="profileUrl">Profile URL</label>
             <input
               type="text"
-              className="form-control"
+              className={`form-control pt-2 pb-2 ${style.editUrlInputField}`}
               id="profileUrl"
               value={profileUrl}
               onChange={(e) => setProfileUrl(e.target.value)}

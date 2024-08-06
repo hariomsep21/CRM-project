@@ -147,5 +147,39 @@
       "property": "Rental",
       "status": "hot"
     }
+  ],
+  "tasks": [
+    {
+      "id": "1473",
+      "task": "Agreement Sign - Mr. Chopra and Aggarwal - ATS - Sector 93, Noida",
+      "type": "Buy",
+      "assignTo": "",
+      "labels": "Custom",
+      "date": " 10:01:32 am 14/12/23"
+    },
+    {
+      "id": "bcd8",
+      "task": "Second Meeting between Mr. Srivastav and Singh - Sector 104, Noida",
+      "type": "Sell",
+      "assignTo": "",
+      "labels": "Custom",
+      "date": " 11:11:55 am 17/5/24"
+    },
+    {
+      "id": "f811",
+      "task": "Follow up call to Mr. Gupta for second installment against property in sector 93, Noida",
+      "type": "Rental",
+      "assignTo": "",
+      "labels": "Custom",
+      "date": " 12:45:44 am 5/7/24"
+    },
+    {
+      "id": "5062",
+      "task": "Second Meeting between Mr. Srivastav and Singh - Sector 104, Noida",
+      "type": "Sell",
+      "assignTo": "",
+      "labels": "Custom",
+      "date": " 11:11:55 am 17/5/24"
+    }
   ]
 }

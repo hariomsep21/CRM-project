@@ -77,3 +77,24 @@
 .customLevelItem {
   color: var(--primary-text-color);
 }
+
+.dropBtn {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.labelBox {
+  width: 100%;
+}
+
+.labelsValue {
+
+  padding-bottom: 10px;
+  font-size: 16px;
+}
+
+.customLabel {
+  color: var(--primary-text-color);
+}

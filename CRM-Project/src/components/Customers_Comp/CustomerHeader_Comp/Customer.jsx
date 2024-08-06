@@ -1,43 +1,29 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-import { useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import style from "./Customers.module.css";
 import { IoFilter } from "react-icons/io5";
 import CustomerGrid from "../CustomerGrid_Comp/CustomerGrid";
+import AddNewCustomer from "../AddCustomer/AddNewCustomer";
+import { useNavigate } from "react-router-dom";
 
 const Customer = () => {
   const [filter, setFilter] = useState("All");
+  const [customers, setCustomers] = useState([]);
+  const [reload, setReload] = useState(false);
 
-  const customers = [
-    {
-      id: 1,
-      property: "Buyer/Seller",
-      name: "Mr.Gupta",
-      status: "Hot",
-      address: "123 Street, City",
-      need: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. ",
-      remarks: "Lorem ipsum dol Nulla fringilla veli Read more",
-    },
-    {
-      id: 2,
-      property: "Rental",
-      name: "Mr.Gupta",
-      status: "Hot",
-      address: "123 Street, City",
-      need: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla fringilla veli Read more",
-      remarks:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla fringilla veli Read more",
-    },
-    {
-      id: 3,
-      property: "Rental",
-      name: "Mr.Gupta",
-      status: "Hot",
-      address: "123 Street, City",
-      need: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla fringilla veli Read more",
-      remarks:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla fringilla veli Read more ",
-    },
-  ];
+  const fetchData = useCallback(() => {
+    fetch("http://localhost:5000/newCustomer")
+      .then((res) => res.json())
+      .then((data) => setCustomers(data));
+  }, []);
+
+  useEffect(() => {
+    fetchData();
+  }, [fetchData, reload]);
+
+  const handleNewRecordAdded = () => {
+    setReload((prev) => !prev);
+  };
 
   const buyerSellerCount = customers.filter(
     (customer) => customer.property === "Buyer/Seller"
@@ -60,9 +46,10 @@ const Customer = () => {
             <div className={style.cust_name}>Customers</div>
           </div>
           <div className="col-sm-12 col-md-6 col-lg-6">
-            <button className={`btn ${style.cust_addBtn}`}>
-              + Add New Customer
-            </button>
+            <AddNewCustomer
+              className={style.cust_addBtn}
+              onAddNewCustomer={handleNewRecordAdded}
+            />
           </div>
         </div>
         <div className={`row mt-3 ${style.cust_rowTwo}`}>
