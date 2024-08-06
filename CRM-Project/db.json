@@ -112,5 +112,40 @@
       "staffRoom": "Yes",
       "remarks": "Front"
     }
+  ],
+  "newCustomer": [
+    {
+      "id": "1",
+      "name": "Mr.Gupta",
+      "mobile": "",
+      "email": "",
+      "address": "123 Street, City",
+      "need": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+      "remarks": "Lorem ipsum dol Nulla fringilla veli Read more",
+      "property": "Buyer/Seller",
+      "status": "hot"
+    },
+    {
+      "id": "2",
+      "name": "Mr.Gupta",
+      "mobile": "",
+      "email": "",
+      "address": "123 Street, City",
+      "need": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla fringilla veli Read more",
+      "remarks": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla fringilla veli Read more",
+      "property": "Rental",
+      "status": "hot"
+    },
+    {
+      "id": "3",
+      "name": "Mr.Gupta",
+      "mobile": "",
+      "email": "",
+      "address": "123 Street, City",
+      "need": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla fringilla veli Read more",
+      "remarks": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla fringilla veli Read more",
+      "property": "Rental",
+      "status": "hot"
+    }
   ]
 }
