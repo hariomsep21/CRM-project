@@ -1,11 +1,11 @@
 import React, { useState, useRef } from "react";
 import { Modal, Button, Form, Row, Col } from "react-bootstrap";
-import style from "./AddNewCustomer.module.css";
+import style from "./EditCustomer.module.css";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import axios from "axios";
 
-function AddNewCustomer({ onAddNewCustomer }) {
+function EditCustomer({ onAddNewCustomer }) {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -29,33 +29,17 @@ function AddNewCustomer({ onAddNewCustomer }) {
       property: property,
       status: "hot",
     };
-    //   fetch("http://localhost:5000/newCustomer", {
-    //     method: "POST",
-    //     headers: { "Content-Type": "application/json" },
-    //     body: JSON.stringify(dataObj),
-    //   })
-    //     .then((res) => {
-    //       toast.success("Done");
-    //       onAddNewCustomer();
-    //       handleClose();
-    //       navigate("/Customer");
-    //     })
-    //     .catch((err) => {
-    //       toast.error(err.message);
-    //     });
-    //   console.log("Done");
-    // };
 
     try {
       const response = await axios.post(
-        "https://localhost:7062/api/CRMCustomer",
+        `https://localhost:7062/api/CRMCustomer/4`,
         dataObj
       );
       onAddNewCustomer(response.data);
       handleClose();
       navigate("/Customer");
     } catch (error) {
-      toast.error(err.message);
+      toast.error(error.message);
       console.error(error);
     }
     console.log("Done");
@@ -67,17 +51,13 @@ function AddNewCustomer({ onAddNewCustomer }) {
 
   return (
     <>
-      <Button
-        variant="primary"
-        onClick={handleShow}
-        className={style.cust_addbtn}
-      >
-        + Add New Customer
+      <Button variant="" onClick={handleShow} className={`btn`}>
+        Edit Customer
       </Button>
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Add New Customer</Modal.Title>
+          <Modal.Title>Edit Customer</Modal.Title>
         </Modal.Header>
 
         <Modal.Body>
@@ -208,7 +188,7 @@ function AddNewCustomer({ onAddNewCustomer }) {
             onClick={handleForm}
             className={style.addNewCustomerAddBtn}
           >
-            Add Customer
+            Edit Customer
           </Button>
         </Modal.Footer>
       </Modal>
@@ -216,4 +196,4 @@ function AddNewCustomer({ onAddNewCustomer }) {
   );
 }
 
-export default AddNewCustomer;
+export default EditCustomer;

@@ -12,7 +12,8 @@ import { useNavigate } from "react-router-dom";
 import PastDetails from "../PastDeals_Comp/PastDetails";
 import NeedEdit from "../Need_Com/NeedEdit";
 import Referenece from "../Referenece/Referenece";
-const CustomerGrid = ({ customers }) => {
+import EditCustomer from "../EditCustomer/EditCustomer";
+const CustomerGrid = ({ customers, onAddNewCustomer }) => {
   return (
     <>
       {customers.map((customer) => (
@@ -98,8 +99,11 @@ const CustomerGrid = ({ customers }) => {
               <div className="col-sm">
                 <div className={`row d-flex ${style.remark_btn}`}>
                   <div className="col-3">
-                    <button className="btn">Edit Customer</button>
+                    <EditCustomer
+                      onAddNewCustomer={onAddNewCustomer}
+                    ></EditCustomer>
                   </div>
+
                   <div className="col-3">
                     <Referenece />
                   </div>

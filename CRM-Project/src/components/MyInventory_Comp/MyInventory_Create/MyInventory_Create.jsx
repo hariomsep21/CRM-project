@@ -3,6 +3,7 @@ import { Modal, Button } from "react-bootstrap";
 import style from "./MyInventory_Create.module.css";
 import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
+import axios from "axios";
 
 const MyInventory_Create = ({ onNewRecordAdded }) => {
   const [show, setShow] = useState(false);
@@ -64,26 +65,48 @@ const MyInventory_Create = ({ onNewRecordAdded }) => {
       return;
     }
 
-    try {
-      const response = await fetch("http://localhost:5000/myInventory", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+    const transformedData = {
+      ...formData,
+      parkFacing: formData.parkFacing === "Yes", // Convert to boolean
+      lift: formData.lift === "Yes", // Convert to boolean
+      stiltParking: formData.stiltParking === "Yes", // Convert to boolean
+      staffRoom: formData.staffRoom === "Yes", // Convert to boolean
+    };
 
-      if (response.ok) {
-        toast.success("Records added successfully");
-        onNewRecordAdded(); // Notify parent component
-        handleClose();
-      } else {
-        toast.error("Failed to add records");
-      }
+    try {
+      const response = await axios.post(
+        "https://localhost:7062/api/CRMInventory",
+        transformedData
+      );
+      toast.success("Records added successfully");
+      onNewRecordAdded(response.data);
+      handleClose();
     } catch (error) {
-      toast.error(error.message);
+      console.error(error.response.data.errors);
+      toast.error("Failed to add records");
     }
   };
+
+  //   try {
+  //     const response = await fetch("http://localhost:5000/myInventory", {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify(formData),
+  //     });
+
+  //     if (response.ok) {
+  //       toast.success("Records added successfully");
+  //       onNewRecordAdded(); // Notify parent component
+  //       handleClose();
+  //     } else {
+  //       toast.error("Failed to add records");
+  //     }
+  //   } catch (error) {
+  //     toast.error(error.message);
+  //   }
+  // };
 
   return (
     <>

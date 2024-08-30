@@ -59,10 +59,12 @@ const CreateTask = ({
     };
 
     try {
-      // Send POST request to server
-      const response = await axios.post("http://localhost:5000/tasks", newTask);
-      onTaskAdded(response.data); // Notify parent component of the new task
-      handleClose(); // Close modal
+      const response = await axios.post(
+        "https://localhost:7062/api/CRMDashboard",
+        newTask
+      );
+      onTaskAdded(response.data);
+      handleClose();
     } catch (error) {
       console.error(error);
     }

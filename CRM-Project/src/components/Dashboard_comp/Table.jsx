@@ -16,6 +16,8 @@ const Table = () => {
   const [note, setNote] = useState("");
   const [tasks, setTasks] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
   const [labelOptions, setLabelOptions] = useState([
     "All",
     "High Priority",
@@ -23,16 +25,31 @@ const Table = () => {
     "Low Priority",
   ]);
 
+  const API_URL = "https://localhost:7062/";
+
   useEffect(() => {
-    axios
-      .get("http://localhost:5000/tasks")
-      .then((response) => {
-        setTasks(response.data);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    refreshTask();
   }, []);
+
+  const refreshTask = async () => {
+    try {
+      const response = await axios.get(API_URL + "api/CRMDashboard");
+      setTasks(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  // useEffect(() => {
+  //   axios
+  //     .get("http://localhost:5000/tasks")
+  //     .then((response) => {
+  //       setTasks(response.data);
+  //     })
+  //     .catch((error) => {
+  //       console.error(error);
+  //     });
+  // }, []);
 
   const handleEditNotes = (taskId) => {
     setCurrentTaskId(taskId);
@@ -43,16 +60,14 @@ const Table = () => {
     setShowNoteModal(false);
     setNote("");
   };
-
   const handleSaveNote = async () => {
     try {
-      const response = await axios.put(
-        `http://localhost:5000/tasks/${currentTaskId}`,
-        { note }
-      );
+      const response = await axios.put(`${API_URL}api/tasks/${currentTaskId}`, {
+        note,
+      });
       setTasks((prevTasks) =>
         prevTasks.map((task) =>
-          task.id === currentTaskId ? response.data : task
+          task.id === currentTaskId ? { ...task, note } : task
         )
       );
       handleCloseNoteModal();
@@ -60,6 +75,23 @@ const Table = () => {
       console.error(error);
     }
   };
+
+  // const handleSaveNote = async () => {
+  //   try {
+  //     const response = await axios.put(
+  //       `http://localhost:5000/tasks/${currentTaskId}`,
+  //       { note }
+  //     );
+  //     setTasks((prevTasks) =>
+  //       prevTasks.map((task) =>
+  //         task.id === currentTaskId ? response.data : task
+  //       )
+  //     );
+  //     handleCloseNoteModal();
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
 
   const handleFilterChange = (event) => {
     setFilter(event.target.value);
@@ -72,12 +104,16 @@ const Table = () => {
   const handleTaskAdded = (newTask) => {
     setTasks((prevTasks) => [...prevTasks, newTask]);
   };
-
-  const filteredTasks = tasks
-    .filter((task) => filter === "All" || task.type === filter)
-    .filter((task) =>
-      task.task.toLowerCase().includes(searchTerm.toLowerCase())
-    );
+  const filteredTasks =
+    tasks.length > 0
+      ? tasks
+          .filter((task) => filter === "All" || task.type === filter)
+          .filter(
+            (task) =>
+              task.task &&
+              task.task.toLowerCase().includes(searchTerm.toLowerCase())
+          )
+      : [];
 
   return (
     <div className="container p-0">

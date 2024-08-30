@@ -5,21 +5,45 @@ import { IoFilter } from "react-icons/io5";
 import CustomerGrid from "../CustomerGrid_Comp/CustomerGrid";
 import AddNewCustomer from "../AddCustomer/AddNewCustomer";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const Customer = () => {
   const [filter, setFilter] = useState("All");
   const [customers, setCustomers] = useState([]);
   const [reload, setReload] = useState(false);
 
-  const fetchData = useCallback(() => {
-    fetch("http://localhost:5000/newCustomer")
-      .then((res) => res.json())
-      .then((data) => setCustomers(data));
-  }, []);
+  const API_URL = "https://localhost:7062/";
 
   useEffect(() => {
-    fetchData();
-  }, [fetchData, reload]);
+    refreshData();
+  }, []);
+
+  const refreshData = async () => {
+    try {
+      const response = await axios.get(API_URL + "api/CRMCustomer");
+      setCustomers(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  // useEffect(() => {
+  //   refreshData();
+  // }, [refreshData, reload]);
+
+  // useEffect(() => {
+  //   fetchData();
+  // }, [fetchData, reload]);
+
+  // const fetchData = useCallback(() => {
+  //   fetch("http://localhost:5000/newCustomer")
+  //     .then((res) => res.json())
+  //     .then((data) => setCustomers(data));
+  // }, []);
+
+  // useEffect(() => {
+  //   fetchData();
+  // }, [fetchData, reload]);
 
   const handleNewRecordAdded = () => {
     setReload((prev) => !prev);
@@ -86,7 +110,10 @@ const Customer = () => {
             </div>
           </div>
         </div>
-        <CustomerGrid customers={filteredCustomers} />
+        <CustomerGrid
+          customers={filteredCustomers}
+          onAddNewCustomer={handleNewRecordAdded}
+        />
       </div>
     </>
   );

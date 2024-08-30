@@ -14,6 +14,7 @@ import "jspdf-autotable";
 import MyInventory_Create from "./MyInventory_Create/MyInventory_Create";
 import Inventory_Header from "./Inventory_Header";
 import PdfGenerator from "../PropertyDetails_comp/PdfGenerator";
+import axios from "axios";
 
 const Inventory_Body = () => {
   const [selectedRows, setSelectedRows] = useState([]);
@@ -27,18 +28,34 @@ const Inventory_Body = () => {
   const navigate = useNavigate();
 
   // Fetch data and apply filters
-  const fetchData = useCallback(() => {
-    fetch("http://localhost:5000/myInventory")
-      .then((res) => res.json())
-      .then((data) => {
-        setData(data);
-        applyFilters(data); // Apply filters after fetching data
-      });
-  }, []);
+  // const fetchData = useCallback(() => {
+  //   fetch("http://localhost:5000/myInventory")
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       setData(data);
+  //       applyFilters(data); // Apply filters after fetching data
+  //     });
+  // }, []);
+
+  const API_URL = "https://localhost:7062/";
 
   useEffect(() => {
     fetchData();
-  }, [fetchData, reload]);
+  }, [reload]);
+
+  const fetchData = async () => {
+    try {
+      const response = await axios.get(API_URL + "api/CRMInventory");
+      setData(response.data);
+      applyFilters(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, [reload]);
 
   // Function to apply filters
   const applyFilters = (data) => {
@@ -317,12 +334,12 @@ const Inventory_Body = () => {
     canPreviousPage,
     canNextPage,
     pageOptions,
-    pageIndex,
-    pageSize,
+    pageCount,
     gotoPage,
     nextPage,
     previousPage,
     setPageSize,
+    state: { pageIndex, pageSize },
   } = useTable(
     {
       columns,
@@ -398,13 +415,13 @@ const Inventory_Body = () => {
             <thead>
               {headerGroups.map((headerGroup, headerGroupIndex) => (
                 <tr
-                  key={headerGroupIndex}
                   {...headerGroup.getHeaderGroupProps()}
+                  key={headerGroupIndex}
                 >
                   {headerGroup.headers.map((column, columnIndex) => (
                     <th
-                      key={columnIndex}
                       {...column.getHeaderProps(column.getSortByToggleProps())}
+                      key={columnIndex}
                       className={column.HeaderStyle}
                       style={{ width: column.width }}
                     >
@@ -428,15 +445,15 @@ const Inventory_Body = () => {
                   rowIndex % 2 === 0 ? `${style.evenRow}` : `${style.oddRow}`;
                 return (
                   <tr
-                    key={rowIndex}
                     {...row.getRowProps()}
+                    key={rowIndex}
                     className={rowClassName}
                     onClick={() =>
                       navigate(`/PropertyDetail/${row.original.id}`)
                     }
                   >
                     {row.cells.map((cell, cellIndex) => (
-                      <td key={cellIndex} {...cell.getCellProps()}>
+                      <td {...cell.getCellProps()} key={cellIndex}>
                         {cell.render("Cell")}
                       </td>
                     ))}
@@ -456,7 +473,7 @@ const Inventory_Body = () => {
               {">"}
             </button>{" "}
             <button
-              onClick={() => gotoPage(pageOptions.length - 1)}
+              onClick={() => gotoPage(pageCount - 1)}
               disabled={!canNextPage}
             >
               {">>"}
@@ -464,13 +481,13 @@ const Inventory_Body = () => {
             <span>
               Page{" "}
               <strong>
-                {pageIndex + 1} of {pageOptions.length}
+                {pageIndex >= 0 ? pageIndex + 1 : 0} of {pageOptions.length}
               </strong>{" "}
             </span>
             <select value={pageSize} onChange={onChangeInSelect}>
-              {[4, 10, 20].map((PageSize) => (
-                <option key={PageSize} value={PageSize}>
-                  Show {PageSize}
+              {[4, 10, 20].map((pageSize) => (
+                <option key={pageSize} value={pageSize}>
+                  Show {pageSize}
                 </option>
               ))}
             </select>

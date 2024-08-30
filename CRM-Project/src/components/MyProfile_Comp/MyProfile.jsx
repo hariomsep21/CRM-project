@@ -16,6 +16,7 @@ const MyProfile = () => {
   const [showPasswordModal, setShowPasswordModal] = useState(false);
   const [firstName, setFirstName] = useState("Adam");
   const [lastName, setLastName] = useState("Clark");
+  const [date, setDate] = useState("2024");
   const [email, setEmail] = useState("AdamC125@gmail.com");
   const [mobile, setMobile] = useState("+91704-156-1548");
   const [address, setAddress] = useState(
@@ -38,6 +39,7 @@ const MyProfile = () => {
     console.log("Updated Profile:", {
       firstName,
       lastName,
+      date,
       email,
       mobile,
       address,
@@ -116,7 +118,7 @@ const MyProfile = () => {
                     <h5 className="card-title">
                       {firstName} {lastName}
                     </h5>
-                    <p className="card-text">Member since January 2024</p>
+                    <p className="card-text">Member since January {date}</p>
                   </div>
                 </div>
               </div>
