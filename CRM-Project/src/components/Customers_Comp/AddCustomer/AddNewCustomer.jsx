@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import axios from "axios";
 
-function AddNewCustomer({ onAddNewCustomer }) {
+function AddNewCustomer({ onAddNewCustomer, refreshData }) {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -52,6 +52,7 @@ function AddNewCustomer({ onAddNewCustomer }) {
         dataObj
       );
       onAddNewCustomer(response.data);
+      refreshData();
       handleClose();
       navigate("/Customer");
     } catch (error) {

@@ -11,9 +11,10 @@ import { FaFire } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
 import PastDetails from "../PastDeals_Comp/PastDetails";
 import NeedEdit from "../Need_Com/NeedEdit";
+import RemarkEdit from "../Remark_Com/RemarkEdit";
 import Referenece from "../Referenece/Referenece";
 import EditCustomer from "../EditCustomer/EditCustomer";
-const CustomerGrid = ({ customers, onAddNewCustomer }) => {
+const CustomerGrid = ({ customers, onEditCustomer }) => {
   return (
     <>
       {customers.map((customer) => (
@@ -71,7 +72,10 @@ const CustomerGrid = ({ customers, onAddNewCustomer }) => {
                   <div className={`col-8 ${style.need_head}`}>Need</div>
                   <div className={`col-4 ${style.need_icon}`}>
                     <div>
-                      <NeedEdit initialValue={customer.need} />
+                      <NeedEdit
+                        customers={customer}
+                        onEditCustomer={onEditCustomer}
+                      />
                     </div>
                   </div>
                 </div>
@@ -88,7 +92,10 @@ const CustomerGrid = ({ customers, onAddNewCustomer }) => {
                   <div className={`col-8 ${style.remark_head}`}>Remarks</div>
                   <div className={`col-4 ${style.remark_icon}`}>
                     <div>
-                      <TfiPencil />
+                      <RemarkEdit
+                        customers={customer}
+                        onEditCustomer={onEditCustomer}
+                      />
                     </div>
                   </div>
                 </div>
@@ -100,7 +107,8 @@ const CustomerGrid = ({ customers, onAddNewCustomer }) => {
                 <div className={`row d-flex ${style.remark_btn}`}>
                   <div className="col-3">
                     <EditCustomer
-                      onAddNewCustomer={onAddNewCustomer}
+                      customers={customer}
+                      onEditCustomer={onEditCustomer}
                     ></EditCustomer>
                   </div>
 

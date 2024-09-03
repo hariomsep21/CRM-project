@@ -1,49 +1,84 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { Modal, Button, Form, Row, Col } from "react-bootstrap";
 import style from "./EditCustomer.module.css";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import axios from "axios";
 
-function EditCustomer({ onAddNewCustomer }) {
+function EditCustomer({ customers, onEditCustomer }) {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [mobile, setMobile] = useState("");
+  const [address, setAddress] = useState("");
+  const [need, setNeed] = useState("");
+  const [remark, setRemark] = useState("");
+  const [property, setProperty] = useState("");
+  const [status, setStatus] = useState("");
+
+  useEffect(() => {
+    if (customers) {
+      setName(customers.name || "");
+      setEmail(customers.email || "");
+      setMobile(customers.mobile || "");
+      setAddress(customers.address || "");
+      setNeed(customers.need || "");
+      setRemark(customers.remarks || "");
+      setProperty(customers.property || "");
+      setStatus(customers.status || "");
+    }
+  }, [customers]);
+  const onSubmit = (event) => {
+    event.preventDefault();
+    onEditCustomer({
+      id: customers.id,
+      name,
+      email,
+      mobile,
+      address,
+      need,
+      remarks: remark,
+      property,
+      status,
+    });
+    handleClose();
+  };
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const [property, setProperty] = useState("Buyer / Seller");
-  const nameRef = useRef();
-  const mobileRef = useRef();
-  const emailRef = useRef();
-  const addressRef = useRef();
-  const needRef = useRef();
-  const remarksRef = useRef();
-  const navigate = useNavigate();
+  // const [property, setProperty] = useState("Buyer / Seller");
+  // const nameRef = useRef();
+  // const mobileRef = useRef();
+  // const emailRef = useRef();
+  // const addressRef = useRef();
+  // const needRef = useRef();
+  // const remarksRef = useRef();
+  // const navigate = useNavigate();
 
-  const handleForm = async () => {
-    let dataObj = {
-      name: nameRef.current.value,
-      mobile: mobileRef.current.value,
-      email: emailRef.current.value,
-      address: addressRef.current.value,
-      need: needRef.current.value,
-      remarks: remarksRef.current.value,
-      property: property,
-      status: "hot",
-    };
+  // const handleForm = async () => {
+  //   let dataObj = {
+  //     name: nameRef.current.value,
+  //     mobile: mobileRef.current.value,
+  //     email: emailRef.current.value,
+  //     address: addressRef.current.value,
+  //     need: needRef.current.value,
+  //     remarks: remarksRef.current.value,
+  //     property: property,
+  //     status: "hot",
+  //   };
 
-    try {
-      const response = await axios.post(
-        `https://localhost:7062/api/CRMCustomer/4`,
-        dataObj
-      );
-      onAddNewCustomer(response.data);
-      handleClose();
-      navigate("/Customer");
-    } catch (error) {
-      toast.error(error.message);
-      console.error(error);
-    }
-    console.log("Done");
-  };
+  //   try {
+  //     const response = await axios.post(
+  //       `https://localhost:7062/api/CRMCustomer/4`,
+  //       dataObj
+  //     );
+  //     onAddNewCustomer(response.data);
+  //     handleClose();
+  //     navigate("/Customer");
+  //   } catch (error) {
+  //     toast.error(error.message);
+  //     console.error(error);
+  //   }
+  //   console.log("Done");
+  // };
 
   const handlePropertyTypeChange = (event) => {
     setProperty(event.target.value);
@@ -56,12 +91,11 @@ function EditCustomer({ onAddNewCustomer }) {
       </Button>
 
       <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
+        <Modal.Header>
           <Modal.Title>Edit Customer</Modal.Title>
         </Modal.Header>
-
         <Modal.Body>
-          <Form onSubmit={handleForm}>
+          <Form>
             <Form.Group controlId="formBasicProperty">
               <Form.Label className={style.addNewCustomerLabel}>
                 Property Type
@@ -82,6 +116,7 @@ function EditCustomer({ onAddNewCustomer }) {
                   label="Tenant"
                   name="propertyType"
                   id="propertyType2"
+                  checked={property === "Tenant"}
                   className={style.addNewCustomerPropertyTypeOption}
                   value="Tenant"
                   onChange={handlePropertyTypeChange}
@@ -91,6 +126,7 @@ function EditCustomer({ onAddNewCustomer }) {
                   label="Rental"
                   name="propertyType"
                   id="propertyType3"
+                  checked={property === "Rental"}
                   className={style.addNewCustomerPropertyTypeOption}
                   value="Rental"
                   onChange={handlePropertyTypeChange}
@@ -107,7 +143,9 @@ function EditCustomer({ onAddNewCustomer }) {
                     type="text"
                     placeholder="Write here"
                     className={style.addCustomerInputField}
-                    ref={nameRef}
+                    // ref={nameRef}
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
                   />
                 </Form.Group>
               </Col>
@@ -120,7 +158,9 @@ function EditCustomer({ onAddNewCustomer }) {
                     type="email"
                     placeholder="Write here"
                     className={style.addCustomerInputField}
-                    ref={emailRef}
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    // ref={emailRef}
                   />
                 </Form.Group>
               </Col>
@@ -133,7 +173,9 @@ function EditCustomer({ onAddNewCustomer }) {
                     type="tel"
                     placeholder="Write here"
                     className={style.addCustomerInputField}
-                    ref={mobileRef}
+                    value={mobile}
+                    onChange={(e) => setMobile(e.target.value)}
+                    // ref={mobileRef}
                   />
                 </Form.Group>
               </Col>
@@ -146,7 +188,9 @@ function EditCustomer({ onAddNewCustomer }) {
                 type="text"
                 placeholder="Write here"
                 className={style.addCustomerInputField}
-                ref={addressRef}
+                // ref={addressRef}
+                value={address}
+                onChange={(e) => setAddress(e.target.value)}
               />
             </Form.Group>
             <Form.Group controlId="formBasicNeed">
@@ -158,7 +202,9 @@ function EditCustomer({ onAddNewCustomer }) {
                 rows={3}
                 placeholder="Write here"
                 className={style.addCustomerInputField}
-                ref={needRef}
+                // ref={needRef}
+                value={need}
+                onChange={(e) => setNeed(e.target.value)}
               />
             </Form.Group>
             <Form.Group controlId="formBasicRemark">
@@ -170,7 +216,9 @@ function EditCustomer({ onAddNewCustomer }) {
                 rows={3}
                 placeholder="Write here"
                 className={style.addCustomerInputField}
-                ref={remarksRef}
+                // ref={remarksRef}
+                value={remark}
+                onChange={(e) => setRemark(e.target.value)}
               />
             </Form.Group>
           </Form>
@@ -185,10 +233,10 @@ function EditCustomer({ onAddNewCustomer }) {
           </Button>
           <Button
             variant="primary"
-            onClick={handleForm}
+            onClick={onSubmit}
             className={style.addNewCustomerAddBtn}
           >
-            Edit Customer
+            Save Edit
           </Button>
         </Modal.Footer>
       </Modal>

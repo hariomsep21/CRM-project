@@ -27,6 +27,21 @@ const Customer = () => {
     }
   };
 
+  const handleSubmit = (updateCustomer) => {
+    axios
+      .post(
+        `https://localhost:7062/api/CRMCustomer/${updateCustomer.id}`,
+        updateCustomer
+      )
+      .then((response) => {
+        console.log("customer update successfully :", response);
+        refreshData();
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+
   // useEffect(() => {
   //   refreshData();
   // }, [refreshData, reload]);
@@ -73,6 +88,7 @@ const Customer = () => {
             <AddNewCustomer
               className={style.cust_addBtn}
               onAddNewCustomer={handleNewRecordAdded}
+              refreshData={refreshData}
             />
           </div>
         </div>
@@ -112,7 +128,7 @@ const Customer = () => {
         </div>
         <CustomerGrid
           customers={filteredCustomers}
-          onAddNewCustomer={handleNewRecordAdded}
+          onEditCustomer={handleSubmit}
         />
       </div>
     </>

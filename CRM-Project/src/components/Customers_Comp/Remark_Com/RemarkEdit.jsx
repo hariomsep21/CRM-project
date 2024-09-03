@@ -1,28 +1,28 @@
 import React, { useState, useEffect } from "react";
 import { Modal, Button } from "react-bootstrap";
-import style from "./NeedEdit.module.css";
+import style from "./RemarkEdit.module.css";
 import { TfiPencil } from "react-icons/tfi";
 import axios from "axios";
 
-const NeedEdit = ({ customers, onEditCustomer }) => {
+const RemarkEdit = ({ customers, onEditCustomer }) => {
   const [show, setShow] = useState(false);
-  const [need, setNeed] = useState("");
+  const [remark, setremark] = useState("");
 
   const handleShow = () => setShow(true);
   const handleClose = () => setShow(false);
   useEffect(() => {
     if (customers) {
-      setNeed(customers.need || "");
+      setremark(customers.remarks || "");
     }
   }, [customers]);
 
   const handleInputChange = (e) => {
-    setNeed(e.target.value);
+    setremark(e.target.value);
   };
 
   const onSubmit = (event) => {
     event.preventDefault();
-    onEditCustomer({ id: customers.id, name: customers.name, need });
+    onEditCustomer({ id: customers.id, name: customers.name, remarks: remark });
     handleClose();
   };
 
@@ -44,12 +44,12 @@ const NeedEdit = ({ customers, onEditCustomer }) => {
         className={`custom-modal modal-dialog-centered ${style.modal}`}
       >
         <Modal.Header closeButton>
-          <Modal.Title className={style.title}>Edit Need</Modal.Title>
+          <Modal.Title className={style.title}>Edit Remark</Modal.Title>
         </Modal.Header>
         <Modal.Body className={style.modalBody}>
           <textarea
             className={style.Body_element}
-            value={need}
+            value={remark}
             onChange={handleInputChange}
           />
         </Modal.Body>
@@ -74,4 +74,4 @@ const NeedEdit = ({ customers, onEditCustomer }) => {
   );
 };
 
-export default NeedEdit;
+export default RemarkEdit;

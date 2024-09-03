@@ -1,0 +1,48 @@
+.custom-modal .modal-body {
+  max-height: calc(100vh - 300px);
+  overflow-y: auto;
+}
+
+.title {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.mainRow {
+  height: 122px;
+}
+
+.Body_element {
+  border: 1px solid var(--default-bcolor);
+  height: 162px;
+  padding: 12px;
+  width: 450px;
+}
+
+.close_btn {
+  color: var(--default-text-color);
+  background-color: transparent;
+}
+
+.custom-modal .modal-dialog {
+  max-width: 630px;
+  margin: 1.75rem auto;
+}
+
+.custom-modal .modal-content {
+  width: 100%;
+}
+
+.modalBody {
+  max-height: calc(100vh - 300px);
+  overflow-y: auto;
+}
+
+.modal_footer {
+  border-top: none;
+}
+
+.Edit_btn {
+  background-color: var(--primary-bg-color);
+  margin-left: 10px;
+}

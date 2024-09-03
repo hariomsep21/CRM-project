@@ -1,23 +1,64 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Modal, Button } from "react-bootstrap";
 import style from "./EditProfile.module.css";
 const EditProfile = ({
   showModal,
   handleCloseModal,
   handleSubmit,
-  firstName,
-  setFirstName,
-  lastName,
-  setLastName,
-  email,
-  setEmail,
-  mobile,
-  setMobile,
-  address,
-  setAddress,
-  city,
-  setCity,
+  profile,
+  // firstName,
+  // setFirstName,
+  // lastName,
+  // setLastName,
+  // email,
+  // setEmail,
+  // mobile,
+  // setMobile,
+  // address,
+  // setAddress,
+  // city,
+  // setCity,
 }) => {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [mobile, setMobile] = useState("");
+  const [address, setAddress] = useState("");
+  const [city, setCity] = useState("");
+  const [profileUrl, setProfileUrl] = useState("");
+
+  useEffect(() => {
+    if (profile) {
+      setFirstName(profile.firstName || "");
+      setLastName(profile.lastName || "");
+      setEmail(profile.email || "");
+      setMobile(profile.mobile || "");
+      setAddress(profile.address || "");
+      setCity(profile.city || "");
+      setProfileUrl(profile.profileUrl || "");
+    }
+  }, [profile]);
+
+  const onSubmit = (event) => {
+    event.preventDefault();
+    // const updatedProfile =
+    handleSubmit({
+      firstName,
+      lastName,
+      email,
+      mobile,
+      address,
+      city,
+      profileUrl,
+    });
+    // handleSubmit(updatedProfile);
+    handleCloseModal();
+  };
+  // const onSubmit = (event) => {
+  //   event.preventDefault();
+  //   handleSubmit();
+  //   handleCloseModal();
+  // };
   return (
     <Modal show={showModal} onHide={handleCloseModal} centered>
       <Modal.Header>
@@ -108,6 +149,15 @@ const EditProfile = ({
               onChange={(e) => setCity(e.target.value)}
             />
           </div>
+          <div className="form-group" style={{ display: "none" }}>
+            <input
+              type="text"
+              className={`form-control pt-2 pb-2 ${style.editUrlInputField}`}
+              id="profileUrl"
+              value={profileUrl}
+              onChange={(e) => setProfileUrl(e.target.value)}
+            />
+          </div>
         </form>
       </Modal.Body>
       <Modal.Footer>
@@ -121,7 +171,7 @@ const EditProfile = ({
         <Button
           variant="primary"
           className={style.editProfileSaveBtn}
-          onClick={handleSubmit}
+          onClick={onSubmit}
         >
           Save
         </Button>
