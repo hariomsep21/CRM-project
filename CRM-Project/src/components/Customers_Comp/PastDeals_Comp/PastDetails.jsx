@@ -41,7 +41,11 @@ const PastDetails = () => {
   return (
     <>
       <div>
-        <button className="btn" variant="primary" onClick={handleShow}>
+        <button
+          className={`btn ${style.editBtn}`}
+          variant="primary"
+          onClick={handleShow}
+        >
           View Past Deals
         </button>
       </div>

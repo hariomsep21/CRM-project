@@ -1,5 +1,5 @@
 .cust_rowThree {
-  border: 1px solid var(--accent-bcolor);
+  border: 2px solid var(--box-customer);
   border-radius: 4px;
   height: 157px;
   padding-left: 5px;
@@ -32,6 +32,7 @@
 .cust_name {
   display: flex;
   font-weight: 700;
+  font-size: 18px;
 }
 
 .cust_name p {
@@ -42,6 +43,7 @@
 
 .cust_address h6 {
   padding-left: 10px;
+  font-size: 18px;
 }
 
 .cust_icons {
@@ -112,6 +114,7 @@
   font-size: 12px;
   padding-bottom: 24px;
   margin: -14px 0px 15px 5px;
+  pointer-events: none
 }
 
 .property_btn_rental {
@@ -121,6 +124,7 @@
   font-size: 12px;
   padding-bottom: 24px;
   margin: -14px 0px 15px 5px;
+  pointer-events: none
 }
 
 

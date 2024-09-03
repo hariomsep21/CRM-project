@@ -1,3 +1,12 @@
+.editBtn:hover {
+  border: 1px solid black;
+}
+
+.editBtn:active {
+  background-color: var(--primary-bg-color) !important;
+}
+
+
 .custom-modal .modal-body {
   max-height: calc(100vh - 300px);
   overflow-y: auto;

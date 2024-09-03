@@ -37,7 +37,7 @@ const Referenece = () => {
   return (
     <>
       <div variant="primary" onClick={handleShow}>
-        <button className="btn">References</button>
+        <button className={`btn ${style.editBtn}`}>References</button>
       </div>
 
       <Modal

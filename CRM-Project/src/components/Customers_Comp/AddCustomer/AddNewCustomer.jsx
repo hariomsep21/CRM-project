@@ -9,7 +9,7 @@ function AddNewCustomer({ onAddNewCustomer, refreshData }) {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const [property, setProperty] = useState("Buyer / Seller");
+  const [property, setProperty] = useState("Buyer/Seller");
   const nameRef = useRef();
   const mobileRef = useRef();
   const emailRef = useRef();
@@ -18,7 +18,8 @@ function AddNewCustomer({ onAddNewCustomer, refreshData }) {
   const remarksRef = useRef();
   const navigate = useNavigate();
 
-  const handleForm = async () => {
+  const handleForm = async (event) => {
+    event.preventDefault();
     let dataObj = {
       name: nameRef.current.value,
       mobile: mobileRef.current.value,

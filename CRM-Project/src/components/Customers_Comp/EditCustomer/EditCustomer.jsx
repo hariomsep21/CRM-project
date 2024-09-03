@@ -86,7 +86,11 @@ function EditCustomer({ customers, onEditCustomer }) {
 
   return (
     <>
-      <Button variant="" onClick={handleShow} className={`btn`}>
+      <Button
+        variant=""
+        onClick={handleShow}
+        className={`btn ${style.editBtn}`}
+      >
         Edit Customer
       </Button>
 
