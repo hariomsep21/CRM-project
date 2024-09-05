@@ -1,11 +1,13 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, Suspense, lazy } from "react";
 import style from "./Customers.module.css";
 import { IoFilter } from "react-icons/io5";
-import CustomerGrid from "../CustomerGrid_Comp/CustomerGrid";
+// import CustomerGrid from "../CustomerGrid_Comp/CustomerGrid";
 import AddNewCustomer from "../AddCustomer/AddNewCustomer";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+
+const CustomerGrid = lazy(() => import("../CustomerGrid_Comp/CustomerGrid"));
 
 const Customer = () => {
   const [filter, setFilter] = useState("All");
@@ -27,12 +29,9 @@ const Customer = () => {
     }
   };
 
-  const handleSubmit = (updateCustomer) => {
+  const handleSubmit = (customer) => {
     axios
-      .post(
-        `https://localhost:7062/api/CRMCustomer/${updateCustomer.id}`,
-        updateCustomer
-      )
+      .put(`https://localhost:7062/api/CRMCustomer/${customer.id}`, customer)
       .then((response) => {
         console.log("customer update successfully :", response);
         refreshData();
@@ -126,10 +125,12 @@ const Customer = () => {
             </div>
           </div>
         </div>
-        <CustomerGrid
-          customers={filteredCustomers}
-          onEditCustomer={handleSubmit}
-        />
+        <Suspense fallback={<div>Loading...</div>}>
+          <CustomerGrid
+            customers={filteredCustomers}
+            onEditCustomer={handleSubmit}
+          />
+        </Suspense>
       </div>
     </>
   );

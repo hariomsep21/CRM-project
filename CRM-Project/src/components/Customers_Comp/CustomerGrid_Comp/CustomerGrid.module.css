@@ -43,8 +43,12 @@
 
 .cust_address h6 {
   padding-left: 10px;
+}
+
+.cust_address {
   font-size: 18px;
 }
+
 
 .cust_icons {
   display: flex;
