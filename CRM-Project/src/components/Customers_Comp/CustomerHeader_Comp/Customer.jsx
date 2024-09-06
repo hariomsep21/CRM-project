@@ -6,6 +6,8 @@ import { IoFilter } from "react-icons/io5";
 import AddNewCustomer from "../AddCustomer/AddNewCustomer";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 
 const CustomerGrid = lazy(() => import("../CustomerGrid_Comp/CustomerGrid"));
 

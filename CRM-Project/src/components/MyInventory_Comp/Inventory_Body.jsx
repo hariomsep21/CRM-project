@@ -15,6 +15,8 @@ import MyInventory_Create from "./MyInventory_Create/MyInventory_Create";
 import Inventory_Header from "./Inventory_Header";
 import PdfGenerator from "../PropertyDetails_comp/PdfGenerator";
 import axios from "axios";
+import MyInventory_Edit from "./MyInventory_Edit/MyInventory_Edit";
+import EditCustomer from "../Customers_Comp/EditCustomer/EditCustomer";
 
 const Inventory_Body = () => {
   const [selectedRows, setSelectedRows] = useState([]);
@@ -313,11 +315,20 @@ const Inventory_Body = () => {
         Header: "",
         accessor: "action",
         HeaderStyle: style.header_headingNameStyle,
-        Cell: () => (
-          <div className={style.actionIconsStyle}>
+        Cell: ({ row }) => (
+          <div
+            className={style.actionIconsStyle}
+            onClick={(e) => {
+              e.stopPropagation();
+            }}
+          >
             <FaRegUser className={style.actionIcon} />
             <MdRemoveRedEye className={style.actionIconEye} />
-            <BiSolidPencil className={style.actionIcon} />
+            <MyInventory_Edit
+              className={style.actionIcon}
+              id={row.original.id}
+              onNewRecordAdded={handleNewRecordAdded}
+            />
           </div>
         ),
       },

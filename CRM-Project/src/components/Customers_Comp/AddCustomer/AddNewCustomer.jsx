@@ -3,6 +3,7 @@ import { Modal, Button, Form, Row, Col } from "react-bootstrap";
 import style from "./AddNewCustomer.module.css";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 
 function AddNewCustomer({ onAddNewCustomer, refreshData }) {
@@ -30,6 +31,25 @@ function AddNewCustomer({ onAddNewCustomer, refreshData }) {
       property: property,
       status: "hot",
     };
+
+    // Email validation
+    const emailRegex = /^[a-z0-9][a-z0-9._%+-]+@(gmail\.com)$/;
+    if (!emailRegex.test(dataObj.email)) {
+      toast.error(
+        "Invalid email address. Please enter a valid email address.The email contain gmail.com in end only"
+      );
+      return;
+    }
+
+    // Mobile number validation
+    const mobileRegex = /^[6789]\d{9}$/;
+    if (!mobileRegex.test(dataObj.mobile)) {
+      toast.error(
+        "Invalid mobile number. Please enter a 10-digit mobile number."
+      );
+      return;
+    }
+
     //   fetch("http://localhost:5000/newCustomer", {
     //     method: "POST",
     //     headers: { "Content-Type": "application/json" },
@@ -57,7 +77,8 @@ function AddNewCustomer({ onAddNewCustomer, refreshData }) {
       handleClose();
       navigate("/Customer");
     } catch (error) {
-      toast.error(err.message);
+      toast.error(error.message);
+      toast.error();
       console.error(error);
     }
     console.log("Done");

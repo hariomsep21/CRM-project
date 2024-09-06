@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { Modal, Button } from "react-bootstrap";
-import style from "./MyInventory_Create.module.css";
+import style from "./MyInventory_Edit.module.css";
 import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
+import { BiSolidPencil } from "react-icons/bi";
 import axios from "axios";
 
-const MyInventory_Create = ({ onNewRecordAdded }) => {
+const MyInventory_Edit = ({ onNewRecordAdded, id }) => {
   const [show, setShow] = useState(false);
   const [customers, setCustomers] = useState([]);
   const [formData, setFormData] = useState({
+    id: "",
     propertyType: "",
     propertyStatus: "",
     address: "",
@@ -26,6 +28,7 @@ const MyInventory_Create = ({ onNewRecordAdded }) => {
   });
 
   const fieldNames = {
+    id: "id",
     propertyType: "Property Type",
     propertyStatus: "Property Status",
     address: "Address",
@@ -42,7 +45,10 @@ const MyInventory_Create = ({ onNewRecordAdded }) => {
     customerId: "CustomerId",
   };
 
-  const handleShow = () => setShow(true);
+  const handleShow = async () => {
+    setShow(true);
+    await getInventoryData(); // Wait for getInventoryData to complete
+  };
   const handleClose = () => setShow(false);
 
   const handleChange = (e) => {
@@ -74,20 +80,27 @@ const MyInventory_Create = ({ onNewRecordAdded }) => {
       lift: formData.lift === "Yes", // Convert to boolean
       stiltParking: formData.stiltParking === "Yes", // Convert to boolean
       staffRoom: formData.staffRoom === "Yes", // Convert to boolean
-      customerId: formData.customerId,
     };
+    console.log("Transformed data:", transformedData);
+    console.log("Customer ID:", formData.customerId);
+    console.log("Inventory ID:", id);
 
     try {
-      const response = await axios.post(
-        `https://localhost:7062/api/CRMInventory`,
+      const response = await axios.put(
+        `https://localhost:7062/api/CRMInventory/${id}`,
         transformedData
       );
+      console.log("Response:", response);
       toast.success("Records added successfully");
       onNewRecordAdded(response.data);
       handleClose();
     } catch (error) {
-      console.error(error.response.data.errors);
+      console.error("Error:", error);
+      console.error("Error response:", error.response);
       toast.error("Failed to add records");
+      if (error.response && error.response.data) {
+        toast.error(`Error: ${error.response.data}`);
+      }
     }
   };
 
@@ -106,6 +119,34 @@ const MyInventory_Create = ({ onNewRecordAdded }) => {
     }
   };
 
+  const getInventoryData = async () => {
+    try {
+      const response = await axios.get(
+        `https://localhost:7062/api/CRMInventory/${id}`
+      );
+      const data = response.data;
+      setFormData({
+        id: data.id,
+        propertyType: data.propertyType,
+        propertyStatus: data.propertyStatus,
+        address: data.address,
+        location: data.location,
+        floor: data.floor,
+        bed: data.bed,
+        rent: data.rent,
+        plotSize: data.plotSize,
+        parkFacing: data.parkFacing ? "Yes" : "No",
+        lift: data.lift ? "Yes" : "No",
+        stiltParking: data.stiltParking ? "Yes" : "No",
+        staffRoom: data.staffRoom ? "Yes" : "No",
+        remarks: data.remarks,
+        customerId: data.customerId,
+      });
+    } catch (error) {
+      console.error(error);
+      toast.error("Failed to fetch inventory data");
+    }
+  };
   //   try {
   //     const response = await fetch("http://localhost:5000/myInventory", {
   //       method: "POST",
@@ -129,13 +170,11 @@ const MyInventory_Create = ({ onNewRecordAdded }) => {
 
   return (
     <>
-      <button
+      <BiSolidPencil onClick={handleShow}></BiSolidPencil>
+      {/* <button
         className={`btn ${style.addInventory_btn}`}
         variant="primary"
-        onClick={handleShow}
-      >
-        + Add New Inventory
-      </button>
+      ></button> */}
 
       <Modal
         show={show}
@@ -232,6 +271,21 @@ const MyInventory_Create = ({ onNewRecordAdded }) => {
                   placeholder="Enter number of beds"
                 />
               </div>
+            </div>
+            <div
+              className="form-group col-md-6 ps-3 pt-3"
+              style={{ display: "none" }}
+            >
+              <label htmlFor="rent">id</label>
+              <input
+                type="text"
+                name="id"
+                className="form-control"
+                id="id"
+                value={formData.id}
+                onChange={handleChange}
+                placeholder="Enter rent amount"
+              />
             </div>
 
             <div className="form-row d-flex">
@@ -363,4 +417,4 @@ const MyInventory_Create = ({ onNewRecordAdded }) => {
   );
 };
 
-export default MyInventory_Create;
+export default MyInventory_Edit;
