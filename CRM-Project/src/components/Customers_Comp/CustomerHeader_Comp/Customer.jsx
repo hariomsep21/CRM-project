@@ -131,6 +131,7 @@ const Customer = () => {
           <CustomerGrid
             customers={filteredCustomers}
             onEditCustomer={handleSubmit}
+            refreshData={refreshData}
           />
         </Suspense>
       </div>

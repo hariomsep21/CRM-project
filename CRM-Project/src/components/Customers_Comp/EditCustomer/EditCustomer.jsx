@@ -164,7 +164,7 @@ function EditCustomer({ customers, onEditCustomer }) {
                     className={style.addCustomerInputField}
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    // ref={emailRef}
+                    readOnly
                   />
                 </Form.Group>
               </Col>
@@ -179,7 +179,7 @@ function EditCustomer({ customers, onEditCustomer }) {
                     className={style.addCustomerInputField}
                     value={mobile}
                     onChange={(e) => setMobile(e.target.value)}
-                    // ref={mobileRef}
+                    readOnly
                   />
                 </Form.Group>
               </Col>

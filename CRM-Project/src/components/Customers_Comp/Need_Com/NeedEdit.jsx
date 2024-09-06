@@ -4,12 +4,13 @@ import style from "./NeedEdit.module.css";
 import { TfiPencil } from "react-icons/tfi";
 import axios from "axios";
 
-const NeedEdit = ({ customers, onEditCustomer }) => {
+const NeedEdit = ({ customers, refreshData }) => {
   const [show, setShow] = useState(false);
   const [need, setNeed] = useState("");
 
   const handleShow = () => setShow(true);
   const handleClose = () => setShow(false);
+
   useEffect(() => {
     if (customers) {
       setNeed(customers.need || "");
@@ -22,15 +23,45 @@ const NeedEdit = ({ customers, onEditCustomer }) => {
 
   const onSubmit = (event) => {
     event.preventDefault();
-    onEditCustomer({ id: customers.id, name: customers.name, need });
+    console.log("Need value being sent:", need);
+    handleEditNeed(customers.id, need);
     handleClose();
   };
 
-  // const handleEdit = () => {
-  //   // Handle edit functionality, e.g., save to backend
-  //   console.log("Edited value:", needValue);
-  //   handleClose();
-  // };
+  const handleEditNeed = (id, need) => {
+    console.log("ID and Need value being sent:", id, need);
+
+    axios
+      .patch(
+        `https://localhost:7062/api/CRMCustomer/Need/${id}`,
+        need, // Send `need` directly as a string
+        {
+          headers: {
+            "Content-Type": "application/json", // Ensure the Content-Type header is set
+          },
+        }
+      )
+      .then((response) => {
+        refreshData();
+        console.log("Customer updated successfully:", response);
+        // refreshData(); // Assuming you have a method to refresh data
+      })
+      .catch((error) => {
+        // Improved error handling
+        if (error.response) {
+          console.error("Error response:", error.response);
+          console.error("Error status:", error.response.status);
+          console.error("Error data:", error.response.data);
+
+          // Display validation errors if available
+          if (error.response.data.errors) {
+            console.error("Validation errors:", error.response.data.errors);
+          }
+        } else {
+          console.error("Error message:", error.message);
+        }
+      });
+  };
 
   return (
     <>

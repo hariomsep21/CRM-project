@@ -11,6 +11,7 @@ function AddNewCustomer({ onAddNewCustomer, refreshData }) {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const [property, setProperty] = useState("Buyer/Seller");
+
   const nameRef = useRef();
   const mobileRef = useRef();
   const emailRef = useRef();
@@ -77,8 +78,21 @@ function AddNewCustomer({ onAddNewCustomer, refreshData }) {
       handleClose();
       navigate("/Customer");
     } catch (error) {
-      toast.error(error.message);
-      toast.error();
+      if (error.response && error.response.data) {
+        const errorMessage =
+          error.response.data.message || error.response.data || error.message;
+        if (errorMessage === "Email already exists.") {
+          toast.error(
+            "Email address already exists. Please enter a unique email address."
+          );
+        } else {
+          toast.error(errorMessage);
+        }
+      } else {
+        toast.error(
+          "The Email address is already exist or mobile number is same .Please provide the new one"
+        );
+      }
       console.error(error);
     }
     console.log("Done");
@@ -140,6 +154,7 @@ function AddNewCustomer({ onAddNewCustomer, refreshData }) {
                 />
               </div>
             </Form.Group>
+
             <Row>
               <Col>
                 <Form.Group controlId="formBasicName">

@@ -14,7 +14,7 @@ import NeedEdit from "../Need_Com/NeedEdit";
 import RemarkEdit from "../Remark_Com/RemarkEdit";
 import Referenece from "../Referenece/Referenece";
 import EditCustomer from "../EditCustomer/EditCustomer";
-const CustomerGrid = ({ customers, onEditCustomer }) => {
+const CustomerGrid = ({ customers, onEditCustomer, refreshData }) => {
   return (
     <>
       {customers.map((customer) => (
@@ -74,7 +74,7 @@ const CustomerGrid = ({ customers, onEditCustomer }) => {
                     <div>
                       <NeedEdit
                         customers={customer}
-                        onEditCustomer={onEditCustomer}
+                        refreshData={refreshData}
                       />
                     </div>
                   </div>
@@ -94,7 +94,7 @@ const CustomerGrid = ({ customers, onEditCustomer }) => {
                     <div>
                       <RemarkEdit
                         customers={customer}
-                        onEditCustomer={onEditCustomer}
+                        refreshData={refreshData}
                       />
                     </div>
                   </div>
