@@ -166,6 +166,7 @@ const PropertyCustomer = ({ id }) => {
                   ))}
               </select>
             </div>
+
             <div className={`col-2 pt-2 ${style.addCustomerIcon} `}>
               <MdOutlineSave onClick={handleSave} />
             </div>

@@ -1,42 +1,58 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Modal, Button } from "react-bootstrap";
 import style from "./PastDetails.module.css";
 import { RiMapPinLine } from "react-icons/ri";
+import axios from "axios";
 
-const PastDetails = () => {
+const PastDetails = ({ customers }) => {
   const [show, setShow] = useState(false);
+  const [inventory, setInventory] = useState([]);
 
   const handleShow = () => setShow(true);
   const handleClose = () => setShow(false);
 
-  // Dummy data for deals
-  const deals = [
-    {
-      id: 1,
-      imageSrc: "https://picsum.photos/150/102",
-      propertyType: "Buy",
-      details: "Sector 128, Noida, Delhi",
-      price: "$200/month",
-      address: "Border st. nicholasville, ky",
-    },
-    {
-      id: 2,
-      imageSrc: "https://picsum.photos/150/103",
-      propertyType: "Buy",
-      details: "Sector 56, Gurgaon, Haryana",
-      price: "$250/month",
-      address: "Maple Ave. Orlando, FL",
-    },
-    {
-      id: 3,
-      imageSrc: "https://picsum.photos/150/104",
-      propertyType: "Rental",
-      details: "Sector 22, Noida, UP",
-      price: "$150/month",
-      address: "Palm Beach, Miami, FL",
-    },
-    // Add more deals as needed
-  ];
+  useEffect(() => {
+    axios
+      .get(
+        `https://localhost:7062/api/CRMCustomerInventory/GetCustomerList/${customers.id}`
+      )
+      .then((response) => {
+        console.log("Customer ID:", customers.id);
+        console.log("Customer Inventory:", response.data);
+        const customerId = response.data[0].id;
+        axios
+          .get(`https://localhost:7062/api/CRMInventory`)
+          .then((inventoryResponse) => {
+            const allInventory = inventoryResponse.data;
+            console.log("All Inventory:", allInventory);
+            console.log(
+              "Customer Inventory IDs:",
+              response.data.map((item) => item.inventoryId)
+            );
+            const filteredInventory = allInventory.filter((item) => {
+              return response.data.some(
+                (customerItem) => customerItem.inventoryId === item.id
+              );
+            });
+
+            const formattedInventory = filteredInventory.map((item) => ({
+              id: item.id,
+              propertyType: item.propertyStatus,
+              details: item.address,
+              price: item.rent,
+              address: item.location,
+            }));
+            console.log("Formatted Inventory:", formattedInventory);
+            setInventory(formattedInventory);
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, [customers.id]);
 
   return (
     <>
@@ -59,32 +75,37 @@ const PastDetails = () => {
           <Modal.Title className={style.title}>Past Deals</Modal.Title>
         </Modal.Header>
         <Modal.Body className={style.modalBody}>
-          {deals.map((deal) => (
-            <div key={deal.id} className={`row ${style.mainRow}`}>
+          {inventory.map((item) => (
+            <div key={item.id} className={`row ${style.mainRow}`}>
               <div className={`col-5 col-lg-5 col-md-5 m-2 ${style.image}`}>
-                <img src={deal.imageSrc} alt="Deal" />
+                <img
+                  src={`https://picsum.photos/150/${Math.floor(
+                    Math.random() * 100
+                  )}`}
+                  alt="property"
+                />
               </div>
               <div className="col-7 col-lg-7 col-md-7 ml-2">
                 <div className="row">
                   <div
                     className={`col-12 ${
-                      deal.propertyType === "Rental"
+                      item.propertyType === "Rent"
                         ? style.propertyText_rental
                         : style.propertyText
                     }`}
                   >
-                    {deal.propertyType}
+                    {item.propertyType}
                   </div>
                   <div className={`col-12 ${style.deatilsText}`}>
-                    {deal.details}
+                    {item.details}
                   </div>
                   <div className={`col-12 d-flex ${style.priceText}`}>
-                    {deal.propertyType === "Rental" ? "Rent" : "Sell Price"}:{" "}
-                    <p>{deal.price}</p>
+                    {item.propertyType === "Rental" ? "Rent" : "Sell Price"}:{" "}
+                    <p>{item.price}</p>
                   </div>
                   <div className={`col-12 d-flex ${style.addressText}`}>
                     <RiMapPinLine />
-                    <h6 className="ml-1">{deal.address}</h6>
+                    <h6 className="ml-1">{item.address}</h6>
                   </div>
                 </div>
               </div>

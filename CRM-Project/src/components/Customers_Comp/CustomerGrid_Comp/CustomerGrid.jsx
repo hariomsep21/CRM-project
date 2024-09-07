@@ -116,7 +116,7 @@ const CustomerGrid = ({ customers, onEditCustomer, refreshData }) => {
                     <Referenece />
                   </div>
                   <div className="col-3">
-                    <PastDetails />
+                    <PastDetails customers={customer} />
                   </div>
                 </div>
               </div>
