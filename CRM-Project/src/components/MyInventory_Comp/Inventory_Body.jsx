@@ -17,6 +17,7 @@ import PdfGenerator from "../PropertyDetails_comp/PdfGenerator";
 import axios from "axios";
 import MyInventory_Edit from "./MyInventory_Edit/MyInventory_Edit";
 import EditCustomer from "../Customers_Comp/EditCustomer/EditCustomer";
+import PropertyCustomer from "./PropertyCustomer/PropertyCustomer";
 
 const Inventory_Body = () => {
   const [selectedRows, setSelectedRows] = useState([]);
@@ -322,7 +323,10 @@ const Inventory_Body = () => {
               e.stopPropagation();
             }}
           >
-            <FaRegUser className={style.actionIcon} />
+            <PropertyCustomer
+              className={style.actionIcon}
+              id={row.original.id}
+            />
             <MdRemoveRedEye className={style.actionIconEye} />
             <MyInventory_Edit
               className={style.actionIcon}
