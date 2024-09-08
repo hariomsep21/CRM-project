@@ -150,6 +150,7 @@ function EditCustomer({ customers, onEditCustomer }) {
                     // ref={nameRef}
                     value={name}
                     onChange={(e) => setName(e.target.value)}
+                    readOnly
                   />
                 </Form.Group>
               </Col>

@@ -367,7 +367,7 @@ const Inventory_Body = () => {
     {
       columns,
       data: filteredData,
-      initialState: { pageIndex: 0, pageSize: 4 },
+      initialState: { pageIndex: 0, pageSize: 5 },
     },
     useSortBy,
     usePagination

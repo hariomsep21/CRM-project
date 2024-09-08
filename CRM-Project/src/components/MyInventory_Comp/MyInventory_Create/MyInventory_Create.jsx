@@ -22,7 +22,6 @@ const MyInventory_Create = ({ onNewRecordAdded }) => {
     stiltParking: "",
     staffRoom: "",
     remarks: "",
-    customerId: "",
   });
 
   const fieldNames = {
@@ -39,7 +38,6 @@ const MyInventory_Create = ({ onNewRecordAdded }) => {
     stiltParking: "Stilt Parking",
     staffRoom: "Staff Room",
     remarks: "Remarks",
-    customerId: "CustomerId",
   };
 
   const handleShow = () => setShow(true);
@@ -74,7 +72,6 @@ const MyInventory_Create = ({ onNewRecordAdded }) => {
       lift: formData.lift === "Yes", // Convert to boolean
       stiltParking: formData.stiltParking === "Yes", // Convert to boolean
       staffRoom: formData.staffRoom === "Yes", // Convert to boolean
-      customerId: formData.customerId,
     };
 
     try {
@@ -334,7 +331,7 @@ const MyInventory_Create = ({ onNewRecordAdded }) => {
                 onChange={handleChange}
                 placeholder="Enter remarks"
               ></textarea>
-              <div className="form-group col-md-6 ps-3 pt-3">
+              {/* <div className="form-group col-md-6 ps-3 pt-3" >
                 <label htmlFor="customerId">CustomerID</label>
                 <select
                   id="customerId"
@@ -350,7 +347,7 @@ const MyInventory_Create = ({ onNewRecordAdded }) => {
                     </option>
                   ))}
                 </select>
-              </div>
+              </div> */}
             </div>
 
             <button type="submit" className="btn btn-success mt-4">

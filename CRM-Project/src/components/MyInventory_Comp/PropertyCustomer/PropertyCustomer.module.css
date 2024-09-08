@@ -47,7 +47,7 @@
 }
 
 .modalBody {
-  height: 168px;
+  height: 270px;
   overflow-y: auto;
 }
 
@@ -62,10 +62,12 @@
 .Referenece_Icon {
   color: var(--share-icon-color);
   direction: rtl;
+  cursor: pointer;
 }
 
 .addCustomerIcon {
   font-size: 20px;
+  cursor: pointer;
 }
 
 .section1_Body {

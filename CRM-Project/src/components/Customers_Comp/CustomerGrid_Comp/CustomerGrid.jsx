@@ -15,9 +15,21 @@ import RemarkEdit from "../Remark_Com/RemarkEdit";
 import Referenece from "../Referenece/Referenece";
 import EditCustomer from "../EditCustomer/EditCustomer";
 const CustomerGrid = ({ customers, onEditCustomer, refreshData }) => {
+  // Sort customers by name in alphabetical order
+  const sortedCustomers = customers.sort((a, b) => {
+    const nameA = a.name.toLowerCase();
+    const nameB = b.name.toLowerCase();
+    if (nameA < nameB) {
+      return -1;
+    }
+    if (nameA > nameB) {
+      return 1;
+    }
+    return 0;
+  });
   return (
     <>
-      {customers.map((customer) => (
+      {sortedCustomers.map((customer) => (
         <div key={customer.id} className={`row mt-4 ${style.cust_rowThree}`}>
           <div className="section_1 col-sm-12 col-md-4 col-lg-4">
             <div className="col">
