@@ -82,6 +82,7 @@ const NeedEdit = ({ customers, refreshData }) => {
             className={style.Body_element}
             value={need}
             onChange={handleInputChange}
+            maxLength={150}
           />
         </Modal.Body>
         <Modal.Footer className={style.modal_footer}>

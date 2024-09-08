@@ -32,6 +32,34 @@ function AddNewCustomer({ onAddNewCustomer, refreshData }) {
       property: property,
       status: "hot",
     };
+    let errors = [];
+
+    // Check for empty fields
+    if (!dataObj.name) {
+      errors.push("Name");
+    }
+    if (!dataObj.email) {
+      errors.push("Email");
+    }
+    if (!dataObj.mobile) {
+      errors.push("Mobile");
+    }
+    if (!dataObj.address) {
+      errors.push("Address");
+    }
+    if (!dataObj.need) {
+      errors.push("Need");
+    }
+    if (!dataObj.remarks) {
+      errors.push("Remark");
+    }
+
+    if (errors.length > 0) {
+      let errorMessage = "Please fill in the following fields: ";
+      errorMessage += errors.join(", ");
+      toast.error(errorMessage);
+      return;
+    }
 
     // Email validation
     const emailRegex = /^[a-z0-9][a-z0-9._%+-]+@(gmail\.com)$/;
@@ -48,6 +76,16 @@ function AddNewCustomer({ onAddNewCustomer, refreshData }) {
       toast.error(
         "Invalid mobile number. Please enter a 10-digit mobile number."
       );
+      return;
+    }
+
+    // Need and Remark length validation
+    if (dataObj.need && dataObj.need.length > 150) {
+      toast.error("Need should not exceed 150 characters");
+      return;
+    }
+    if (dataObj.remarks && dataObj.remarks.length > 60) {
+      toast.error("Remark should not exceed 60 characters");
       return;
     }
 
@@ -217,6 +255,7 @@ function AddNewCustomer({ onAddNewCustomer, refreshData }) {
                 placeholder="Write here"
                 className={style.addCustomerInputField}
                 ref={needRef}
+                maxLength={150}
               />
             </Form.Group>
             <Form.Group controlId="formBasicRemark">
@@ -229,6 +268,7 @@ function AddNewCustomer({ onAddNewCustomer, refreshData }) {
                 placeholder="Write here"
                 className={style.addCustomerInputField}
                 ref={remarksRef}
+                maxLength={60}
               />
             </Form.Group>
           </Form>

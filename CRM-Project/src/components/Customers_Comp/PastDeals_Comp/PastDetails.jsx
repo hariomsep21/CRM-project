@@ -78,12 +78,7 @@ const PastDetails = ({ customers }) => {
           {inventory.map((item) => (
             <div key={item.id} className={`row ${style.mainRow}`}>
               <div className={`col-5 col-lg-5 col-md-5 m-2 ${style.image}`}>
-                <img
-                  src={`https://picsum.photos/150/${Math.floor(
-                    Math.random() * 100
-                  )}`}
-                  alt="property"
-                />
+                <img src=" /public/img/logo.png" alt="property" />
               </div>
               <div className="col-7 col-lg-7 col-md-7 ml-2">
                 <div className="row">
@@ -101,7 +96,7 @@ const PastDetails = ({ customers }) => {
                   </div>
                   <div className={`col-12 d-flex ${style.priceText}`}>
                     {item.propertyType === "Rental" ? "Rent" : "Sell Price"}:{" "}
-                    <p>{item.price}</p>
+                    <p>{item.price}K</p>
                   </div>
                   <div className={`col-12 d-flex ${style.addressText}`}>
                     <RiMapPinLine />

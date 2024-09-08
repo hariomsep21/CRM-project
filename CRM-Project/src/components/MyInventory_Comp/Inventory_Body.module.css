@@ -207,6 +207,7 @@
 .actionIconsStyle {
   color: var(--primary-icon-color);
   text-align: center;
+  cursor: pointer;
 }
 
 .actionIconEye {

@@ -95,6 +95,7 @@
 
 .remark_heading p {
   font-size: 14px;
+  overflow-wrap: break-word;
 }
 
 .remark_btn div button {

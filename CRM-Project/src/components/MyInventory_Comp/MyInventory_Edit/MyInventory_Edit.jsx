@@ -182,7 +182,7 @@ const MyInventory_Edit = ({ onNewRecordAdded, id }) => {
         className={`custom-modal modal-dialog-centered ${style.modal}`}
       >
         <Modal.Header closeButton>
-          <Modal.Title className={style.title}>New Inventory</Modal.Title>
+          <Modal.Title className={style.title}>Edit Inventory</Modal.Title>
         </Modal.Header>
         <Modal.Body className={style.modalBody}>
           <form onSubmit={handleSubmit}>
@@ -388,7 +388,10 @@ const MyInventory_Edit = ({ onNewRecordAdded, id }) => {
                 onChange={handleChange}
                 placeholder="Enter remarks"
               ></textarea>
-              <div className="form-group col-md-6 ps-3 pt-3">
+              <div
+                className="form-group col-md-6 ps-3 pt-3"
+                style={{ display: "none" }}
+              >
                 <label htmlFor="customerId">CustomerID</label>
                 <select
                   id="customerId"

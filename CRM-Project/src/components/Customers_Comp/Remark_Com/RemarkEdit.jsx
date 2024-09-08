@@ -85,6 +85,7 @@ const RemarkEdit = ({ customers, refreshData }) => {
             className={style.Body_element}
             value={remark}
             onChange={handleInputChange}
+            maxLength={60}
           />
         </Modal.Body>
         <Modal.Footer className={style.modal_footer}>

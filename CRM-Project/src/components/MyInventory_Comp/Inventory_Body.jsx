@@ -327,7 +327,15 @@ const Inventory_Body = () => {
               className={style.actionIcon}
               id={row.original.id}
             />
-            <MdRemoveRedEye className={style.actionIconEye} />
+            <MdRemoveRedEye
+              className={style.actionIconEye}
+              onDoubleClick={() =>
+                navigate(`/PropertyDetail/${row.original.id}`)
+              }
+              onClick={(e) => {
+                console.log("Double-clicked on row", row.original.id);
+              }}
+            />
             <MyInventory_Edit
               className={style.actionIcon}
               id={row.original.id}
