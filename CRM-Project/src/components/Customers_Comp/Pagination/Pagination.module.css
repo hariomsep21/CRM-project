@@ -1,0 +1,11 @@
+.leftArrow {
+  border: 1px solid black;
+  border-radius: 5px;
+  margin-right: 10px;
+}
+
+.rightArrow {
+  border: 1px solid black;
+  border-radius: 5px;
+
+}

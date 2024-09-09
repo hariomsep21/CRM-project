@@ -14,7 +14,12 @@ import NeedEdit from "../Need_Com/NeedEdit";
 import RemarkEdit from "../Remark_Com/RemarkEdit";
 import Referenece from "../Referenece/Referenece";
 import EditCustomer from "../EditCustomer/EditCustomer";
+import React, { useState } from "react";
+import Pagination from "../Pagination/Pagination";
+
 const CustomerGrid = ({ customers, onEditCustomer, refreshData }) => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const [customersPerPage, setCustomersPerPage] = useState(10);
   // Sort customers by name in alphabetical order
   const sortedCustomers = customers.sort((a, b) => {
     const nameA = a.name.toLowerCase();
@@ -27,9 +32,22 @@ const CustomerGrid = ({ customers, onEditCustomer, refreshData }) => {
     }
     return 0;
   });
+
+  const indexOfLastCustomer = currentPage * customersPerPage;
+  const indexOfFirstCustomer = indexOfLastCustomer - customersPerPage;
+  const currentCustomers = sortedCustomers.slice(
+    indexOfFirstCustomer,
+    indexOfLastCustomer
+  );
+
+  const totalPages = Math.ceil(sortedCustomers.length / customersPerPage);
+
+  const onPageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
   return (
     <>
-      {sortedCustomers.map((customer) => (
+      {currentCustomers.map((customer) => (
         <div key={customer.id} className={`row mt-4 ${style.cust_rowThree}`}>
           <div className="section_1 col-sm-12 col-md-4 col-lg-4">
             <div className="col">
@@ -136,6 +154,12 @@ const CustomerGrid = ({ customers, onEditCustomer, refreshData }) => {
           </div>
         </div>
       ))}
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={onPageChange}
+        className="pagination mt-4 d-flex justify-content-end"
+      />
     </>
   );
 };

@@ -13,6 +13,7 @@ function EditCustomer({ customers, onEditCustomer }) {
   const [remark, setRemark] = useState("");
   const [property, setProperty] = useState("");
   const [status, setStatus] = useState("");
+  const [inventoryStatus, setInventoryStatus] = useState("");
 
   useEffect(() => {
     if (customers) {
@@ -24,6 +25,7 @@ function EditCustomer({ customers, onEditCustomer }) {
       setRemark(customers.remarks || "");
       setProperty(customers.property || "");
       setStatus(customers.status || "");
+      setInventoryStatus(customers.inventoryStatus === true ? "true" : "false");
     }
   }, [customers]);
   const onSubmit = (event) => {
@@ -38,7 +40,9 @@ function EditCustomer({ customers, onEditCustomer }) {
       remarks: remark,
       property,
       status,
+      inventoryStatus: JSON.parse(inventoryStatus),
     });
+    console.log(inventoryStatus);
     handleClose();
   };
   const [show, setShow] = useState(false);
@@ -82,6 +86,9 @@ function EditCustomer({ customers, onEditCustomer }) {
 
   const handlePropertyTypeChange = (event) => {
     setProperty(event.target.value);
+  };
+  const handleInventoryStatusChange = (event) => {
+    setInventoryStatus(event.target.value);
   };
 
   return (
@@ -225,6 +232,33 @@ function EditCustomer({ customers, onEditCustomer }) {
                 value={remark}
                 onChange={(e) => setRemark(e.target.value)}
               />
+            </Form.Group>
+            <Form.Group controlId="formBasicProperty">
+              <Form.Label className={style.addNewCustomerLabel}>
+                Inventory Status
+              </Form.Label>
+              <div className={style.addCustomerPropertyType}>
+                <Form.Check
+                  type="radio"
+                  label="Active"
+                  name="inventoryStatus"
+                  id="inventoryStatus1"
+                  checked={inventoryStatus === "true"}
+                  className={style.addNewCustomerPropertyTypeOption}
+                  value="true"
+                  onChange={handleInventoryStatusChange}
+                />
+                <Form.Check
+                  type="radio"
+                  label="Not Active"
+                  name="inventoryStatus"
+                  id="inventoryStatus2"
+                  checked={inventoryStatus === "false"}
+                  className={style.addNewCustomerPropertyTypeOption}
+                  value="false"
+                  onChange={handleInventoryStatusChange}
+                />
+              </div>
             </Form.Group>
           </Form>
         </Modal.Body>

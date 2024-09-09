@@ -11,6 +11,7 @@ function AddNewCustomer({ onAddNewCustomer, refreshData }) {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const [property, setProperty] = useState("Buyer/Seller");
+  const [inventoryStatus, setInventoryStatus] = useState("false");
 
   const nameRef = useRef();
   const mobileRef = useRef();
@@ -31,6 +32,7 @@ function AddNewCustomer({ onAddNewCustomer, refreshData }) {
       remarks: remarksRef.current.value,
       property: property,
       status: "hot",
+      inventoryStatus: JSON.parse(inventoryStatus),
     };
     let errors = [];
 
@@ -138,6 +140,10 @@ function AddNewCustomer({ onAddNewCustomer, refreshData }) {
 
   const handlePropertyTypeChange = (event) => {
     setProperty(event.target.value);
+  };
+
+  const handleInventoryStatusChange = (event) => {
+    setInventoryStatus(event.target.value);
   };
 
   return (
@@ -270,6 +276,33 @@ function AddNewCustomer({ onAddNewCustomer, refreshData }) {
                 ref={remarksRef}
                 maxLength={60}
               />
+            </Form.Group>
+            <Form.Group controlId="formBasicProperty">
+              <Form.Label className={style.addNewCustomerLabel}>
+                Inventory Status
+              </Form.Label>
+              <div className={style.addCustomerPropertyType}>
+                <Form.Check
+                  type="radio"
+                  label="Active"
+                  name="inventoryStatus"
+                  id="inventoryStatus1"
+                  checked={inventoryStatus == "false"}
+                  className={style.addNewCustomerPropertyTypeOption}
+                  value="false"
+                  onChange={handleInventoryStatusChange}
+                />
+                <Form.Check
+                  type="radio"
+                  label="Not Active"
+                  name="inventoryStatus"
+                  id="inventoryStatus2"
+                  checked={inventoryStatus === "true"}
+                  className={style.addNewCustomerPropertyTypeOption}
+                  value="true"
+                  onChange={handleInventoryStatusChange}
+                />
+              </div>
             </Form.Group>
           </Form>
         </Modal.Body>
