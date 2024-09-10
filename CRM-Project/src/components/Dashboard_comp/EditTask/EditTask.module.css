@@ -1,0 +1,100 @@
+.dropdownBtn {
+  width: 100%;
+  border: 1px solid var(--default-bcolor);
+}
+
+.createTaskHeading {
+  font-size: 20px !important;
+}
+
+.dropdownBtn .dropdown-toggle {
+  width: 100%;
+  align-items: center;
+  display: flex;
+  justify-content: space-between
+}
+
+.createTaskInputField {
+  font-size: 14px !important;
+}
+
+.radio {
+  font-size: 14px;
+}
+
+.btnTask {
+  font-size: 16px;
+  background-color: var(--primary-bg-color);
+  padding: 8px 15px;
+}
+
+.addIcon {
+  font-size: 24px;
+  margin-right: 5px;
+}
+
+.heading {
+  color: var(--filter-text-color);
+  font-size: 14px;
+}
+
+
+.cancelBtn {
+  font-weight: 600;
+  padding: 10px 20px;
+  line-height: 25px;
+  border: 1px solid var(--default-bcolor);
+  color: var(--default-text-color);
+}
+
+.submitBtn {
+  padding: 10px 20px;
+  line-height: 25px;
+  background-color: var(--primary-bg-color);
+  color: var(--secondary-text-color);
+}
+
+.propertyTypeCheckbox {
+  display: flex;
+  justify-content: space-between;
+  width: 250px;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.createTaskInputField button {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+}
+
+.createTaskInputField div {
+  width: 372px !important;
+}
+
+.customLevelItem {
+  color: var(--primary-text-color);
+}
+
+.dropBtn {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.labelBox {
+  width: 100%;
+}
+
+.labelsValue {
+
+  padding-bottom: 10px;
+  font-size: 16px;
+}
+
+.customLabel {
+  color: var(--primary-text-color);
+}

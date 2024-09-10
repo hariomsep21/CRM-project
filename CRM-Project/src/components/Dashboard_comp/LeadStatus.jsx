@@ -33,31 +33,31 @@ function DoughnutChart({ data, title }) {
     </div>
   );
 }
-const buyData = {
-  labels: [],
-  datasets: [
-    {
-      label: "Leads",
-      data: [60, 40],
-      backgroundColor: ["#850f8d", "#e5e5e5"],
-      hoverOffset: 4,
-    },
-  ],
-};
+// const buyData = {
+//   labels: [],
+//   datasets: [
+//     {
+//       label: "Leads",
+//       data: [60, 40],
+//       backgroundColor: ["#850f8d", "#e5e5e5"],
+//       hoverOffset: 4,
+//     },
+//   ],
+// };
 
-const rentalData = {
-  labels: [],
-  datasets: [
-    {
-      label: "Leads",
-      data: [60, 40],
-      backgroundColor: ["#ffa62f", "#e5e5e5"],
-      hoverOffset: 4,
-    },
-  ],
-};
+// const rentalData = {
+//   labels: [],
+//   datasets: [
+//     {
+//       label: "Leads",
+//       data: [60, 40],
+//       backgroundColor: ["#ffa62f", "#e5e5e5"],
+//       hoverOffset: 4,
+//     },
+//   ],
+// };
 
-function LeadStatus() {
+function LeadStatus({ buyData, rentalData }) {
   return (
     <>
       <div className={`${style.leadstatus_dashboard}`}>

@@ -8,7 +8,7 @@ const Dashboard = () => {
     <>
       <div className={`${style.dashboard} container mt-4`}>
         <h3 className={`${style.dashboardHeading}`}>Dashboard</h3>
-        <LeadStatus></LeadStatus>
+        {/* <LeadStatus></LeadStatus> */}
         <Table></Table>
       </div>
     </>

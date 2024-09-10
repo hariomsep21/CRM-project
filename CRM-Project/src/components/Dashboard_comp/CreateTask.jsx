@@ -81,7 +81,7 @@ const CreateTask = ({
         Create Task
       </Button>
       <Modal show={show} onHide={handleClose} size="lg" centered>
-        <Modal.Header>
+        <Modal.Header closeButton>
           <Modal.Title className={style.createTaskHeading}>
             Add New Task
           </Modal.Title>
