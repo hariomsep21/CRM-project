@@ -42,7 +42,7 @@ function EditCustomer({ customers, onEditCustomer }) {
       status,
       inventoryStatus: JSON.parse(inventoryStatus),
     });
-    console.log(inventoryStatus);
+
     handleClose();
   };
   const [show, setShow] = useState(false);

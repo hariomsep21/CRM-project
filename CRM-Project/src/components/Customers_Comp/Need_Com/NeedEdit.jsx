@@ -23,14 +23,12 @@ const NeedEdit = ({ customers, refreshData }) => {
 
   const onSubmit = (event) => {
     event.preventDefault();
-    console.log("Need value being sent:", need);
+
     handleEditNeed(customers.id, need);
     handleClose();
   };
 
   const handleEditNeed = (id, need) => {
-    console.log("ID and Need value being sent:", id, need);
-
     axios
       .patch(
         `https://localhost:7062/api/CRMCustomer/Need/${id}`,
@@ -43,7 +41,7 @@ const NeedEdit = ({ customers, refreshData }) => {
       )
       .then((response) => {
         refreshData();
-        console.log("Customer updated successfully:", response);
+
         // refreshData(); // Assuming you have a method to refresh data
       })
       .catch((error) => {

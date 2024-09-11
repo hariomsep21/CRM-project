@@ -49,7 +49,7 @@ const CustomerGrid = ({ customers, onEditCustomer, refreshData }) => {
     <>
       {currentCustomers.map((customer) => (
         <div key={customer.id} className={`row mt-4 ${style.cust_rowThree}`}>
-          <div className="section_1 col-sm-12 col-md-4 col-lg-4">
+          <div className={`col-sm-12 col-md-4 col-lg-4 ${style.section_1}`}>
             <div className="col">
               <button
                 className={`btn ${
@@ -78,16 +78,41 @@ const CustomerGrid = ({ customers, onEditCustomer, refreshData }) => {
             </div>
             <div className={`col mt-2 ${style.cust_icons} `}>
               <div className="col-2">
-                <FaPhoneAlt />
+                <FaPhoneAlt
+                  onClick={() => {
+                    const currentCustomerPhone = customer.mobile;
+                    navigator.clipboard.writeText(currentCustomerPhone);
+                    console.log(`Copied phone number: ${currentCustomerPhone}`);
+                  }}
+                />
               </div>
               <div className="col-2">
-                <RiMessage2Fill />
+                <RiMessage2Fill
+                  onClick={() => {
+                    const currentCustomerPhone = customer.mobile;
+                    const telUrl = `tel:${currentCustomerPhone}`;
+                    window.open(telUrl, "_self");
+                  }}
+                />
               </div>
               <div className="col-2">
-                <IoMdMail />
+                <IoMdMail
+                  onClick={() => {
+                    const currentCustomerEmail = customer.email;
+                    const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${currentCustomerEmail}`;
+                    window.open(gmailUrl, "_blank");
+                  }}
+                />
               </div>
               <div className="col-2">
-                <IoLogoWhatsapp className={style.whatsapp_icons} />
+                <IoLogoWhatsapp
+                  className={style.whatsapp_icons}
+                  onClick={() => {
+                    const currentCustomerPhone = customer.mobile;
+                    const whatsappUrl = `https://wa.me/${currentCustomerPhone}`;
+                    window.open(whatsappUrl, "_blank");
+                  }}
+                />
               </div>
               <div className="col-2">
                 <HiDownload />

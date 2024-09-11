@@ -17,18 +17,12 @@ const PastDetails = ({ customers }) => {
         `https://localhost:7062/api/CRMCustomerInventory/GetCustomerList/${customers.id}`
       )
       .then((response) => {
-        console.log("Customer ID:", customers.id);
-        console.log("Customer Inventory:", response.data);
         const customerId = response.data[0].id;
         axios
           .get(`https://localhost:7062/api/CRMInventory`)
           .then((inventoryResponse) => {
             const allInventory = inventoryResponse.data;
-            console.log("All Inventory:", allInventory);
-            console.log(
-              "Customer Inventory IDs:",
-              response.data.map((item) => item.inventoryId)
-            );
+
             const filteredInventory = allInventory.filter((item) => {
               return response.data.some(
                 (customerItem) => customerItem.inventoryId === item.id
@@ -42,7 +36,6 @@ const PastDetails = ({ customers }) => {
               price: item.rent,
               address: item.location,
             }));
-            console.log("Formatted Inventory:", formattedInventory);
             setInventory(formattedInventory);
           })
           .catch((error) => {

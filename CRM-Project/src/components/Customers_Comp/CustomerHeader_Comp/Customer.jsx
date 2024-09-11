@@ -35,7 +35,6 @@ const Customer = () => {
     axios
       .put(`https://localhost:7062/api/CRMCustomer/${customer.id}`, customer)
       .then((response) => {
-        console.log("customer update successfully :", response);
         refreshData();
       })
       .catch((error) => {

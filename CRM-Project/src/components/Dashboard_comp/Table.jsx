@@ -121,7 +121,7 @@ const Table = () => {
         datasets: [
           {
             label: "Buy Leads",
-            data: [buyPercentage, 100 - buyPercentage], // updated data
+            data: [buyPercentage, 100 - buyPercentage],
             backgroundColor: ["#850f8d", "#e5e5e5"],
             hoverOffset: 4,
           },
@@ -131,7 +131,7 @@ const Table = () => {
         datasets: [
           {
             label: "Rental Leads",
-            data: [rentalPercentage, 100 - rentalPercentage], // updated data
+            data: [rentalPercentage, 100 - rentalPercentage],
             backgroundColor: ["#ffa62f", "#e5e5e5"],
             hoverOffset: 4,
           },

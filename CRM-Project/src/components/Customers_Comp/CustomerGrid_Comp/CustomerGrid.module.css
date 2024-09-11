@@ -54,6 +54,7 @@
   display: flex;
   color: var(--primary-icon-color);
   gap: 4px;
+  cursor: pointer;
 }
 
 .cust_icons div {
