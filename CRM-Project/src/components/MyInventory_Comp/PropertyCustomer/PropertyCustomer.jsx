@@ -43,7 +43,7 @@ const PropertyCustomer = ({ id }) => {
 
   const handleAddShow = () => setAddShow(true);
   const handleAddClose = () => setAddShow(false);
-
+  const token = sessionStorage.getItem("token");
   const API_URL = "https://localhost:7062/";
 
   useEffect(() => {
@@ -52,7 +52,11 @@ const PropertyCustomer = ({ id }) => {
 
   const refreshData = async () => {
     try {
-      const response = await axios.get(API_URL + "api/CRMCustomer");
+      const response = await axios.get(API_URL + "api/CRMCustomer", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       setAllCustomers(response.data);
     } catch (error) {
       console.error(error);

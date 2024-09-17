@@ -28,6 +28,7 @@ function EditCustomer({ customers, onEditCustomer }) {
       setInventoryStatus(customers.inventoryStatus === true ? "true" : "false");
     }
   }, [customers]);
+
   const onSubmit = (event) => {
     event.preventDefault();
     onEditCustomer({

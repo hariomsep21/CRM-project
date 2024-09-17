@@ -1,23 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Modal, Button } from "react-bootstrap";
 import style from "./EditProfile.module.css";
+
 const EditProfile = ({
   showModal,
   handleCloseModal,
   handleSubmit,
   profile,
-  // firstName,
-  // setFirstName,
-  // lastName,
-  // setLastName,
-  // email,
-  // setEmail,
-  // mobile,
-  // setMobile,
-  // address,
-  // setAddress,
-  // city,
-  // setCity,
 }) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -26,6 +15,12 @@ const EditProfile = ({
   const [address, setAddress] = useState("");
   const [city, setCity] = useState("");
   const [profileUrl, setProfileUrl] = useState("");
+
+  // State for validation errors
+  const [errors, setErrors] = useState({
+    email: "",
+    mobile: "",
+  });
 
   useEffect(() => {
     if (profile) {
@@ -39,26 +34,44 @@ const EditProfile = ({
     }
   }, [profile]);
 
+  // Validation logic for email and mobile number
+  const validate = () => {
+    let valid = true;
+    const newErrors = { email: "", mobile: "" };
+    const emailRegex = /^[a-z0-9][a-z0-9._%+-]+@(gmail\.com)$/;
+    const mobileRegex = /^[6789]\d{9}$/;
+
+    if (!emailRegex.test(email)) {
+      newErrors.email = "Please enter a valid Gmail address.";
+      valid = false;
+    }
+
+    if (!mobileRegex.test(mobile)) {
+      newErrors.mobile = "Please enter a valid 10-digit mobile number.";
+      valid = false;
+    }
+
+    setErrors(newErrors);
+    return valid;
+  };
+
   const onSubmit = (event) => {
     event.preventDefault();
-    // const updatedProfile =
-    handleSubmit({
-      firstName,
-      lastName,
-      email,
-      mobile,
-      address,
-      city,
-      profileUrl,
-    });
-    // handleSubmit(updatedProfile);
-    handleCloseModal();
+
+    if (validate()) {
+      handleSubmit({
+        firstName,
+        lastName,
+        email,
+        mobile,
+        address,
+        city,
+        profileUrl,
+      });
+      handleCloseModal();
+    }
   };
-  // const onSubmit = (event) => {
-  //   event.preventDefault();
-  //   handleSubmit();
-  //   handleCloseModal();
-  // };
+
   return (
     <Modal show={showModal} onHide={handleCloseModal} centered>
       <Modal.Header>
@@ -70,28 +83,25 @@ const EditProfile = ({
         <form>
           <div className="form-row d-flex pb-2">
             <div className="form-group col-md-6">
-              <label
-                htmlFor="firstName"
-                className={`${style.editProfileLabel}`}
-              >
+              <label htmlFor="firstName" className={style.editProfileLabel}>
                 First Name
               </label>
               <input
                 type="text"
-                className={` form-control ${style.editProfileInputField}`}
+                className={`form-control ${style.editProfileInputField}`}
                 id="firstName"
                 value={firstName}
                 onChange={(e) => setFirstName(e.target.value)}
               />
             </div>
             <div className="form-group col-md-6">
-              <label htmlFor="lastName" className={`${style.editProfileLabel}`}>
+              <label htmlFor="lastName" className={style.editProfileLabel}>
                 Last Name
               </label>
               <input
                 type="text"
                 id="lastName"
-                className={` form-control ${style.editProfileInputField}`}
+                className={`form-control ${style.editProfileInputField}`}
                 value={lastName}
                 onChange={(e) => setLastName(e.target.value)}
               />
@@ -100,33 +110,41 @@ const EditProfile = ({
 
           <div className="form-row d-flex pb-2">
             <div className="form-group col-md-6">
-              <label htmlFor="mobile" className={`${style.editProfileLabel}`}>
+              <label htmlFor="mobile" className={style.editProfileLabel}>
                 Mobile No.
               </label>
               <input
                 type="tel"
-                className={` form-control ${style.editProfileInputField}`}
+                className={`form-control ${style.editProfileInputField}`}
                 id="mobile"
                 value={mobile}
                 onChange={(e) => setMobile(e.target.value)}
               />
+              {/* Show mobile error */}
+              {errors.mobile && (
+                <small className="text-danger">{errors.mobile}</small>
+              )}
             </div>
             <div className="form-group col-md-6">
-              <label htmlFor="email" className={`${style.editProfileLabel}`}>
+              <label htmlFor="email" className={style.editProfileLabel}>
                 Email
               </label>
               <input
                 type="email"
-                className={` form-control ${style.editProfileInputField}`}
+                className={`form-control ${style.editProfileInputField}`}
                 id="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
+              {/* Show email error */}
+              {errors.email && (
+                <small className="text-danger">{errors.email}</small>
+              )}
             </div>
           </div>
 
           <div className="form-group">
-            <label htmlFor="address" className={`${style.editProfileLabel}`}>
+            <label htmlFor="address" className={style.editProfileLabel}>
               Address
             </label>
             <input
@@ -138,7 +156,7 @@ const EditProfile = ({
             />
           </div>
           <div className="form-group pt-2">
-            <label htmlFor="city" className={`${style.editProfileLabel}`}>
+            <label htmlFor="city" className={style.editProfileLabel}>
               City
             </label>
             <input

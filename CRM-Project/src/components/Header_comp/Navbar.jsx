@@ -10,10 +10,12 @@ import {
   MdOutlineNotificationsNone,
 } from "react-icons/md";
 import { HiOutlineUsers } from "react-icons/hi2";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const Navbar = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const [activeItem, setActiveItem] = useState(location.pathname);
 
   useEffect(() => {
@@ -22,6 +24,27 @@ const Navbar = () => {
 
   const handleItemClick = (path) => {
     setActiveItem(path);
+  };
+
+  const token = sessionStorage.getItem("token");
+  const handleLogout = async () => {
+    try {
+      await axios.post(
+        "https://localhost:7062/api/MyProfile/logout",
+        {},
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      sessionStorage.removeItem("token");
+
+      navigate("/");
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -106,7 +129,7 @@ const Navbar = () => {
                   onClick={() => handleItemClick("/profile")}
                 >
                   <HiOutlineUsers className={`${style.navbarIcon}`} />
-                  My Team
+                  My Profile
                 </Link>
               </li>
             </ul>
@@ -130,18 +153,22 @@ const Navbar = () => {
                 </button>
                 <ul className="dropdown-menu" aria-labelledby="dropdownMenu2">
                   <li>
-                    <button className="dropdown-item" type="button">
-                      Action
-                    </button>
+                    <Link
+                      className="dropdown-item"
+                      type="button"
+                      to="/profile"
+                      onClick={() => handleItemClick("/profile")}
+                    >
+                      My Profile
+                    </Link>
                   </li>
                   <li>
-                    <button className="dropdown-item" type="button">
-                      Another action
-                    </button>
-                  </li>
-                  <li>
-                    <button className="dropdown-item" type="button">
-                      Something else here
+                    <button
+                      className="dropdown-item"
+                      type="button"
+                      onClick={handleLogout}
+                    >
+                      Log Out
                     </button>
                   </li>
                 </ul>

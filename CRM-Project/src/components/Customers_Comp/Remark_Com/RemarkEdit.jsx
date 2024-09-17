@@ -20,6 +20,7 @@ const RemarkEdit = ({ customers, refreshData }) => {
     setremark(e.target.value);
   };
 
+  const token = sessionStorage.getItem("token");
   const onSubmit = (event) => {
     event.preventDefault();
     handleEditRemarks(customers.id, remark);
@@ -34,7 +35,8 @@ const RemarkEdit = ({ customers, refreshData }) => {
         remark, // Send `need` directly as a string
         {
           headers: {
-            "Content-Type": "application/json", // Ensure the Content-Type header is set
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
           },
         }
       )

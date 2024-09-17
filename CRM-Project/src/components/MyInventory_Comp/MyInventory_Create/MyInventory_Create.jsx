@@ -42,7 +42,7 @@ const MyInventory_Create = ({ onNewRecordAdded }) => {
 
   const handleShow = () => setShow(true);
   const handleClose = () => setShow(false);
-
+  const token = sessionStorage.getItem("token");
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -77,7 +77,12 @@ const MyInventory_Create = ({ onNewRecordAdded }) => {
     try {
       const response = await axios.post(
         `https://localhost:7062/api/CRMInventory`,
-        transformedData
+        transformedData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
       toast.success("Records added successfully");
       onNewRecordAdded(response.data);

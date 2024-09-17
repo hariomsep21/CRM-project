@@ -136,7 +136,7 @@
 /* these css for action icon Start  */
 .actionIconsStyle {
   color: #7B66FF;
-  text-align: center;
+
 }
 
 .actionIconEye {
@@ -144,3 +144,25 @@
 }
 
 /* these css for action icon  End */
+
+/* these css for action icon  End */
+.pagination {
+  margin: 12px;
+}
+
+.pagination button {
+  border: 1px solid black;
+  border-radius: 3px;
+  padding-top: 10;
+}
+
+
+.pagination span {
+  float: right;
+  padding: 0px 12px;
+}
+
+
+.pagination select {
+  display: none;
+}

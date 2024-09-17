@@ -9,6 +9,7 @@ import axios from "axios";
 const MyInventory_Edit = ({ onNewRecordAdded, id }) => {
   const [show, setShow] = useState(false);
   const [customers, setCustomers] = useState([]);
+  const token = sessionStorage.getItem("token");
   const [formData, setFormData] = useState({
     id: "",
     propertyType: "",
@@ -88,7 +89,12 @@ const MyInventory_Edit = ({ onNewRecordAdded, id }) => {
     try {
       const response = await axios.put(
         `https://localhost:7062/api/CRMInventory/${id}`,
-        transformedData
+        transformedData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
       console.log("Response:", response);
       toast.success("Records added successfully");
@@ -112,7 +118,11 @@ const MyInventory_Edit = ({ onNewRecordAdded, id }) => {
 
   const refreshData = async () => {
     try {
-      const response = await axios.get(API_URL + "api/CRMCustomer");
+      const response = await axios.get(API_URL + "api/CRMCustomer", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       setCustomers(response.data);
     } catch (error) {
       console.error(error);
@@ -122,7 +132,12 @@ const MyInventory_Edit = ({ onNewRecordAdded, id }) => {
   const getInventoryData = async () => {
     try {
       const response = await axios.get(
-        `https://localhost:7062/api/CRMInventory/${id}`
+        `https://localhost:7062/api/CRMInventory/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
       const data = response.data;
       setFormData({

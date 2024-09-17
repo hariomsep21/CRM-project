@@ -21,6 +21,7 @@ function AddNewCustomer({ onAddNewCustomer, refreshData }) {
   const remarksRef = useRef();
   const navigate = useNavigate();
 
+  const token = sessionStorage.getItem("token");
   const handleForm = async (event) => {
     event.preventDefault();
     let dataObj = {
@@ -111,7 +112,12 @@ function AddNewCustomer({ onAddNewCustomer, refreshData }) {
     try {
       const response = await axios.post(
         "https://localhost:7062/api/CRMCustomer",
-        dataObj
+        dataObj,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
       onAddNewCustomer(response.data);
       refreshData();

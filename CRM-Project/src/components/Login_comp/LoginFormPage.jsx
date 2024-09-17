@@ -5,11 +5,13 @@ import { faUser, faLock } from "@fortawesome/free-solid-svg-icons";
 import "bootstrap/dist/css/bootstrap.min.css";
 import style from "./LoginFormPage.module.css";
 import { toast } from "react-toastify";
+import ForgotPassword from "./ForegetPassword"; // Import the ForgotPassword component
 
 const LoginFormPage = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showForgotPassword, setShowForgotPassword] = useState(false); // Add state for modal
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -17,8 +19,6 @@ const LoginFormPage = () => {
       toast.error("Please fill in both email and password");
       return;
     }
-    // const email = document.getElementById("username").value;
-    // const password = document.getElementById("password").value;
 
     const data = { email, password };
 
@@ -32,22 +32,34 @@ const LoginFormPage = () => {
       .then((response) => {
         if (response.ok) {
           return response.text(); // Return the response as text
-        } else if (response.status === 401) {
-          toast.error("Invalid email or password");
-        } else if (response.status === 500) {
-          toast.error("Server error. Please try again later.");
         } else {
           throw new Error(
             `Error logging in: ${response.status} ${response.statusText}`
           );
         }
       })
-      .then((response) => {
-        if (response.includes("Login successful.")) {
-          navigate("/dashboard");
-        }
+      .then((token) => {
+        sessionStorage.setItem("token", token);
+        navigate("/dashboard");
       })
-      .catch((error) => console.error("Error:", error));
+      .catch((error) => {
+        if (error.status === 401) {
+          toast.error("Email and password do not match");
+        } else if (error.status === 500) {
+          toast.error("Server error. Please try again later.");
+        } else {
+          console.error("Error:", error);
+          toast.error("Please provide valid Email and Password");
+        }
+      });
+  };
+
+  const handleForgotPasswordClick = () => {
+    setShowForgotPassword(true); // Show the forgot password modal
+  };
+
+  const handleCloseForgotPasswordModal = () => {
+    setShowForgotPassword(false); // Close the forgot password modal
   };
 
   return (
@@ -82,7 +94,11 @@ const LoginFormPage = () => {
             Login
           </button>
         </form>
-        <a href="#" className={style.forgot_password}>
+        <a
+          href="#"
+          className={style.forgot_password}
+          onClick={handleForgotPasswordClick}
+        >
           Forgot password?
         </a>
         <div className={style.signup}>
@@ -92,6 +108,11 @@ const LoginFormPage = () => {
           </button>
         </div>
       </div>
+
+      <ForgotPassword
+        showForgotPassword={showForgotPassword}
+        handleCloseForgotPasswordModal={handleCloseForgotPasswordModal}
+      />
     </div>
   );
 };

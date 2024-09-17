@@ -39,7 +39,7 @@ const Inventory_Body = () => {
   //       applyFilters(data); // Apply filters after fetching data
   //     });
   // }, []);
-
+  const token = sessionStorage.getItem("token");
   const API_URL = "https://localhost:7062/";
 
   useEffect(() => {
@@ -48,7 +48,11 @@ const Inventory_Body = () => {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get(API_URL + "api/CRMInventory");
+      const response = await axios.get(API_URL + "api/CRMInventory", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       setData(response.data);
       applyFilters(response.data);
     } catch (error) {

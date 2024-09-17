@@ -10,6 +10,8 @@ import EditProfile from "./EditProfile";
 import EditUrl from "./EditUrl";
 import ChangePassword from "./ChangePassword";
 import axios from "axios";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const MyProfile = () => {
   const [showModal, setShowModal] = useState(false);
@@ -17,16 +19,21 @@ const MyProfile = () => {
   const [showPasswordModal, setShowPasswordModal] = useState(false);
   const [date, setDate] = useState("2024");
   const [profileUrl, setProfileUrl] = useState("adamclark249a4292");
-
   const [profile, setProfile] = useState(null);
 
   useEffect(() => {
     fetchProfile();
   }, []);
 
+  const token = sessionStorage.getItem("token");
+
   const fetchProfile = () => {
     axios
-      .get("https://localhost:7062/api/MyProfile/1")
+      .get("https://localhost:7062/api/MyProfile/0", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then((response) => {
         setProfile(response.data);
       })
@@ -41,33 +48,45 @@ const MyProfile = () => {
   };
 
   const handleSubmit = (updatedProfile) => {
-    // const updatedProfile = {
-    //   firstName,
-    //   lastName,
-    //   date,
-    //   email,
-    //   mobile,
-    //   address,
-    //   city,
-    // };
+    console.log("Updated profile:", updatedProfile);
+    const token = sessionStorage.getItem("token");
+    const url = `https://localhost:7062/api/MyProfile/${profile.id}`;
+    const headers = {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    };
 
     axios
-      .post(
-        `https://localhost:7062/api/MyProfile/${profile.id}`,
-        updatedProfile
-      )
+      .post(url, JSON.stringify(updatedProfile), { headers })
       .then((response) => {
-        console.log("Profile updated successfully");
+        console.log("Profile updated successfully:", response);
         fetchProfile();
         setShowModal(false);
       })
       .catch((error) => {
         console.error("Error updating profile:", error);
-        if (error.response) {
-          console.error("Server response:", error.response);
-        } else {
-          console.error("No server response");
-        }
+      });
+  };
+
+  const handleUrlSubmit = (updatedUrl) => {
+    console.log("Updated URL:", updatedUrl);
+    const token = sessionStorage.getItem("token");
+    const url = `https://localhost:7062/api/MyProfile/update-url/0`;
+    const headers = {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    };
+
+    axios
+      .post(url, updatedUrl, { headers })
+      .then((response) => {
+        console.log("URL updated successfully:", response);
+        setProfileUrl(updatedUrl);
+        fetchProfile();
+        setShowUrlModal(false);
+      })
+      .catch((error) => {
+        console.error("Error updating URL:", error);
       });
   };
 
@@ -135,9 +154,9 @@ const MyProfile = () => {
                       className={`${style.myprofile_profileimg}`}
                       alt="Profile"
                     />
-                    <MdOutlineModeEdit
+                    {/* <MdOutlineModeEdit
                       className={`${style.profileimgEditIcon}`}
-                    />
+                    /> */}
                   </label>
                   <input
                     type="file"
@@ -245,7 +264,7 @@ const MyProfile = () => {
         show={showUrlModal}
         handleClose={handleCloseUrlModal}
         profile={profile}
-        handleSubmit={handleSubmit}
+        handleSubmit={handleUrlSubmit}
       />
 
       <ChangePassword

@@ -1,10 +1,19 @@
 import React from "react";
-import style from "./Inventory_Header.module.css";
+import style from "./Leads_Header.module.css";
 import { FaSearch } from "react-icons/fa";
 import { useTable } from "react-table";
 import { MdCheckBoxOutlineBlank } from "react-icons/md";
+import AddNewLeads from "../AddNewLeads/AddNewLeads";
 
-const Inventory_Header = () => {
+const Leads_Header = ({
+  onTypeChange,
+  onSearchChange,
+  onLocationChange,
+  onAreaChange,
+  onStageChange,
+  onNewLeadAdd,
+  generatePDF,
+}) => {
   return (
     <>
       <section className="section_1 mt-3">
@@ -14,20 +23,22 @@ const Inventory_Header = () => {
           </div>
           <div className="col-md-5 col-lg-5">
             <div className={`row ${style.three_btn}`}>
-              <div className="col-4">
+              <div className={`col-4 ${style.Div_advicebtn}`}>
                 <button className={`btn ${style.advice_btn}`}>
                   Generate Advice
                 </button>
               </div>
               <div className="col-4">
-                <button className={`btn ${style.brochure_btn}`}>
+                <button
+                  className={`btn ${style.brochure_btn}`}
+                  onClick={generatePDF}
+                >
                   Generate Brochure
                 </button>
               </div>
+
               <div className="col-4">
-                <button className={`btn ${style.addInventory_btn}`}>
-                  + Add New Leads
-                </button>
+                <AddNewLeads onNewLeadAdd={onNewLeadAdd} />
               </div>
             </div>
           </div>
@@ -41,20 +52,23 @@ const Inventory_Header = () => {
                 <div className="row">
                   <div className="col">
                     <label htmlFor="bytype">By Type</label>
-                    <select className={style.dropdown_Type} id="bytype">
-                      <option value="volvo">All</option>
-                      <option value="saab">Saab</option>
-                      <option value="opel">Opel</option>
-                      <option value="audi">Audi</option>
+                    <select
+                      className={style.dropdown_Type}
+                      id="bytype"
+                      onChange={onTypeChange}
+                    >
+                      <option value="All">All</option>
+                      <option value="Sell">Sell</option>
+                      <option value="Rent">Rent</option>
                     </select>
                   </div>
                   <div className="col">
                     <label htmlFor="bydate">By Date</label>
                     <select className={style.dropdown_Date} id="bydate">
-                      <option value="volvo">All</option>
-                      <option value="saab">Saab</option>
-                      <option value="opel">Opel</option>
-                      <option value="audi">Audi</option>
+                      <option value="">All Dates</option>
+                      <option value="week">This Week</option>
+                      <option value="month">This Month</option>
+                      <option value="year">This Year</option>
                     </select>
                   </div>
                   <div className={`col ${style.SearchLocation_input}`}>
@@ -64,6 +78,7 @@ const Inventory_Header = () => {
                         type="text"
                         placeholder="Search location"
                         id="bylocation"
+                        onChange={onLocationChange}
                       />
                       <FaSearch className={style.searchLocationIcon} />
                     </div>
@@ -71,7 +86,12 @@ const Inventory_Header = () => {
                   <div className={`col ${style.SearchArea_input}`}>
                     <label htmlFor="byarea">By Area</label>
                     <div className={style.searchAreaContainer}>
-                      <input type="text" placeholder="Write here" id="byarea" />
+                      <input
+                        type="text"
+                        placeholder="Write here"
+                        id="byarea"
+                        onChange={onAreaChange}
+                      />
                     </div>
                   </div>
                   <div className={`col ${style.SearchStage_input}`}>
@@ -81,6 +101,7 @@ const Inventory_Header = () => {
                         type="text"
                         placeholder="Write here"
                         id="bystage"
+                        onChange={onStageChange}
                       />
                     </div>
                   </div>
@@ -90,6 +111,7 @@ const Inventory_Header = () => {
                         type="text"
                         placeholder="Search Leads"
                         id="byinventory"
+                        onChange={onSearchChange}
                       />
                       <FaSearch className={style.searchInventoryIcon} />
                     </div>
@@ -104,4 +126,4 @@ const Inventory_Header = () => {
   );
 };
 
-export default Inventory_Header;
+export default Leads_Header;

@@ -28,6 +28,7 @@ const NeedEdit = ({ customers, refreshData }) => {
     handleClose();
   };
 
+  const token = sessionStorage.getItem("token");
   const handleEditNeed = (id, need) => {
     axios
       .patch(
@@ -35,7 +36,8 @@ const NeedEdit = ({ customers, refreshData }) => {
         need, // Send `need` directly as a string
         {
           headers: {
-            "Content-Type": "application/json", // Ensure the Content-Type header is set
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
           },
         }
       )

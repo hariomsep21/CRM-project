@@ -17,21 +17,21 @@ const formatDate = (date) => {
 const EditTask = ({ showModal, task, handleCloseModal, handleSubmit }) => {
   const [customLabelInput, setCustomLabelInput] = useState(false);
 
-  const [taskTitle, setTaskTitle] = useState(task ? task.task : "");
+  const [taskTitle, setTaskTitle] = useState(task ? task.property : "");
   const [assignTo, setAssignTo] = useState(task ? task.assignTo : "");
   const [selectedType, setSelectedType] = useState(task ? task.type : "Buy");
-  const [customLabel, setCustomLabel] = useState(task ? task.labels : "");
-  const [newLabel, setNewLabel] = useState(task ? task.labels : "");
+  const [customLabel, setCustomLabel] = useState(task ? task.stage : "");
+  const [newLabel, setNewLabel] = useState(task ? task.stage : "");
   const [note, setNote] = useState(task ? task.note : "");
 
   useEffect(() => {
     console.log("Task prop:", task);
     if (task) {
-      setTaskTitle(task.task || "");
+      setTaskTitle(task.property || "");
       setAssignTo(task.assignTo || "");
       setSelectedType(task.type || "");
-      setCustomLabel(task.labels || "");
-      setNewLabel(task.labels || "");
+      setCustomLabel(task.stage || "");
+      setNewLabel(task.stage || "");
       setNote(task.note || "");
     }
   }, [task]);
@@ -41,10 +41,10 @@ const EditTask = ({ showModal, task, handleCloseModal, handleSubmit }) => {
     const currentDate = new Date();
     handleSubmit({
       id: task.id,
-      title: taskTitle,
+      property: taskTitle,
       assignTo: assignTo,
       type: selectedType,
-      labels: newLabel,
+      stage: newLabel,
       date: formatDate(currentDate),
       note: note,
     });
@@ -105,11 +105,11 @@ const EditTask = ({ showModal, task, handleCloseModal, handleSubmit }) => {
               />
               <Form.Check
                 type="radio"
-                label="Rental"
+                label="Rent"
                 name="type"
-                id="Rental"
-                value="Rental"
-                checked={selectedType === "Rental"}
+                id="Rent"
+                value="Rent"
+                checked={selectedType === "Rent"}
                 onChange={handleTypeChange}
                 className={style.radio}
               />

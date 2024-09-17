@@ -1,7 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import style from "./Pagination.module.css";
 
 const Pagination = ({ currentPage, totalPages, onPageChange, className }) => {
+  const [customersPerPage, setCustomersPerPage] = useState(10); // default value
+
   useEffect(() => {
     const handleKeyDown = (event) => {
       if (event.key === "ArrowLeft" && currentPage > 1) {
@@ -19,22 +21,22 @@ const Pagination = ({ currentPage, totalPages, onPageChange, className }) => {
   }, [currentPage, totalPages, onPageChange]);
 
   return (
-    <div className={className}>
+    <span className={className}>
       <button
         onClick={() => onPageChange(currentPage - 1)}
         disabled={currentPage === 1}
-        className={`${style.leftArrow}`}
+        className={style.leftArrow}
       >
         &lt;
       </button>
       <button
         onClick={() => onPageChange(currentPage + 1)}
         disabled={currentPage === totalPages}
-        className={`${style.rightArrow}`}
+        className={style.rightArrow}
       >
         &gt;
       </button>
-    </div>
+    </span>
   );
 };
 

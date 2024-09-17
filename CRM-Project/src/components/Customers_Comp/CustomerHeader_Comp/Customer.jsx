@@ -15,7 +15,9 @@ const Customer = () => {
   const [filter, setFilter] = useState("All");
   const [customers, setCustomers] = useState([]);
   const [reload, setReload] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
 
+  const token = sessionStorage.getItem("token");
   const API_URL = "https://localhost:7062/";
 
   useEffect(() => {
@@ -24,7 +26,11 @@ const Customer = () => {
 
   const refreshData = async () => {
     try {
-      const response = await axios.get(API_URL + "api/CRMCustomer");
+      const response = await axios.get(API_URL + "api/CRMCustomer", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       setCustomers(response.data);
     } catch (error) {
       console.error(error);
@@ -33,7 +39,11 @@ const Customer = () => {
 
   const handleSubmit = (customer) => {
     axios
-      .put(`https://localhost:7062/api/CRMCustomer/${customer.id}`, customer)
+      .put(`https://localhost:7062/api/CRMCustomer/${customer.id}`, customer, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then((response) => {
         refreshData();
       })
@@ -72,10 +82,11 @@ const Customer = () => {
   ).length;
   const allCount = customers.length;
 
-  const filteredCustomers =
-    filter === "All"
-      ? customers
-      : customers.filter((customer) => customer.property === filter);
+  const filteredCustomers = customers
+    .filter((customer) =>
+      customer.name.toLowerCase().includes(searchTerm.toLowerCase())
+    )
+    .filter((customer) => filter === "All" || customer.property === filter);
 
   return (
     <>
@@ -89,6 +100,18 @@ const Customer = () => {
               className={style.cust_addBtn}
               onAddNewCustomer={handleNewRecordAdded}
               refreshData={refreshData}
+            />
+          </div>
+        </div>
+        {/* Add search input field */}
+        <div className={`row mt-3 ${style.serach_input_main}`}>
+          <div className={`col-sm-12 col-md-6 col-lg-6 ${style.serach_input}`}>
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Search customer by name"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
             />
           </div>
         </div>

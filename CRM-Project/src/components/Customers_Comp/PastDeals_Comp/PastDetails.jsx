@@ -10,6 +10,7 @@ const PastDetails = ({ customers }) => {
 
   const handleShow = () => setShow(true);
   const handleClose = () => setShow(false);
+  const token = sessionStorage.getItem("token");
 
   useEffect(() => {
     axios
@@ -19,7 +20,11 @@ const PastDetails = ({ customers }) => {
       .then((response) => {
         const customerId = response.data[0].id;
         axios
-          .get(`https://localhost:7062/api/CRMInventory`)
+          .get(`https://localhost:7062/api/CRMInventory`, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          })
           .then((inventoryResponse) => {
             const allInventory = inventoryResponse.data;
 

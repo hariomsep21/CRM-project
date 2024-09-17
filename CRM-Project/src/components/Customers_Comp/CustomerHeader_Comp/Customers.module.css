@@ -55,3 +55,12 @@
   background-color: var(--primary_light-bg-color);
   color: var(--primary-text-color);
 }
+
+.serach_input_main {
+  display: flex;
+  justify-content: end;
+}
+
+.serach_input {
+  width: 20%;
+}

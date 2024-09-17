@@ -82,7 +82,7 @@ const CustomerGrid = ({ customers, onEditCustomer, refreshData }) => {
                   onClick={() => {
                     const currentCustomerPhone = customer.mobile;
                     navigator.clipboard.writeText(currentCustomerPhone);
-                    console.log(`Copied phone number: ${currentCustomerPhone}`);
+                    alert(`Copied phone number: ${currentCustomerPhone}`);
                   }}
                 />
               </div>
@@ -179,12 +179,24 @@ const CustomerGrid = ({ customers, onEditCustomer, refreshData }) => {
           </div>
         </div>
       ))}
-      <Pagination
-        currentPage={currentPage}
-        totalPages={totalPages}
-        onPageChange={onPageChange}
-        className="pagination mt-4 d-flex justify-content-end"
-      />
+      <div className={`d-flex justify-content-between align-items-baseline`}>
+        <select
+          value={customersPerPage}
+          onChange={(e) => setCustomersPerPage(parseInt(e.target.value, 10))}
+        >
+          {[5, 10, 20, 50].map((pageSize) => (
+            <option key={pageSize} value={pageSize}>
+              Show {pageSize}
+            </option>
+          ))}
+        </select>
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={onPageChange}
+          className="pagination mt-4 d-flex justify-content-end"
+        />
+      </div>
     </>
   );
 };

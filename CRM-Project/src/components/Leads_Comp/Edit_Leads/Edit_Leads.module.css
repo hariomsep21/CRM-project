@@ -1,0 +1,17 @@
+.modalBody {
+  font-size: 14px;
+  color: var(--primary-text-color);
+}
+
+.modalBody input {
+  font-size: 14px;
+}
+
+.modalBody select {
+  font-size: 14px;
+}
+
+.modalBody button {
+  font-size: 15px;
+  text-align: center;
+}

@@ -28,10 +28,19 @@ const Table = () => {
     refreshTask();
   }, []);
 
+  const token = sessionStorage.getItem("token");
   const refreshTask = async () => {
     try {
-      const response = await axios.get(API_URL + "api/CRMDashboard");
-      setTasks(response.data);
+      const response = await axios.get(API_URL + "api/CRMLead");
+      const filteredData = response.data.map((task) => ({
+        id: task.id,
+        type: task.type,
+        property: task.property,
+        date: task.date,
+        stage: task.stage,
+      }));
+      console.log("Filtered data:", filteredData);
+      setTasks(filteredData);
     } catch (error) {
       console.error(error);
     }
@@ -41,10 +50,10 @@ const Table = () => {
     console.log("updates", updatedTask);
     const data = {
       id: updatedTask.id,
-      task: updatedTask.title,
+      property: updatedTask.property,
       type: updatedTask.type,
       assignTo: updatedTask.assignTo,
-      labels: updatedTask.labels,
+      stage: updatedTask.stage,
       date: updatedTask.date,
       note: updatedTask.note,
     };
@@ -103,15 +112,15 @@ const Table = () => {
           .filter((task) => filter === "All" || task.type === filter)
           .filter(
             (task) =>
-              task.task &&
-              task.task.toLowerCase().includes(searchTerm.toLowerCase())
+              task.property &&
+              task.property.toLowerCase().includes(searchTerm.toLowerCase())
           )
       : [];
 
   const getLeadData = () => {
     const totalLeads = tasks.length;
-    const buyLeads = tasks.filter((task) => task.type === "Buy").length;
-    const rentalLeads = tasks.filter((task) => task.type === "Rental").length;
+    const buyLeads = tasks.filter((task) => task.type === "Sell").length;
+    const rentalLeads = tasks.filter((task) => task.type === "Rent").length;
 
     const buyPercentage = Math.round((buyLeads / totalLeads) * 100);
     const rentalPercentage = Math.round((rentalLeads / totalLeads) * 100);
@@ -120,9 +129,9 @@ const Table = () => {
       buyData: {
         datasets: [
           {
-            label: "Buy Leads",
+            label: "Sell Leads",
             data: [buyPercentage, 100 - buyPercentage],
-            backgroundColor: ["#850f8d", "#e5e5e5"],
+            backgroundColor: ["#216fed", "#e5e5e5"],
             hoverOffset: 4,
           },
         ],
@@ -148,21 +157,6 @@ const Table = () => {
       <div className="container p-0">
         <div className="d-flex justify-content-between mb-1 align-items-center">
           <h3 className={`${style.mytask_title}`}>My Task</h3>
-          <div className={`${style.btnGroup}`}>
-            <Button
-              variant="outline-secondary"
-              className={`${style.archieveBtn}`}
-            >
-              <MdOutlineArchive className={`${style.archiveIcon}`} />
-              Archive
-            </Button>
-            <CreateTask
-              show={showCreateTaskModal}
-              setShowCreateTaskModal={setShowCreateTaskModal}
-              handleClose={() => setShowCreateTaskModal(false)}
-              onTaskAdded={handleTaskAdded}
-            />
-          </div>
         </div>
         <MyTask setFilter={setFilter} onSearchChange={handleSearchChange} />
         <div className="row mt-4">
@@ -208,10 +202,10 @@ const Table = () => {
               </div>
             </div>
             <div className={`col-md-5 pe-0 ${style.task_detail}`}>
-              {task.task}
+              {task.property}
             </div>
             <div className={`col-md-2 ${style.task_date}`}>{task.date}</div>
-            <div className={`col-md-1 ${style.task_labels}`}>{task.labels}</div>
+            <div className={`col-md-1 ${style.task_labels}`}>{task.stage}</div>
             <div className="col-md-2 d-flex">
               <button
                 className="btn ms-3"

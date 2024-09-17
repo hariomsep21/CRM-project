@@ -63,7 +63,7 @@ function LeadStatus({ buyData, rentalData }) {
       <div className={`${style.leadstatus_dashboard}`}>
         <h1 className={`${style.lead_graph_heading}`}>Leads status</h1>
         <div className={`${style.dashboard_graph}`}>
-          <DoughnutChart data={buyData} title="Buy Leads" />
+          <DoughnutChart data={buyData} title="Sell Leads" />
           <DoughnutChart data={rentalData} title="Rental Leads" />
         </div>
       </div>
