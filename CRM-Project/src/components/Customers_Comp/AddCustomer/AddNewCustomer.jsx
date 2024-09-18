@@ -295,7 +295,7 @@ function AddNewCustomer({ onAddNewCustomer, refreshData }) {
                   id="inventoryStatus1"
                   checked={inventoryStatus == true}
                   className={style.addNewCustomerPropertyTypeOption}
-                  value="trye"
+                  value="true"
                   onChange={handleInventoryStatusChange}
                 />
                 <Form.Check

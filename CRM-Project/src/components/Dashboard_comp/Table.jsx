@@ -47,6 +47,7 @@ const Table = () => {
         property: task.property,
         date: task.date,
         stage: task.stage,
+        name: task.name,
       }));
       console.log("Filtered data:", filteredData);
       setTasks(filteredData);
@@ -65,6 +66,7 @@ const Table = () => {
       stage: updatedTask.stage,
       date: updatedTask.date,
       note: updatedTask.note,
+      name: updatedTask.name,
     };
     axios
       .post(`${API_URL}api/CRMDashboard/${currentTaskId}`, data)

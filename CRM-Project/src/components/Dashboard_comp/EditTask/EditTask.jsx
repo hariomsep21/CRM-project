@@ -18,7 +18,7 @@ const EditTask = ({ showModal, task, handleCloseModal, handleSubmit }) => {
   const [customLabelInput, setCustomLabelInput] = useState(false);
 
   const [taskTitle, setTaskTitle] = useState(task ? task.property : "");
-  const [assignTo, setAssignTo] = useState(task ? task.assignTo : "");
+  const [assignTo, setAssignTo] = useState(task ? task.name : "");
   const [selectedType, setSelectedType] = useState(task ? task.type : "Buy");
   const [customLabel, setCustomLabel] = useState(task ? task.stage : "");
   const [newLabel, setNewLabel] = useState(task ? task.stage : "");
@@ -28,7 +28,7 @@ const EditTask = ({ showModal, task, handleCloseModal, handleSubmit }) => {
     console.log("Task prop:", task);
     if (task) {
       setTaskTitle(task.property || "");
-      setAssignTo(task.assignTo || "");
+      setAssignTo(task.name || "");
       setSelectedType(task.type || "");
       setCustomLabel(task.stage || "");
       setNewLabel(task.stage || "");
@@ -42,7 +42,7 @@ const EditTask = ({ showModal, task, handleCloseModal, handleSubmit }) => {
     handleSubmit({
       id: task.id,
       property: taskTitle,
-      assignTo: assignTo,
+      assignTo: name,
       type: selectedType,
       stage: newLabel,
       date: formatDate(currentDate),
@@ -69,13 +69,14 @@ const EditTask = ({ showModal, task, handleCloseModal, handleSubmit }) => {
       <Modal.Body>
         <Form onSubmit={onSubmit}>
           <Form.Group className="mb-3" controlId="formBasicTitle">
-            <Form.Label className={`${style.heading}`}>Title</Form.Label>
+            <Form.Label className={`${style.heading}`}>Property</Form.Label>
             <Form.Control
               type="text"
               placeholder="Write here"
               value={taskTitle}
               onChange={(e) => setTaskTitle(e.target.value)}
               className={style.createTaskInputField}
+              readOnly
             />
           </Form.Group>
           <Form.Group controlId="formBasicProperty" className="pt-3 pb-3">
@@ -117,19 +118,16 @@ const EditTask = ({ showModal, task, handleCloseModal, handleSubmit }) => {
           </Form.Group>
           <Row>
             <Col md={6}>
-              <Form.Group className="mb-3" controlId="formBasicAssignTo">
-                <Form.Label className={`${style.heading}`}>
-                  Assign To
-                </Form.Label>
-                <Form.Select
-                  aria-label="Default select example"
+              <Form.Group className="mb-3" controlId="formBasicTitle">
+                <Form.Label className={`${style.heading}`}>AssignTo</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Write here"
                   value={assignTo}
                   onChange={(e) => setAssignTo(e.target.value)}
-                  className={`w-100 ${style.createTaskInputField}`}
-                >
-                  <option value="">Select assign</option>
-                  <option value="Action">Action</option>
-                </Form.Select>
+                  className={style.createTaskInputField}
+                  readOnly
+                />
               </Form.Group>
             </Col>
 

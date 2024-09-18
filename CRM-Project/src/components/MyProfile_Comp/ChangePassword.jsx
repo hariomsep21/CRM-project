@@ -11,11 +11,50 @@ function ChangePassword({ showPassword, handleClosePasswordModal }) {
   const [success, setSuccess] = useState("");
 
   const token = sessionStorage.getItem("token");
-  const handleSubmit = (event) => {
+
+  // Validation function
+  const isValidPassword = (password) => {
+    const hasUpperCase = /[A-Z]/.test(password);
+    const hasNumber = /[0-9]/.test(password);
+    return hasUpperCase && hasNumber;
+  };
+
+  const validateCurrentPassword = async () => {
+    try {
+      await axios.post(
+        "https://localhost:7062/api/MyProfile/validate-current-password",
+        { password: currentPassword },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      return true;
+    } catch {
+      return false;
+    }
+  };
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
     if (newPassword !== confirmPassword) {
       setError("New password and confirm password do not match.");
+      return;
+    }
+
+    if (!isValidPassword(newPassword)) {
+      setError(
+        "New password must contain at least one uppercase letter and one number."
+      );
+      return;
+    }
+
+    const isCurrentPasswordValid = await validateCurrentPassword();
+
+    if (!isCurrentPasswordValid) {
+      setError("Current password is incorrect.");
       return;
     }
 
@@ -36,11 +75,10 @@ function ChangePassword({ showPassword, handleClosePasswordModal }) {
       .then((response) => {
         setSuccess("Password changed successfully.");
         setError("");
-        // Clear form fields
+        // Clear form fields and close modal
         setCurrentPassword("");
         setNewPassword("");
         setConfirmPassword("");
-        // Optionally close the modal
         setTimeout(() => handleClosePasswordModal(), 2000);
       })
       .catch((error) => {
@@ -49,9 +87,19 @@ function ChangePassword({ showPassword, handleClosePasswordModal }) {
       });
   };
 
+  const handleCancel = () => {
+    // Clear form fields and close modal
+    setCurrentPassword("");
+    setNewPassword("");
+    setConfirmPassword("");
+    setError("");
+    setSuccess("");
+    handleClosePasswordModal();
+  };
+
   return (
     <>
-      <Modal show={showPassword} onHide={handleClosePasswordModal} centered>
+      <Modal show={showPassword} onHide={handleCancel} centered>
         <Modal.Header>
           <Modal.Title className={style.changePasswordFormTitle}>
             Change Password
@@ -120,7 +168,7 @@ function ChangePassword({ showPassword, handleClosePasswordModal }) {
           <Button
             variant="outline-secondary"
             className={style.changePasswordCancelBtn}
-            onClick={handleClosePasswordModal}
+            onClick={handleCancel}
           >
             Cancel
           </Button>
