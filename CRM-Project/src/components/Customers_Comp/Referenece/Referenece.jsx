@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Modal, Button } from "react-bootstrap";
 import style from "./Referenece.module.css";
-import { TfiPencil } from "react-icons/tfi";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { FaPlus } from "react-icons/fa6";
 import { MdOutlineSave } from "react-icons/md";
@@ -10,12 +9,25 @@ const Referenece = () => {
   const [show, setShow] = useState(false);
   const [addShow, setAddShow] = useState(false);
   const [newReference, setNewReference] = useState("");
-  const [refData, setRefData] = useState([
-    { id: "1", Referenece_Name: "Hariom" },
-    { id: "2", Referenece_Name: "Akash" },
-    { id: "3", Referenece_Name: "Rohit" },
-    { id: "4", Referenece_Name: "Pavan" },
-  ]);
+  const [refData, setRefData] = useState([]);
+
+  // Fetch references data from the server
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch("http://localhost:3001/references");
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        const data = await response.json();
+        setRefData(data);
+      } catch (error) {
+        console.error("Failed to fetch references:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const handleShow = () => setShow(true);
   const handleClose = () => setShow(false);
@@ -23,14 +35,44 @@ const Referenece = () => {
   const handleAddShow = () => setAddShow(true);
   const handleAddClose = () => setAddShow(false);
 
-  const handleSave = () => {
+  const handleSave = async () => {
     if (newReference.trim()) {
-      setRefData([
-        ...refData,
-        { id: Date.now().toString(), Referenece_Name: newReference },
-      ]);
-      setNewReference("");
-      setAddShow(false);
+      try {
+        const response = await fetch("http://localhost:3001/references", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            id: Date.now().toString(),
+            Referenece_Name: newReference,
+          }),
+        });
+        if (!response.ok) {
+          throw new Error("Failed to save new reference");
+        }
+        const savedReference = await response.json();
+        setRefData([...refData, savedReference]);
+        setNewReference("");
+        setAddShow(false);
+      } catch (error) {
+        console.error("Failed to save reference:", error);
+      }
+    }
+  };
+
+  const handleDelete = async (id) => {
+    try {
+      const response = await fetch(`http://localhost:3001/references/${id}`, {
+        method: "DELETE",
+      });
+      if (!response.ok) {
+        throw new Error("Failed to delete reference");
+      }
+      // Remove the deleted reference from local state
+      setRefData(refData.filter((data) => data.id !== id));
+    } catch (error) {
+      console.error("Failed to delete reference:", error);
     }
   };
 
@@ -56,7 +98,7 @@ const Referenece = () => {
                   <p>{data.Referenece_Name}</p>
                 </div>
                 <div className={`col ${style.Referenece_Icon}`}>
-                  <RiDeleteBin6Line />
+                  <RiDeleteBin6Line onClick={() => handleDelete(data.id)} />
                 </div>
               </div>
             ))}
@@ -83,7 +125,7 @@ const Referenece = () => {
                 </div>
                 <div
                   className={`col-2 pt-2 ${style.Icon}`}
-                  onClick={[handleSave, handleAddClose]}
+                  onClick={handleSave}
                 >
                   <MdOutlineSave />
                 </div>

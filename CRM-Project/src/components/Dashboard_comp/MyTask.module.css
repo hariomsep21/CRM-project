@@ -1,6 +1,6 @@
 .dropdown {
   width: 193.75px;
-  padding: 10px 20px;
+  padding: 5px 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -10,7 +10,7 @@
 
 .inputBox {
   width: 320px;
-  height: 46px;
+  height: 30px;
   margin-top: 29px;
 }
 

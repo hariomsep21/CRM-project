@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Modal, ModalBody, ModalFooter, ModalHeader } from "react-bootstrap";
 import style from "./AddNewLeads.module.css";
 import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const formatDate = (date) => {
   const day = String(date.getDate()).padStart(2, "0");
@@ -22,7 +24,7 @@ const AddNewLeads = ({ onNewLeadAdd }) => {
     property: "",
     name: "",
     location: "",
-    date: formatDate,
+    date: formatDate(new Date()),
     askingPrice: "",
     titleCheck: "",
     area: "",
@@ -56,7 +58,8 @@ const AddNewLeads = ({ onNewLeadAdd }) => {
       }
     };
     fetchInventoryData();
-  }, []);
+  }, [token]);
+
   const toggleModal = () => {
     setModal(!modal);
   };
@@ -96,14 +99,17 @@ const AddNewLeads = ({ onNewLeadAdd }) => {
 
     axios
       .get(
-        `https://localhost:7062/api/CRMCustomerInventory/GetInventoryList/${selectedInventory.id}`
+        `https://localhost:7062/api/CRMCustomerInventory/GetInventoryList/${selectedInventory.id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       )
       .then((response) => {
-        console.log(response);
         const customerIds = response.data.map(
           (customer) => customer.customerId
         );
-        console.log(customerIds);
         if (customerIds.length > 0) {
           customerIds.forEach((id) => {
             axios
@@ -113,8 +119,6 @@ const AddNewLeads = ({ onNewLeadAdd }) => {
                 },
               })
               .then((response) => {
-                console.log(response.data.name);
-
                 setCustomerNames((prevNames) => [...prevNames, response.data]);
               })
               .catch((error) => {
@@ -129,7 +133,6 @@ const AddNewLeads = ({ onNewLeadAdd }) => {
         console.error(error);
       })
       .finally(() => {
-        // After getting the customer names, set the selectedCustomerName
         if (customerNames.length > 0) {
           setSelectedCustomerName(customerNames[0]);
         }
@@ -156,30 +159,65 @@ const AddNewLeads = ({ onNewLeadAdd }) => {
     } else {
       setPropertyOptions(inventoryData);
     }
-    console.log(selectedType);
     setLeadData({ ...leadData, type: selectedType });
+  };
+
+  const validateForm = () => {
+    const requiredFields = {
+      type: "Property Type",
+      property: "Property",
+      name: "Name",
+      location: "Location",
+      askingPrice: "Asking Price",
+      titleCheck: "Title Check",
+      area: "Area",
+      stage: "Stage",
+      remarks: "Remarks",
+      email: "Email",
+      mobile: "Mobile",
+    };
+
+    let isValid = true;
+
+    for (const [field, label] of Object.entries(requiredFields)) {
+      if (!leadData[field]) {
+        toast.error(`Please fill out the ${label}.`);
+        isValid = false;
+      }
+    }
+
+    return isValid;
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const formattedDate = formatDate(new Date());
-    const leadDataToSend = { ...leadData, date: formattedDate };
-    console.log(leadDataToSend);
-    axios
-      .post("https://localhost:7062/api/CRMLead/CreateLeads", leadDataToSend)
-      .then((response) => {
-        onNewLeadAdd(response.data);
-        toggleModal();
-      })
-      .catch((error) => {
-        if (error.response) {
-          console.error("Response data:", error.response.data);
-        } else if (error.request) {
-          console.error("No response received:", error.request);
-        } else {
-          console.error("Error setting up request:", error.message);
-        }
-      });
+    if (validateForm()) {
+      const formattedDate = formatDate(new Date());
+      const leadDataToSend = { ...leadData, date: formattedDate };
+      axios
+        .post(
+          "https://localhost:7062/api/CRMLead/CreateLeads",
+          leadDataToSend,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        )
+        .then((response) => {
+          onNewLeadAdd(response.data);
+          toggleModal();
+        })
+        .catch((error) => {
+          if (error.response) {
+            console.error("Response data:", error.response.data);
+          } else if (error.request) {
+            console.error("No response received:", error.request);
+          } else {
+            console.error("Error setting up request:", error.message);
+          }
+        });
+    }
   };
 
   return (
@@ -196,12 +234,11 @@ const AddNewLeads = ({ onNewLeadAdd }) => {
         onHide={toggleModal}
         className="modal-dialog-centered"
       >
-        <ModalHeader closeButton>
-          {" "}
-          <Modal.Title className={style.title}>New Lead</Modal.Title>
-        </ModalHeader>
-        <ModalBody className={style.modalBody}>
-          <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit}>
+          <ModalHeader closeButton>
+            <Modal.Title className={style.title}>New Lead</Modal.Title>
+          </ModalHeader>
+          <ModalBody className={style.modalBody}>
             <div className="form-row d-flex">
               <div className="form-group col-md-6 ps-3 pt-3">
                 <label htmlFor="propertyType">Property Type</label>
@@ -243,10 +280,10 @@ const AddNewLeads = ({ onNewLeadAdd }) => {
                   id="customerName"
                   className="form-select"
                   name="customerName"
-                  value={selectedCustomerName}
+                  value={leadData.name}
                   onChange={handleInputChange}
                 >
-                  <option value="">Select Name</option>
+                  <option value="">Select Customer</option>
                   {customerNames.map((name, index) => (
                     <option key={index} value={name.name}>
                       {name.name}
@@ -371,17 +408,18 @@ const AddNewLeads = ({ onNewLeadAdd }) => {
                 onChange={handleInputChange}
               />
             </div>
+          </ModalBody>
+          <ModalFooter>
             <button type="submit" className="btn btn-primary">
-              Create Lead
+              Save
             </button>
-          </form>
-        </ModalBody>
-        <ModalFooter>
-          <button className="btn btn-secondary" onClick={toggleModal}>
-            Cancel
-          </button>
-        </ModalFooter>
+            <button className="btn btn-secondary" onClick={toggleModal}>
+              Cancel
+            </button>
+          </ModalFooter>
+        </form>
       </Modal>
+      <ToastContainer />
     </div>
   );
 };

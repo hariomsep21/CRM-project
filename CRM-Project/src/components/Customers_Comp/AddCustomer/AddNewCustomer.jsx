@@ -11,7 +11,7 @@ function AddNewCustomer({ onAddNewCustomer, refreshData }) {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const [property, setProperty] = useState("Buyer/Seller");
-  const [inventoryStatus, setInventoryStatus] = useState("false");
+  const [inventoryStatus, setInventoryStatus] = useState(false);
 
   const nameRef = useRef();
   const mobileRef = useRef();
@@ -33,7 +33,7 @@ function AddNewCustomer({ onAddNewCustomer, refreshData }) {
       remarks: remarksRef.current.value,
       property: property,
       status: "hot",
-      inventoryStatus: JSON.parse(inventoryStatus),
+      inventoryStatus: inventoryStatus,
     };
     let errors = [];
 
@@ -149,7 +149,7 @@ function AddNewCustomer({ onAddNewCustomer, refreshData }) {
   };
 
   const handleInventoryStatusChange = (event) => {
-    setInventoryStatus(event.target.value);
+    setInventoryStatus(event.target.value === "true");
   };
 
   return (
@@ -293,9 +293,9 @@ function AddNewCustomer({ onAddNewCustomer, refreshData }) {
                   label="Active"
                   name="inventoryStatus"
                   id="inventoryStatus1"
-                  checked={inventoryStatus == "false"}
+                  checked={inventoryStatus == true}
                   className={style.addNewCustomerPropertyTypeOption}
-                  value="false"
+                  value="trye"
                   onChange={handleInventoryStatusChange}
                 />
                 <Form.Check
@@ -303,9 +303,9 @@ function AddNewCustomer({ onAddNewCustomer, refreshData }) {
                   label="Not Active"
                   name="inventoryStatus"
                   id="inventoryStatus2"
-                  checked={inventoryStatus === "true"}
+                  checked={inventoryStatus === false}
                   className={style.addNewCustomerPropertyTypeOption}
-                  value="true"
+                  value="false"
                   onChange={handleInventoryStatusChange}
                 />
               </div>

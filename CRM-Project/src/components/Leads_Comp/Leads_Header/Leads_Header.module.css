@@ -9,9 +9,14 @@
 .three_btn .advice_btn {
   height: 35px;
   font-size: 12px;
-  color: black;
+  color: var(--default-text-color);
   font-weight: 500;
-  border: 1px solid black;
+  border: 1px solid var(--default-bcolor);
+}
+
+.Div_advicebtn {
+  padding: 0;
+  direction: rtl;
 }
 
 .three_btn .addInventory_btn {

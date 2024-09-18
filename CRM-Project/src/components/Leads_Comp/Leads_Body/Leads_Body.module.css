@@ -4,14 +4,45 @@
 /* Table container to enable scrolling */
 .tableContainer {
   font-family: "Inter", sans-serif;
-
-  max-height: 400px;
-  /* Adjust as needed */
+  max-height: 430px;
   overflow-y: auto;
-  /* Vertical scrolling */
   overflow-x: auto;
-  /* Horizontal scrolling */
-  /* Ensure the table has a fixed layout */
+  border: 1px solid var(--lightGray-bcolor);
+  border-bottom: none;
+
+}
+
+.tableContainer::-webkit-scrollbar {
+  display: none;
+
+  width: 12px;
+  /* Width of the scrollbar */
+}
+
+.tableContainer::-webkit-scrollbar-track {
+  display: none;
+  background-color: var(--lightGray-bg-color);
+
+
+  /* Color of the track */
+}
+
+.tableContainer::-webkit-scrollbar-thumb {
+  display: none;
+
+  background-color: var(--lightGray-bg-color);
+  border: 1px solid var(--lightGray-bcolor);
+  border-bottom: none;
+  /* Color of the thumb */
+  border-radius: 2px;
+  /* Roundness of the thumb */
+}
+
+.tableContainer::-webkit-scrollbar-thumb:hover {
+  display: none;
+
+  background-color: var(--lightGray-bg-color);
+  /* Color of the thumb on hover */
 }
 
 .table {

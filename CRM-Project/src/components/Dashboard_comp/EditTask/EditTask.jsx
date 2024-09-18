@@ -144,7 +144,7 @@ const EditTask = ({ showModal, task, handleCloseModal, handleSubmit }) => {
                   <option value="">Select a label</option>
                   <option value="High Priority">High priority</option>
                   <option value="Medium priority">Medium priority</option>
-                  <option value="Low Priority">Low priority</option>
+                  <option value="Low priority">Low priority</option>
                   <option value="Custom" className={style.customLabel}>
                     + Add Custom Label
                   </option>

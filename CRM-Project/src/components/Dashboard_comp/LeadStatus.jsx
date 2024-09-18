@@ -14,6 +14,14 @@ const doughnutOptions = {
     legend: {
       position: "bottom",
     },
+    tooltip: {
+      callbacks: {
+        label: function (tooltipItem) {
+          const data = tooltipItem.dataset.data[tooltipItem.dataIndex];
+          return `${data}%`;
+        },
+      },
+    },
   },
 };
 
@@ -25,6 +33,7 @@ function DoughnutChart({ data, title }) {
         height: "150px",
         margin: "auto",
         display: "flex",
+        flexDirection: "column",
         alignItems: "center",
       }}
     >

@@ -16,6 +16,27 @@ import Referenece from "../Referenece/Referenece";
 import EditCustomer from "../EditCustomer/EditCustomer";
 import React, { useState } from "react";
 import Pagination from "../Pagination/Pagination";
+import { jsPDF } from "jspdf";
+import "jspdf-autotable";
+
+const downloadCustomerInfoAsPDF = (customer) => {
+  const doc = new jsPDF();
+
+  doc.setFontSize(18);
+  doc.text("Customer Information", 10, 10);
+
+  doc.setFontSize(12);
+  doc.text(`Name: ${customer.name}`, 10, 30);
+  doc.text(`Status: ${customer.status}`, 10, 40);
+  doc.text(`Address: ${customer.address}`, 10, 50);
+  doc.text(`Phone: ${customer.mobile}`, 10, 60);
+  doc.text(`Email: ${customer.email}`, 10, 70);
+  doc.text(`Need: ${customer.need}`, 10, 80);
+  doc.text(`Remarks: ${customer.remarks}`, 10, 90);
+
+  // Save the PDF
+  doc.save(`${customer.name}_info.pdf`);
+};
 
 const CustomerGrid = ({ customers, onEditCustomer, refreshData }) => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -33,14 +54,14 @@ const CustomerGrid = ({ customers, onEditCustomer, refreshData }) => {
     return 0;
   });
 
+  // Pagination
   const indexOfLastCustomer = currentPage * customersPerPage;
   const indexOfFirstCustomer = indexOfLastCustomer - customersPerPage;
-  const currentCustomers = sortedCustomers.slice(
+  const currentCustomers = customers.slice(
     indexOfFirstCustomer,
     indexOfLastCustomer
   );
-
-  const totalPages = Math.ceil(sortedCustomers.length / customersPerPage);
+  const totalPages = Math.ceil(customers.length / customersPerPage);
 
   const onPageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
@@ -115,7 +136,9 @@ const CustomerGrid = ({ customers, onEditCustomer, refreshData }) => {
                 />
               </div>
               <div className="col-2">
-                <HiDownload />
+                <HiDownload
+                  onClick={() => downloadCustomerInfoAsPDF(customer)}
+                />
               </div>
             </div>
           </div>
@@ -179,8 +202,10 @@ const CustomerGrid = ({ customers, onEditCustomer, refreshData }) => {
           </div>
         </div>
       ))}
-      <div className={`d-flex justify-content-between align-items-baseline`}>
-        <select
+      <div
+        className={`d-flex justify-content-center align-items-baseline mt-4`}
+      >
+        {/* <select
           value={customersPerPage}
           onChange={(e) => setCustomersPerPage(parseInt(e.target.value, 10))}
         >
@@ -189,12 +214,12 @@ const CustomerGrid = ({ customers, onEditCustomer, refreshData }) => {
               Show {pageSize}
             </option>
           ))}
-        </select>
+        </select> */}
         <Pagination
           currentPage={currentPage}
           totalPages={totalPages}
           onPageChange={onPageChange}
-          className="pagination mt-4 d-flex justify-content-end"
+          className="pagination mt-4 d-flex justify-content-end "
         />
       </div>
     </>

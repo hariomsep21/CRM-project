@@ -28,7 +28,7 @@ const Leads_Header = ({
                   Generate Advice
                 </button>
               </div>
-              <div className="col-4">
+              <div className={`col-4 ${style.Div_brochurebtn}`}>
                 <button
                   className={`btn ${style.brochure_btn}`}
                   onClick={generatePDF}
@@ -37,7 +37,7 @@ const Leads_Header = ({
                 </button>
               </div>
 
-              <div className="col-4">
+              <div className={`col-4 ${style.Div_addInventorybtn}`}>
                 <AddNewLeads onNewLeadAdd={onNewLeadAdd} />
               </div>
             </div>

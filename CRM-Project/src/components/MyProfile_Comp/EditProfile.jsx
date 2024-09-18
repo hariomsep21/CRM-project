@@ -18,8 +18,12 @@ const EditProfile = ({
 
   // State for validation errors
   const [errors, setErrors] = useState({
+    firstName: "",
+    lastName: "",
     email: "",
     mobile: "",
+    address: "",
+    city: "",
   });
 
   useEffect(() => {
@@ -34,12 +38,30 @@ const EditProfile = ({
     }
   }, [profile]);
 
-  // Validation logic for email and mobile number
+  // Validation logic for all fields
   const validate = () => {
     let valid = true;
-    const newErrors = { email: "", mobile: "" };
+    const newErrors = {
+      firstName: "",
+      lastName: "",
+      email: "",
+      mobile: "",
+      address: "",
+      city: "",
+    };
+
     const emailRegex = /^[a-z0-9][a-z0-9._%+-]+@(gmail\.com)$/;
     const mobileRegex = /^[6789]\d{9}$/;
+
+    if (firstName.trim() === "") {
+      newErrors.firstName = "First Name is required.";
+      valid = false;
+    }
+
+    if (lastName.trim() === "") {
+      newErrors.lastName = "Last Name is required.";
+      valid = false;
+    }
 
     if (!emailRegex.test(email)) {
       newErrors.email = "Please enter a valid Gmail address.";
@@ -48,6 +70,16 @@ const EditProfile = ({
 
     if (!mobileRegex.test(mobile)) {
       newErrors.mobile = "Please enter a valid 10-digit mobile number.";
+      valid = false;
+    }
+
+    if (address.trim() === "") {
+      newErrors.address = "Address is required.";
+      valid = false;
+    }
+
+    if (city.trim() === "") {
+      newErrors.city = "City is required.";
       valid = false;
     }
 
@@ -93,6 +125,9 @@ const EditProfile = ({
                 value={firstName}
                 onChange={(e) => setFirstName(e.target.value)}
               />
+              {errors.firstName && (
+                <small className="text-danger">{errors.firstName}</small>
+              )}
             </div>
             <div className="form-group col-md-6">
               <label htmlFor="lastName" className={style.editProfileLabel}>
@@ -105,6 +140,9 @@ const EditProfile = ({
                 value={lastName}
                 onChange={(e) => setLastName(e.target.value)}
               />
+              {errors.lastName && (
+                <small className="text-danger">{errors.lastName}</small>
+              )}
             </div>
           </div>
 
@@ -120,7 +158,6 @@ const EditProfile = ({
                 value={mobile}
                 onChange={(e) => setMobile(e.target.value)}
               />
-              {/* Show mobile error */}
               {errors.mobile && (
                 <small className="text-danger">{errors.mobile}</small>
               )}
@@ -135,8 +172,8 @@ const EditProfile = ({
                 id="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                readOnly
               />
-              {/* Show email error */}
               {errors.email && (
                 <small className="text-danger">{errors.email}</small>
               )}
@@ -154,6 +191,9 @@ const EditProfile = ({
               value={address}
               onChange={(e) => setAddress(e.target.value)}
             />
+            {errors.address && (
+              <small className="text-danger">{errors.address}</small>
+            )}
           </div>
           <div className="form-group pt-2">
             <label htmlFor="city" className={style.editProfileLabel}>
@@ -166,6 +206,9 @@ const EditProfile = ({
               value={city}
               onChange={(e) => setCity(e.target.value)}
             />
+            {errors.city && (
+              <small className="text-danger">{errors.city}</small>
+            )}
           </div>
           <div className="form-group" style={{ display: "none" }}>
             <input

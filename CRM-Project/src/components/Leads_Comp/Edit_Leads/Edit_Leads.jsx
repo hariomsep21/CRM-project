@@ -20,6 +20,7 @@ const Edit_Leads = ({ data, onEditComplete }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [leadId, setLeadId] = useState(null);
   const [leadData, setLeadData] = useState(null);
+  const token = sessionStorage.getItem("token");
 
   useEffect(() => {
     setLeadId(data);
@@ -29,7 +30,11 @@ const Edit_Leads = ({ data, onEditComplete }) => {
   const fetchLeadData = (id) => {
     if (id) {
       axios
-        .get(`https://localhost:7062/api/CRMLead/${id}`)
+        .get(`https://localhost:7062/api/CRMLead/${id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
         .then((response) => {
           setLeadData(response.data);
           setIsOpen(true);
@@ -61,7 +66,12 @@ const Edit_Leads = ({ data, onEditComplete }) => {
       axios
         .put(
           `https://localhost:7062/api/CRMLead/${leadData.id}`,
-          updatedLeadData
+          updatedLeadData,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
         )
         .then((response) => {
           setIsOpen(false);
@@ -280,7 +290,7 @@ const Edit_Leads = ({ data, onEditComplete }) => {
             className="btn btn-primary"
             onClick={handleEdit}
           >
-            Save Changes
+            Save
           </button>
         </ModalFooter>
       </Modal>

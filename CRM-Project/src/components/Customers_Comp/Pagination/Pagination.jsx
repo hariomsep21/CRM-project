@@ -1,42 +1,51 @@
-import React, { useState, useEffect } from "react";
-import style from "./Pagination.module.css";
+import React from "react";
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
-const Pagination = ({ currentPage, totalPages, onPageChange, className }) => {
-  const [customersPerPage, setCustomersPerPage] = useState(10); // default value
+const Pagination = ({ currentPage, totalPages, onPageChange }) => {
+  const handlePrevPage = () => {
+    if (currentPage > 1) {
+      onPageChange(currentPage - 1);
+    }
+  };
 
-  useEffect(() => {
-    const handleKeyDown = (event) => {
-      if (event.key === "ArrowLeft" && currentPage > 1) {
-        onPageChange(currentPage - 1);
-      } else if (event.key === "ArrowRight" && currentPage < totalPages) {
-        onPageChange(currentPage + 1);
-      }
-    };
-
-    document.addEventListener("keydown", handleKeyDown);
-
-    return () => {
-      document.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [currentPage, totalPages, onPageChange]);
+  const handleNextPage = () => {
+    if (currentPage < totalPages) {
+      onPageChange(currentPage + 1);
+    }
+  };
 
   return (
-    <span className={className}>
-      <button
-        onClick={() => onPageChange(currentPage - 1)}
-        disabled={currentPage === 1}
-        className={style.leftArrow}
-      >
-        &lt;
-      </button>
-      <button
-        onClick={() => onPageChange(currentPage + 1)}
-        disabled={currentPage === totalPages}
-        className={style.rightArrow}
-      >
-        &gt;
-      </button>
-    </span>
+    <nav>
+      <ul className="pagination d-flex">
+        <li className={`page-item ${currentPage === 1 ? "disabled" : ""}`}>
+          <button
+            className="page-link"
+            onClick={handlePrevPage}
+            disabled={currentPage === 1}
+          >
+            <FaChevronLeft />
+          </button>
+        </li>
+        <li className="page-item disabled">
+          <span className="page-link">
+            Page {currentPage} of {totalPages}
+          </span>
+        </li>
+        <li
+          className={`page-item ${
+            currentPage === totalPages ? "disabled" : ""
+          }`}
+        >
+          <button
+            className="page-link"
+            onClick={handleNextPage}
+            disabled={currentPage === totalPages}
+          >
+            <FaChevronRight />
+          </button>
+        </li>
+      </ul>
+    </nav>
   );
 };
 

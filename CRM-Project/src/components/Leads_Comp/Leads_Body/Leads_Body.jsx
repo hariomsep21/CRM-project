@@ -22,6 +22,7 @@ const Leads_Body = () => {
     type: "All",
     inventorySearch: "",
   });
+  const token = sessionStorage.getItem("token");
 
   const API_URL = "https://localhost:7062/";
   useEffect(() => {
@@ -30,7 +31,11 @@ const Leads_Body = () => {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get(API_URL + "api/CRMLead");
+      const response = await axios.get(API_URL + "api/CRMLead", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       setData(response.data);
       applyFilters(response.data);
     } catch (error) {

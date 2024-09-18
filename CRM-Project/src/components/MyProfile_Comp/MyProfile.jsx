@@ -18,7 +18,7 @@ const MyProfile = () => {
   const [showUrlModal, setShowUrlModal] = useState(false);
   const [showPasswordModal, setShowPasswordModal] = useState(false);
   const [date, setDate] = useState("2024");
-  const [profileUrl, setProfileUrl] = useState("adamclark249a4292");
+  const [profileUrl, setProfileUrl] = useState("");
   const [profile, setProfile] = useState(null);
 
   useEffect(() => {
@@ -108,8 +108,8 @@ const MyProfile = () => {
 
   const handleCopyUrl = () => {
     // Logic to copy URL to clipboard
-    navigator.clipboard.writeText(profileUrl);
-    console.log("Copied URL to clipboard:", profileUrl);
+    navigator.clipboard.writeText(profile?.profileUrl);
+    console.log("Copied URL to clipboard:", profile?.profileUrl);
   };
 
   const handleEditUrl = () => {
@@ -228,7 +228,10 @@ const MyProfile = () => {
         </div>
         <h4 className={` col col-lg-4 ${style.myprofile_detail_urltitle}`}>
           Profile Url
-          <MdOutlineModeEdit onClick={handleEditUrl} />
+          <MdOutlineModeEdit
+            onClick={handleEditUrl}
+            style={{ cursor: "pointer" }}
+          />
         </h4>
         <div className={`row`}>
           <div className={`col-lg-4 d-flex justify-content-between p-4 pe-0`}>

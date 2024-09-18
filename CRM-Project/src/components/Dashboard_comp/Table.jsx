@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { MdOutlineArchive, MdOutlineEdit, MdEditNote } from "react-icons/md";
 import { IoShareSocialOutline } from "react-icons/io5";
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { Button } from "react-bootstrap";
 import style from "./Table.module.css";
 import MyTask from "./MyTask";
@@ -22,6 +23,10 @@ const Table = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
+  // Pagination state
+  const [currentPage, setCurrentPage] = useState(1);
+  const tasksPerPage = 5;
+
   const API_URL = "https://localhost:7062/";
 
   useEffect(() => {
@@ -31,7 +36,11 @@ const Table = () => {
   const token = sessionStorage.getItem("token");
   const refreshTask = async () => {
     try {
-      const response = await axios.get(API_URL + "api/CRMLead");
+      const response = await axios.get(API_URL + "api/CRMLead", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       const filteredData = response.data.map((task) => ({
         id: task.id,
         type: task.type,
@@ -117,6 +126,15 @@ const Table = () => {
           )
       : [];
 
+  // Pagination logic
+  const indexOfLastTask = currentPage * tasksPerPage;
+  const indexOfFirstTask = indexOfLastTask - tasksPerPage;
+  const currentTasks = filteredTasks.slice(indexOfFirstTask, indexOfLastTask);
+
+  const totalPages = Math.ceil(filteredTasks.length / tasksPerPage);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
   const getLeadData = () => {
     const totalLeads = tasks.length;
     const buyLeads = tasks.filter((task) => task.type === "Sell").length;
@@ -174,7 +192,7 @@ const Table = () => {
           <div className={`col-md-1 ${style.mytask_table_title}`}>Labels</div>
           <div className={`col-md-2 ${style.mytask_table_title}`}></div>
         </div>
-        {filteredTasks.map((task) => (
+        {currentTasks.map((task) => (
           <div
             key={task.id}
             className={`row mt-2 align-items-center ${style.row}`}
@@ -222,6 +240,49 @@ const Table = () => {
             </div>
           </div>
         ))}
+        <div className="d-flex justify-content-center mt-3">
+          <nav>
+            <ul className="pagination">
+              <li
+                className={`page-item ${currentPage === 1 ? "disabled" : ""}`}
+              >
+                <button
+                  className="page-link"
+                  onClick={() => paginate(currentPage - 1)}
+                >
+                  <FaChevronLeft />
+                </button>
+              </li>
+              {[...Array(totalPages).keys()].map((number) => (
+                <li
+                  key={number + 1}
+                  className={`page-item ${
+                    currentPage === number + 1 ? "active" : ""
+                  }`}
+                >
+                  <button
+                    className="page-link"
+                    onClick={() => paginate(number + 1)}
+                  >
+                    {number + 1}
+                  </button>
+                </li>
+              ))}
+              <li
+                className={`page-item ${
+                  currentPage === totalPages ? "disabled" : ""
+                }`}
+              >
+                <button
+                  className="page-link"
+                  onClick={() => paginate(currentPage + 1)}
+                >
+                  <FaChevronRight />
+                </button>
+              </li>
+            </ul>
+          </nav>
+        </div>
         <EditTask
           showModal={showEditTaskModal}
           task={tasks.find((task) => task.id === currentTaskId) || {}}

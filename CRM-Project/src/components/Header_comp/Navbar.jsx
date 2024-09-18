@@ -146,7 +146,7 @@ const Navbar = () => {
                   aria-expanded="false"
                 >
                   <img
-                    src="/img/navbar_profile.png"
+                    src="/img/profile_img.png"
                     alt="profile-img"
                     className={`${style.profileImg}`}
                   />
