@@ -1,33 +1,46 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 import { Modal, Button } from "react-bootstrap";
-import style from "./Referenece.module.css";
+import style from "./Reference.module.css";
 import { RiDeleteBin6Line } from "react-icons/ri";
-import { FaPlus } from "react-icons/fa6";
+import { FaPlus } from "react-icons/fa";
 import { MdOutlineSave } from "react-icons/md";
 
-const Referenece = () => {
+const Reference = ({ customers }) => {
   const [show, setShow] = useState(false);
   const [addShow, setAddShow] = useState(false);
   const [newReference, setNewReference] = useState("");
   const [refData, setRefData] = useState([]);
+  const [error, setError] = useState(""); // Added for error display
 
-  // Fetch references data from the server
+  const token = sessionStorage.getItem("token");
+
   useEffect(() => {
+    if (!customers || !customers.id) {
+      console.error("Customer ID is missing");
+      return;
+    }
+
     const fetchData = async () => {
       try {
-        const response = await fetch("http://localhost:3001/references");
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        const data = await response.json();
-        setRefData(data);
+        const response = await axios.get(
+          `https://localhost:7062/api/CRMCustomer/${customers.id}/references`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        console.log("Fetched references data:", response.data);
+        setRefData(response.data); // Assuming response.data is an array of strings
       } catch (error) {
         console.error("Failed to fetch references:", error);
+        setError("Failed to fetch references.");
       }
     };
 
     fetchData();
-  }, []);
+  }, [customers, token]);
 
   const handleShow = () => setShow(true);
   const handleClose = () => setShow(false);
@@ -38,47 +51,51 @@ const Referenece = () => {
   const handleSave = async () => {
     if (newReference.trim()) {
       try {
-        const response = await fetch("http://localhost:3001/references", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            id: Date.now().toString(),
-            Referenece_Name: newReference,
-          }),
-        });
-        if (!response.ok) {
-          throw new Error("Failed to save new reference");
-        }
-        const savedReference = await response.json();
-        setRefData([...refData, savedReference]);
+        console.log("Saving reference:", newReference); // Debug statement
+        const response = await axios.post(
+          `https://localhost:7062/api/CRMCustomer/${customers.id}/reference`,
+          { Refrence: newReference }, // Ensure this key matches the DTO
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        console.log("Reference saved:", response.data);
+        setRefData([...refData, newReference]); // Adjusted for the correct response format
         setNewReference("");
         setAddShow(false);
       } catch (error) {
         console.error("Failed to save reference:", error);
+        setError("Failed to save reference.");
       }
+    } else {
+      setError("Reference name cannot be empty.");
     }
   };
 
-  const handleDelete = async (id) => {
+  const handleDelete = async (referenceName) => {
     try {
-      const response = await fetch(`http://localhost:3001/references/${id}`, {
-        method: "DELETE",
-      });
-      if (!response.ok) {
-        throw new Error("Failed to delete reference");
-      }
-      // Remove the deleted reference from local state
-      setRefData(refData.filter((data) => data.id !== id));
+      console.log("Deleting reference:", referenceName); // Debug statement
+      await axios.delete(
+        `https://localhost:7062/api/CRMCustomer/${customers.id}/reference/${referenceName}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      console.log("Reference deleted:", referenceName); // Debug statement
+      setRefData(refData.filter((ref) => ref !== referenceName));
     } catch (error) {
       console.error("Failed to delete reference:", error);
+      setError("Failed to delete reference.");
     }
   };
 
   return (
     <>
-      <div variant="primary" onClick={handleShow}>
+      <div onClick={handleShow}>
         <button className={`btn ${style.editBtn}`}>References</button>
       </div>
 
@@ -91,45 +108,54 @@ const Referenece = () => {
           <Modal.Title className={style.title}>References</Modal.Title>
         </Modal.Header>
         <Modal.Body className={`container ${style.modalBody}`}>
-          <section className={style.section1_Body}>
-            {refData.map((data) => (
-              <div key={data.id} className="row">
-                <div className={`col ${style.Referenece_Name}`}>
-                  <p>{data.Referenece_Name}</p>
-                </div>
-                <div className={`col ${style.Referenece_Icon}`}>
-                  <RiDeleteBin6Line onClick={() => handleDelete(data.id)} />
-                </div>
+          <div className="row p-0">
+            <div
+              className={`col pt-2 ${style.Add_Reference}`}
+              onClick={handleAddShow}
+              style={{ cursor: "pointer" }} // Added cursor style
+            >
+              <FaPlus className={style.Add_ReferenceIcon} />
+              Add Reference
+            </div>
+          </div>
+          {addShow && (
+            <div className={`row p-0 ${style.Input_AddReference}`}>
+              <div className="col-10 pt-2">
+                <input
+                  placeholder="Enter Name"
+                  className={`col-12 ${style.Input}`}
+                  value={newReference}
+                  onChange={(e) => setNewReference(e.target.value)}
+                />
               </div>
-            ))}
-
-            <div className="row p-0">
               <div
-                className={`col pt-2 ${style.Add_Reference}`}
-                onClick={handleAddShow}
+                className={`col-2 pt-2 ${style.Icon}`}
+                onClick={handleSave}
+                style={{ cursor: "pointer" }} // Added cursor style
               >
-                <FaPlus className={style.Add_ReferenceIcon} />
-                Add Reference
+                <MdOutlineSave />
               </div>
             </div>
-
-            {addShow && (
-              <div className={`row p-0 ${style.Input_AddReference}`}>
-                <div className="col-10 pt-2">
-                  <input
-                    placeholder="Enter Name"
-                    className={`col-12 ${style.Input}`}
-                    value={newReference}
-                    onChange={(e) => setNewReference(e.target.value)}
-                  />
+          )}
+          <section className={style.section1_Body}>
+            {error && <div className="alert alert-danger">{error}</div>}{" "}
+            {/* Display errors */}
+            {refData.length > 0 ? (
+              refData.map((reference, index) => (
+                <div key={index} className="row">
+                  <div className={`col ${style.Reference_Name}`}>
+                    <p>{reference}</p>
+                  </div>
+                  <div className={`col ${style.Reference_Icon}`}>
+                    <RiDeleteBin6Line
+                      onClick={() => handleDelete(reference)}
+                      style={{ cursor: "pointer" }} // Added cursor style
+                    />
+                  </div>
                 </div>
-                <div
-                  className={`col-2 pt-2 ${style.Icon}`}
-                  onClick={handleSave}
-                >
-                  <MdOutlineSave />
-                </div>
-              </div>
+              ))
+            ) : (
+              <p>No references available.</p>
             )}
           </section>
         </Modal.Body>
@@ -147,4 +173,4 @@ const Referenece = () => {
   );
 };
 
-export default Referenece;
+export default Reference;

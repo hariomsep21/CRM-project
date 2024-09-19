@@ -19,7 +19,7 @@ const EditProfile = ({
   // State for validation errors
   const [errors, setErrors] = useState({
     firstName: "",
-    lastName: "",
+    // lastName: "",
     email: "",
     mobile: "",
     address: "",
@@ -43,7 +43,7 @@ const EditProfile = ({
     let valid = true;
     const newErrors = {
       firstName: "",
-      lastName: "",
+      // lastName: "",
       email: "",
       mobile: "",
       address: "",
@@ -58,10 +58,10 @@ const EditProfile = ({
       valid = false;
     }
 
-    if (lastName.trim() === "") {
-      newErrors.lastName = "Last Name is required.";
-      valid = false;
-    }
+    // if (lastName.trim() === "") {
+    //   newErrors.lastName = "Last Name is required.";
+    //   valid = false;
+    // }
 
     if (!emailRegex.test(email)) {
       newErrors.email = "Please enter a valid Gmail address.";

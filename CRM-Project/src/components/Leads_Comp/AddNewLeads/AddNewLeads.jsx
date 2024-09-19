@@ -60,7 +60,32 @@ const AddNewLeads = ({ onNewLeadAdd }) => {
     fetchInventoryData();
   }, [token]);
 
+  const resetForm = () => {
+    setLeadData({
+      type: "",
+      property: "",
+      name: "",
+      location: "",
+      date: formatDate(new Date()),
+      askingPrice: "",
+      titleCheck: "",
+      area: "",
+      stage: "",
+      remarks: "",
+      email: "",
+      mobile: "",
+      inventoryId: "",
+    });
+    setCustomerNames([]);
+    setSelectedCustomerName("");
+    setPropertyOptions([]);
+  };
+
   const toggleModal = () => {
+    if (modal) {
+      // Reset form data when modal is closing
+      resetForm();
+    }
     setModal(!modal);
   };
 
@@ -177,16 +202,22 @@ const AddNewLeads = ({ onNewLeadAdd }) => {
       mobile: "Mobile",
     };
 
-    let isValid = true;
+    const missingFields = [];
 
     for (const [field, label] of Object.entries(requiredFields)) {
       if (!leadData[field]) {
-        toast.error(`Please fill out the ${label}.`);
-        isValid = false;
+        missingFields.push(label);
       }
     }
 
-    return isValid;
+    if (missingFields.length > 0) {
+      toast.error(
+        `Please fill out the following fields: ${missingFields.join(", ")}`
+      );
+      return false;
+    }
+
+    return true;
   };
 
   const handleSubmit = (event) => {
@@ -412,9 +443,6 @@ const AddNewLeads = ({ onNewLeadAdd }) => {
           <ModalFooter>
             <button type="submit" className="btn btn-primary">
               Save
-            </button>
-            <button className="btn btn-secondary" onClick={toggleModal}>
-              Cancel
             </button>
           </ModalFooter>
         </form>

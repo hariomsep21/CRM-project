@@ -1,51 +1,34 @@
 import React, { useState, useEffect } from "react";
 import { Modal, Button } from "react-bootstrap";
 import style from "./PropertyCustomer.module.css";
-import { TfiPencil } from "react-icons/tfi";
 import { RiDeleteBin6Line } from "react-icons/ri";
-import { FaPlus } from "react-icons/fa6";
 import { MdOutlineSave } from "react-icons/md";
-import { FaRegUser, FaSearch } from "react-icons/fa";
+import { FaRegUser } from "react-icons/fa";
 import axios from "axios";
 
 const PropertyCustomer = ({ id }) => {
   const [show, setShow] = useState(false);
-  const [addShow, setAddShow] = useState(false);
   const [newReference, setNewReference] = useState("");
-  const [refData, setRefData] = useState([]);
-  const [customers, setCustomers] = useState([]);
-  const [allCustomers, setAllCustomers] = useState([]);
-  const [saveTrigger, setSaveTrigger] = useState(false);
+  const [customers, setCustomers] = useState([]); // Customers connected to this inventory
+  const [allCustomers, setAllCustomers] = useState([]); // List of all customers (to filter active ones)
+  const token = sessionStorage.getItem("token");
+  const API_URL = "https://localhost:7062/";
+
+  // Fetch customers connected to this inventory
   useEffect(() => {
-    // make the API call when the component mounts
     axios
       .get(
         `https://localhost:7062/api/CRMCustomerInventory/GetInventoryList/${id}`
       )
       .then((response) => {
-        setCustomers(response.data);
-        console.log("total list" + response.data);
+        setCustomers(response.data); // Directly set inventory customers
       })
       .catch((error) => {
         console.error(error);
       });
   }, [id]);
 
-  useEffect(() => {
-    if (customers.length > 0) {
-      // check if customers array is not empty
-      console.log(customers); // log the updated customers state
-    }
-  }, [customers]);
-
-  const handleShow = () => setShow(true);
-  const handleClose = () => setShow(false);
-
-  const handleAddShow = () => setAddShow(true);
-  const handleAddClose = () => setAddShow(false);
-  const token = sessionStorage.getItem("token");
-  const API_URL = "https://localhost:7062/";
-
+  // Fetch all customers (to select active ones when adding)
   useEffect(() => {
     refreshData();
   }, []);
@@ -57,74 +40,59 @@ const PropertyCustomer = ({ id }) => {
           Authorization: `Bearer ${token}`,
         },
       });
-      setAllCustomers(response.data);
+      setAllCustomers(response.data); // Store all customers
     } catch (error) {
       console.error(error);
     }
   };
+
+  const handleShow = () => setShow(true);
+  const handleClose = () => setShow(false);
+
+  // Handle saving new customer reference
   const handleSave = () => {
     if (newReference.trim() && allCustomers.length > 0) {
       const customerId = newReference;
       const customer = allCustomers.find(
         (customer) => customer.id === parseInt(customerId)
       );
-      console.log("id:", customer);
-      if (customer) {
-        console.log("id:", customer.id);
-      } else {
-        console.log("Customer not found");
-      }
 
-      axios
-        .post(
-          `https://localhost:7062/api/CRMCustomerInventory/AddInventory/${id}`,
-          [customerId]
-        )
-        .then((response) => {
-          if (response.data && response.data.addedCustomers) {
-            const newCustomer = response.data.addedCustomers[0];
-            // Update customers state
-            setCustomers((prevCustomers) => [
-              ...prevCustomers,
-              {
-                customerId: customer.id,
-                customerName: customer.name,
-              },
-            ]);
-            // Fetch the updated list of all customers
-            refreshData();
-            setNewReference("");
-          } else {
-            console.error("Invalid response data");
-          }
-        })
-        .catch((error) => {
-          console.error(error.response?.data || error.message || error);
-        });
+      if (customer) {
+        axios
+          .post(
+            `https://localhost:7062/api/CRMCustomerInventory/AddInventory/${id}`,
+            [customerId]
+          )
+          .then((response) => {
+            if (response.data && response.data.addedCustomers) {
+              const newCustomer = response.data.addedCustomers[0];
+              setCustomers((prevCustomers) => [
+                ...prevCustomers,
+                {
+                  customerId: customer.id,
+                  customerName: customer.name,
+                },
+              ]);
+              refreshData();
+              setNewReference(""); // Clear input after saving
+            } else {
+              console.error("Invalid response data");
+            }
+          })
+          .catch((error) => {
+            console.error(error.response?.data || error.message || error);
+          });
+      }
     }
   };
 
-  useEffect(() => {
-    if (saveTrigger) {
-      console.log("Saving customer...");
-    }
-  }, [saveTrigger]);
-
-  useEffect(() => {
-    console.log("Updated customers:", customers);
-  }, [customers]);
-
-  useEffect(() => {
-    console.log("Updated allCustomers:", allCustomers);
-  }, [allCustomers]);
-
+  // Handle deleting customer from inventory
   const handleDelete = (customerId) => {
     axios
       .delete(
         `https://localhost:7062/api/CRMCustomerInventory/DeleteCustomer/${id}/${customerId}`
       )
       .then((response) => {
-        console.log(response);
         setCustomers(
           customers.filter((customer) => customer.customerId !== customerId)
         );
@@ -136,9 +104,6 @@ const PropertyCustomer = ({ id }) => {
 
   return (
     <>
-      {/* <div variant="primary" onClick={handleShow}>
-        <button className={`btn ${style.editBtn}`}>References</button>
-      </div> */}
       <FaRegUser onClick={handleShow} />
 
       <Modal
@@ -161,20 +126,22 @@ const PropertyCustomer = ({ id }) => {
                 {allCustomers
                   .filter(
                     (customer) =>
-                      !customers.find((c) => c.customerId === customer.id)
+                      customer.inventoryStatus === true && // Only active customers
+                      !customers.find((c) => c.customerId === customer.id) // Exclude already added customers
                   )
                   .map((customer) => (
-                    <option key={customer.customerId} value={customer.id}>
+                    <option key={customer.id} value={customer.id}>
                       {customer.name}
                     </option>
                   ))}
               </select>
             </div>
 
-            <div className={`col-2 pt-2 ${style.addCustomerIcon} `}>
+            <div className={`col-2 pt-2 ${style.addCustomerIcon}`}>
               <MdOutlineSave onClick={handleSave} />
             </div>
           </div>
+
           <section className={style.section1_Body}>
             {customers.map((customer) => (
               <div key={customer.customerId} className="row">

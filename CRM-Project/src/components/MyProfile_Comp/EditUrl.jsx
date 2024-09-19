@@ -4,17 +4,31 @@ import style from "./EditUrl.module.css";
 
 const EditUrl = ({ show, handleClose, handleSubmit, profile }) => {
   const [profileUrl, setProfileUrl] = useState("");
+  const [error, setError] = useState("");
+
+  // Set the URL field when the modal is shown or when the profile changes
   useEffect(() => {
-    if (profile) {
+    if (show && profile) {
       setProfileUrl(profile.profileUrl || "");
+      setError(""); // Clear any existing errors when opening the modal
     }
-  }, [profile]);
+  }, [show, profile]);
 
   const onSubmit = (event) => {
     event.preventDefault();
+    if (!profileUrl.trim()) {
+      setError("Profile URL cannot be empty.");
+      return;
+    }
     handleSubmit({ profileUrl });
     handleClose();
   };
+
+  const handleInputChange = (e) => {
+    setProfileUrl(e.target.value);
+    setError(""); // Clear error message when typing
+  };
+
   return (
     <Modal show={show} onHide={handleClose} centered>
       <Modal.Header closeButton>
@@ -23,15 +37,16 @@ const EditUrl = ({ show, handleClose, handleSubmit, profile }) => {
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <form>
+        <form onSubmit={onSubmit}>
           <div className="form-group">
             <input
               type="text"
               className={`form-control pt-2 pb-2 ${style.editUrlInputField}`}
               id="profileUrl"
               value={profileUrl}
-              onChange={(e) => setProfileUrl(e.target.value)}
+              onChange={handleInputChange}
             />
+            {error && <p className="text-danger">{error}</p>}
           </div>
         </form>
       </Modal.Body>

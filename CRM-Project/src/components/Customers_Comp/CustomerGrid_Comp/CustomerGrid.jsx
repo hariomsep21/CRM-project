@@ -3,8 +3,7 @@ import style from "./CustomerGrid.module.css";
 import { CiLocationOn } from "react-icons/ci";
 import { FaPhoneAlt } from "react-icons/fa";
 import { RiMessage2Fill } from "react-icons/ri";
-import { IoMdMail } from "react-icons/io";
-import { IoLogoWhatsapp } from "react-icons/io";
+import { IoMdMail, IoLogoWhatsapp } from "react-icons/io";
 import { HiDownload } from "react-icons/hi";
 import { TfiPencil } from "react-icons/tfi";
 import { FaFire } from "react-icons/fa6";
@@ -16,6 +15,8 @@ import Referenece from "../Referenece/Referenece";
 import EditCustomer from "../EditCustomer/EditCustomer";
 import React, { useState } from "react";
 import Pagination from "../Pagination/Pagination";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { jsPDF } from "jspdf";
 import "jspdf-autotable";
 
@@ -66,6 +67,19 @@ const CustomerGrid = ({ customers, onEditCustomer, refreshData }) => {
   const onPageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
+
+  const handlePhoneCopy = (phone) => {
+    navigator.clipboard.writeText(phone);
+    toast.success(`Phone number ${phone} copied to clipboard!`, {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+  };
   return (
     <>
       {currentCustomers.map((customer) => (
@@ -99,13 +113,7 @@ const CustomerGrid = ({ customers, onEditCustomer, refreshData }) => {
             </div>
             <div className={`col mt-2 ${style.cust_icons} `}>
               <div className="col-2">
-                <FaPhoneAlt
-                  onClick={() => {
-                    const currentCustomerPhone = customer.mobile;
-                    navigator.clipboard.writeText(currentCustomerPhone);
-                    alert(`Copied phone number: ${currentCustomerPhone}`);
-                  }}
-                />
+                <FaPhoneAlt onClick={() => handlePhoneCopy(customer.mobile)} />
               </div>
               <div className="col-2">
                 <RiMessage2Fill
@@ -191,7 +199,7 @@ const CustomerGrid = ({ customers, onEditCustomer, refreshData }) => {
                   </div>
 
                   <div className="col-3">
-                    <Referenece />
+                    <Referenece customers={customer} />
                   </div>
                   <div className="col-3">
                     <PastDetails customers={customer} />

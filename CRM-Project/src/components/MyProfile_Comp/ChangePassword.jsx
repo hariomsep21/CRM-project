@@ -39,6 +39,12 @@ function ChangePassword({ showPassword, handleClosePasswordModal }) {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
+    // Check if any field is empty
+    if (!currentPassword || !newPassword || !confirmPassword) {
+      setError("All fields are required.");
+      return;
+    }
+
     if (newPassword !== confirmPassword) {
       setError("New password and confirm password do not match.");
       return;
