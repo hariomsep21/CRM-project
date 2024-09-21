@@ -171,6 +171,21 @@ const Table = () => {
 
   const { buyData, rentalData } = getLeadData();
 
+  const handleShare = (task) => {
+    if (navigator.share) {
+      navigator
+        .share({
+          title: `Task: ${task.property}`,
+          text: `Check out this task: ${task.name} for ${task.property}`,
+          url: window.location.href, // You can replace with a specific task URL if available
+        })
+        .then(() => console.log("Task shared successfully!"))
+        .catch((error) => console.error("Error sharing task:", error));
+    } else {
+      console.log("Web Share API not supported in this browser");
+    }
+  };
+
   return (
     <>
       <LeadStatus buyData={buyData} rentalData={rentalData}></LeadStatus>
@@ -237,7 +252,10 @@ const Table = () => {
                 <MdEditNote className={`${style.editNoteIcon}`} />
               </button>
               <button className="btn">
-                <IoShareSocialOutline className={`${style.shareIcon}`} />
+                <IoShareSocialOutline
+                  className={`${style.shareIcon}`}
+                  onClick={() => handleShare(task)}
+                />
               </button>
             </div>
           </div>

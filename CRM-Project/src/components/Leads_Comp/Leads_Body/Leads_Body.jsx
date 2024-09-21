@@ -187,6 +187,7 @@ const Leads_Body = () => {
 
     const tableBody = selectedData.map((row, index) => [
       index + 1,
+      row.type,
       row.property,
       row.name,
       row.location,
@@ -201,6 +202,7 @@ const Leads_Body = () => {
       head: [
         [
           "S.No",
+          "Type",
           "Property",
           "Name",
           "Location",
@@ -327,6 +329,9 @@ const Leads_Body = () => {
         Header: "Asking Price",
         accessor: "askingPrice",
         HeaderStyle: style.header_headingNameStyle,
+        Cell: ({ value }) => (
+          <div className={style.cell_BodyNameStyle}>{value} lac</div>
+        ),
       },
       {
         Header: "Title Check",
@@ -337,7 +342,11 @@ const Leads_Body = () => {
         Header: "Area",
         accessor: "area",
         HeaderStyle: style.header_headingNameStyle,
+        Cell: ({ value }) => (
+          <div className={style.cell_BodyNameStyle}>{value} sqft</div>
+        ),
       },
+
       {
         Header: "Stage",
         accessor: "stage",

@@ -44,7 +44,7 @@ const AddNoteModal = ({ show, handleClose, task, onSave }) => {
                     ? "blue"
                     : task.type === "Buy"
                     ? "purple"
-                    : task.type === "Rental"
+                    : task.type === "Rent"
                     ? "#ffa62f"
                     : "",
                 color:
@@ -52,7 +52,7 @@ const AddNoteModal = ({ show, handleClose, task, onSave }) => {
                     ? "white"
                     : task.type === "Buy"
                     ? "white"
-                    : task.type === "Rental"
+                    : task.type === "Rent"
                     ? "white"
                     : "",
               }}

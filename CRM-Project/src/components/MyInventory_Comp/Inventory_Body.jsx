@@ -259,7 +259,7 @@ const Inventory_Body = () => {
         accessor: "plotSize",
         HeaderStyle: style.header_PlotSizeStyle,
         Cell: ({ value }) => (
-          <div className={style.cell_PlotSizeStyle}>{value}</div>
+          <div className={style.cell_PlotSizeStyle}>{value} sqft</div>
         ),
       },
       {
@@ -267,7 +267,7 @@ const Inventory_Body = () => {
         accessor: "rent",
         HeaderStyle: style.header_RentStyle,
         Cell: ({ value }) => (
-          <div className={style.cell_RentStyle}>{value}</div>
+          <div className={style.cell_RentStyle}>{value} lac</div>
         ),
       },
       {

@@ -66,11 +66,13 @@ const Navbar = () => {
             className={`collapse navbar-collapse ${style.navbar_main}`}
             id="navbarTogglerDemo02"
           >
-            <img
-              src="/img/logo.png"
-              alt="logo"
-              className={`${style.logo_Img}`}
-            />
+            <Link to="/dashboard" onClick={() => handleItemClick("/dashboard")}>
+              <img
+                src="/img/logo.png"
+                alt="logo"
+                className={`${style.logo_Img}`}
+              />
+            </Link>
             <ul className="nav">
               <li className="nav-item">
                 <Link

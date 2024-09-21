@@ -108,8 +108,16 @@ const MyProfile = () => {
 
   const handleCopyUrl = () => {
     // Logic to copy URL to clipboard
-    navigator.clipboard.writeText(profile?.profileUrl);
-    console.log("Copied URL to clipboard:", profile?.profileUrl);
+    navigator.clipboard
+      .writeText(profile?.profileUrl)
+      .then(() => {
+        console.log("Copied URL to clipboard:", profile?.profileUrl);
+        toast.success("URL copied to clipboard!", { autoClose: 2000 });
+      })
+      .catch((error) => {
+        console.error("Failed to copy URL:", error);
+        toast.error("Failed to copy URL.");
+      });
   };
 
   const handleEditUrl = () => {

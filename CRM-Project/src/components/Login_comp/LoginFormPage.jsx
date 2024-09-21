@@ -40,7 +40,14 @@ const LoginFormPage = () => {
       })
       .then((token) => {
         sessionStorage.setItem("token", token);
-        navigate("/dashboard");
+
+        // Show success toast message
+        toast.success("Welcome to our website!");
+
+        // Redirect to dashboard after a slight delay to let the user see the success message
+        setTimeout(() => {
+          navigate("/dashboard");
+        }, 100);
       })
       .catch((error) => {
         if (error.status === 401) {
